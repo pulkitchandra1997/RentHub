@@ -5,7 +5,9 @@
     android:background="#fff"
     tools:context="appp.renthub.WelcomeScreen"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen"
+    >
 
     <ImageView
         android:layout_width="wrap_content"
