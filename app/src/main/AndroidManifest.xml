@@ -29,7 +29,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity
+            android:name=".SignupOwner"
+            android:label="@string/title_activity_signup_owner"
+            android:parentActivityName=".SignIn">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="appp.renthub.SignIn" />
+        </activity>
     </application>
 
 </manifest>

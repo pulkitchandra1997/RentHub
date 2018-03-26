@@ -16,4 +16,12 @@
         completions."
     </string>
     <string name="title_activity_sign_up">Sign in</string>
+    <string name="title_activity_signup_owner">RentHub</string>
+
+    <!-- Strings related to signup -->
+
+    <string name="prompt_name">Your Name</string>
+    <string name="prompt_onlyEmail">Email Address</string>
+    <string name="prompt_onlyPhone">Phone Number</string>
+
 </resources>
