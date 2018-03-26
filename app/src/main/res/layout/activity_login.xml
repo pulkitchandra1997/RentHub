@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp">
 
-                <AutoCompleteTextView
+            <EditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
                     android:inputType="text"
                     android:maxLines="1"
                     android:singleLine="true"
-                    />
+            />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -96,13 +96,14 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/email_sign_in_button"
+                android:id="@+id/login"
                 style="?android:textAppearanceSmall"
                 android:background="@color/bootstrap_brand_primary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
-                android:text="LOGIN"
+                android:text="&#xf2f6; LOGIN"
+                android:textColor="#fff"
                 android:textStyle="bold" />
 
             <TextView
