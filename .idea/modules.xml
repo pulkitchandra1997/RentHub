@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/RentHub.iml" filepath="$PROJECT_DIR$/RentHub.iml" />
-      <module fileurl="file://E:\educational\android1\RentHub\RentHub.iml" filepath="E:\educational\android1\RentHub\RentHub.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
