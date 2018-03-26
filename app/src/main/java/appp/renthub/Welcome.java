@@ -16,7 +16,7 @@
             import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
             import static android.Manifest.permission.ACCESS_FINE_LOCATION;
     public class Welcome extends Activity implements View.OnClickListener {
-        android.support.v7.widget.AppCompatButton login;
+        android.support.v7.widget.AppCompatButton login,signup;
         private static final int PERMISSION_REQUEST_CODE = 200;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +24,8 @@
             setContentView(R.layout.activity_welcome);
             login=findViewById(R.id.login);
             login.setOnClickListener(this);
+            signup=findViewById(R.id.signup);
+            signup.setOnClickListener(this);
             checkPermission();
         }
 
@@ -86,6 +88,11 @@
                 }
                 else{
                     startActivity(intent);
+                }
+            }
+            else {
+                if (v.getId()==R.id.signup){
+                    Toast.makeText(this, "SignUP", Toast.LENGTH_SHORT).show();
                 }
             }
         }
