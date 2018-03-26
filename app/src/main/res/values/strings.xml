@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RentHub</string>
+    <string name="app_caption">Search.Rent.Live</string>
 </resources>
