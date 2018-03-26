@@ -67,6 +67,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:text="Log in"
+            android:onClick="login"
             android:background="@color/colorPrimary"
             android:textColor="#fff"
             />

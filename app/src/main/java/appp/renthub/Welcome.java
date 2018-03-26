@@ -1,5 +1,6 @@
 package appp.renthub;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
@@ -8,6 +9,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 public class Welcome extends AppCompatActivity {
@@ -69,4 +72,8 @@ public class Welcome extends AppCompatActivity {
                 .show();
     }
 
+    public void login(View view) {
+        Intent intent=new Intent(this,LoginActivity.class);
+        startActivity(intent);
+    }
 }
