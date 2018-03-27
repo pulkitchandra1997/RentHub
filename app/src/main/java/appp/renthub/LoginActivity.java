@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 public class LoginActivity extends Activity implements View.OnClickListener{
 EditText email;
 EditText password;
-TextView pwdicon,usericon;
+TextView pwdicon,usericon,forgot,signup;
 Button login;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,10 @@ Button login;
         pwdicon.setTypeface(font);
         Typeface font2 = Typeface.createFromAsset(getAssets(), "Font Awesome 5 Free-Regular-400.otf" );
         usericon.setTypeface(font2);
-
+        signup=findViewById(R.id.signup);
+        signup.setOnClickListener(this);
+        forgot=findViewById(R.id.forgot);
+        forgot.setOnClickListener(this);
     }
     private boolean isValidEmail(String email) {
         String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
