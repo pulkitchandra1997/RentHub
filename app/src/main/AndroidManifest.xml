@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="true"
@@ -21,16 +22,18 @@
         <activity
             android:name=".WelcomeScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".SignUp"></activity>
-        <activity android:name=".SignupOwner"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SignUp" />
+        <activity android:name=".SignupOwner" />
+        <activity android:name=".SignupTenant"></activity>
     </application>
 
 </manifest>
