@@ -16,15 +16,16 @@
             import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
             import static android.Manifest.permission.ACCESS_FINE_LOCATION;
     public class Welcome extends Activity implements View.OnClickListener {
-        android.support.v7.widget.AppCompatButton login,signup;
+        android.support.v7.widget.AppCompatButton login, signup;
         private static final int PERMISSION_REQUEST_CODE = 200;
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_welcome);
-            login=findViewById(R.id.login);
+            login = findViewById(R.id.login);
             login.setOnClickListener(this);
-            signup=findViewById(R.id.signup);
+            signup = findViewById(R.id.signup);
             signup.setOnClickListener(this);
             checkPermission();
         }
@@ -32,12 +33,12 @@
         private void checkPermission() {
             int result = ContextCompat.checkSelfPermission(getApplicationContext(), ACCESS_FINE_LOCATION);
             int result1 = ContextCompat.checkSelfPermission(getApplicationContext(), ACCESS_COARSE_LOCATION);
-            if(result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED){
-            }
-            else {
+            if (result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED) {
+            } else {
                 ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_CODE);
             }
         }
+
         @Override
         public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
             switch (requestCode) {
@@ -56,7 +57,7 @@
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                                        requestPermissions(new String[]{ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION},
+                                                        requestPermissions(new String[]{ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION},
                                                                 PERMISSION_REQUEST_CODE);
                                                     }
                                                 }
@@ -70,6 +71,7 @@
                     break;
             }
         }
+
         private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
             new AlertDialog.Builder(Welcome.this)
                     .setMessage(message)
@@ -78,21 +80,26 @@
                     .create()
                     .show();
         }
+
         @Override
         public void onClick(View v) {
-            if (v.getId()==R.id.login){
-                Intent intent=new Intent(Welcome.this,LoginActivity.class);
+            if (v.getId() == R.id.login) {
+                Intent intent = new Intent(Welcome.this, LoginActivity.class);
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
                     ActivityOptions options = ActivityOptions.makeCustomAnimation(Welcome.this, R.anim.fade_in, R.anim.fade_out);
                     startActivity(intent, options.toBundle());
-                }
-                else{
+                } else {
                     startActivity(intent);
                 }
             }
-            else {
-                if (v.getId()==R.id.signup){
-                    Toast.makeText(this, "SignUP", Toast.LENGTH_SHORT).show();
+
+            if (v.getId() == R.id.signup) {
+                Intent intent = new Intent(Welcome.this, SignUp.class);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    ActivityOptions options = ActivityOptions.makeCustomAnimation(Welcome.this, R.anim.fade_in, R.anim.fade_out);
+                    startActivity(intent, options.toBundle());
+                } else {
+                    startActivity(intent);
                 }
             }
         }

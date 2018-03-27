@@ -60,7 +60,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="40dp">
+                    android:layout_marginTop="40dp"
+                    android:focusable="true" android:focusableInTouchMode="true">
 <TextView
     android:layout_width="30dp"
     android:layout_height="30dp"
@@ -71,7 +72,7 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="0dp">
 
 
                     <EditText
@@ -102,7 +103,7 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp">
+                    android:layout_marginTop="0dp">
 
                     <EditText
                         android:id="@+id/password"
@@ -133,7 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
-                    android:onClick="forgot"
+                    android:id="@+id/forgot"
                     android:text="Forgot Password?"
                     android:textColor="#117be4" />
 
@@ -155,7 +156,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"
-                        android:onClick="signup"
+                        android:id="@+id/signup"
                         android:text="Signup Here"
                         android:textColor="#117be4" />
                 </LinearLayout>

@@ -1,6 +1,8 @@
 package appp.renthub;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,7 +20,7 @@ import java.util.regex.Pattern;
 public class LoginActivity extends Activity implements View.OnClickListener{
 EditText email;
 EditText password;
-TextView pwdicon,usericon;
+TextView pwdicon,usericon,forgot,signup;
 Button login;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,10 @@ Button login;
         pwdicon.setTypeface(font);
         Typeface font2 = Typeface.createFromAsset(getAssets(), "Font Awesome 5 Free-Regular-400.otf" );
         usericon.setTypeface(font2);
-
+        signup=findViewById(R.id.signup);
+        signup.setOnClickListener(this);
+        forgot=findViewById(R.id.forgot);
+        forgot.setOnClickListener(this);
     }
     private boolean isValidEmail(String email) {
         String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -49,39 +54,41 @@ Button login;
     private boolean isValidPhone(String email) {
         return android.util.Patterns.PHONE.matcher(email).matches();
     }
-    public void signup(View view) {
-    }
-
-    public void forgot(View view) {
-    }
-
-    public void login(View view) {
-
-
-    }
 
     @Override
     public void onClick(View v) {
-        String emailid=email.getText().toString().trim();
-        String pwd=password.getText().toString().trim();
-        if (TextUtils.isEmpty(emailid) || TextUtils.isEmpty(pwd)) {
-            if (TextUtils.isEmpty(emailid)) {
-                email.setError("Enter email id");
-                email.requestFocus();
+        if (v.getId() == R.id.login) {
+            String emailid = email.getText().toString().trim();
+            String pwd = password.getText().toString().trim();
+            if (TextUtils.isEmpty(emailid) || TextUtils.isEmpty(pwd)) {
+                if (TextUtils.isEmpty(emailid)) {
+                    email.setError("Enter email id");
+                    email.requestFocus();
+                }
+                if (TextUtils.isEmpty(pwd)) {
+                    password.setError("Enter password");
+                    password.requestFocus();
+                }
+            } else if (!isValidEmail(emailid)) {
+                if (!isValidPhone(emailid)) {
+                    email.setError("Enter correct Email or Phone Number");
+                    email.requestFocus();
+                } else {
+                    Toast.makeText(this, emailid + pwd, Toast.LENGTH_SHORT).show();
+                }
             }
-            if (TextUtils.isEmpty(pwd)) {
-                password.setError("Enter password");
-                password.requestFocus();
+        }
+        if(v.getId()==R.id.signup){
+            Intent intent = new Intent(LoginActivity.this, SignUp.class);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                ActivityOptions options = ActivityOptions.makeCustomAnimation(LoginActivity.this, R.anim.fade_in, R.anim.fade_out);
+                startActivity(intent, options.toBundle());
+            } else {
+                startActivity(intent);
             }
-        }else
-        if (!isValidEmail(emailid)) {
-            if (!isValidPhone(emailid)) {
-                email.setError("Enter correct Email or Phone Number");
-                email.requestFocus();
-            }else
-            {
-                Toast.makeText(this, emailid+pwd, Toast.LENGTH_SHORT).show();
-            }
+        }
+        if(v.getId()==R.id.forgot){
+            Toast.makeText(this, "FORGOT", Toast.LENGTH_SHORT).show();
         }
     }
 }
