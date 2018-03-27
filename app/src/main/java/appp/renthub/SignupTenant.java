@@ -3,13 +3,15 @@ package appp.renthub;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 public class SignupTenant extends Activity   implements View.OnClickListener {
-    TextView login;
+    TextView login,emailicon,phoneicon,nameicon;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +19,13 @@ public class SignupTenant extends Activity   implements View.OnClickListener {
         setContentView(R.layout.activity_signup_tenant);
         login=findViewById(R.id.login);
         login.setOnClickListener(this);
+        emailicon=findViewById(R.id.emailicon);
+        phoneicon=findViewById(R.id.phoneicon);
+        nameicon=findViewById(R.id.nameicon);
+        Typeface font = Typeface.createFromAsset(getAssets(), "Font Awesome 5 Free-Solid-900.otf" );
+        nameicon.setTypeface(font);
+        emailicon.setTypeface(font);
+        phoneicon.setTypeface(font);
     }
 
     @Override

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="appp.renthub.SignupTenant"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -66,7 +65,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="20dp"
                         android:paddingLeft="7dp"
-                        android:text="as tenant"
+                        android:text="as Tenant"
                         />
 
                 </LinearLayout>
@@ -76,20 +75,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:focusable="true" android:focusableInTouchMode="true">
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:layout_marginTop="30dp">
 
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center"
-                        android:padding="10dp" />
+                        android:padding="5dp"
+                        android:layout_marginTop="16dp"
+                        android:id="@+id/nameicon"
+                        android:text="&#xf007;"/>
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="0dp">
-
+                        android:layout_marginTop="20dp">
 
                         <EditText
                             android:id="@+id/tenantName"
@@ -110,15 +113,18 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center"
-                        android:padding="10dp" />
+                        android:padding="5dp"
+                        android:layout_marginTop="16dp"
+                        android:id="@+id/emailicon"
+                        android:text="&#xf2b9;"/>
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="0dp">
+                        android:layout_marginTop="20dp">
 
                         <EditText
                             android:id="@+id/tenantEmail"
@@ -138,15 +144,18 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center"
-                        android:padding="10dp" />
+                        android:padding="5dp"
+                        android:layout_marginTop="14dp"
+                        android:text="&#xf095;"
+                        android:id="@+id/phoneicon"/>
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="0dp">
+                        android:layout_marginTop="20dp">
 
                         <EditText
                             android:id="@+id/tenantPhone"
@@ -178,7 +187,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="30dp">
 
                     <com.beardedhen.androidbootstrap.AwesomeTextView
                         android:layout_width="wrap_content"
