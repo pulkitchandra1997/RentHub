@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="true"
@@ -25,19 +24,10 @@
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity
-            android:name=".SignupOwner"
-            android:label="@string/title_activity_signup_owner"
-            android:parentActivityName=".SignIn">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="appp.renthub.SignIn" />
-        </activity>
+        <activity android:name=".LoginActivity"></activity>
     </application>
 
 </manifest>

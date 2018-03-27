@@ -92,8 +92,14 @@
             }
             else {
                 if (v.getId()==R.id.signup){
-                    Toast.makeText(this, "SignUP", Toast.LENGTH_SHORT).show();
-                }
+                    Intent intent=new Intent(Welcome.this,SignUp.class);
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                        ActivityOptions options = ActivityOptions.makeCustomAnimation(Welcome.this, R.anim.fade_in, R.anim.fade_out);
+                        startActivity(intent, options.toBundle());
+                    }
+                    else{
+                        startActivity(intent);
+                    }                                   }
             }
         }
     }
