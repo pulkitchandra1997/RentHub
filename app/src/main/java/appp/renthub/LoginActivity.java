@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.regex.Matcher;
@@ -17,6 +18,7 @@ import java.util.regex.Pattern;
 public class LoginActivity extends Activity implements View.OnClickListener{
 EditText email;
 EditText password;
+TextView pwdicon,usericon;
 Button login;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +26,15 @@ Button login;
         setContentView(R.layout.activity_login);
         password=findViewById(R.id.password);
         email=findViewById(R.id.email);
+        usericon=findViewById(R.id.usericon);
+        pwdicon=findViewById(R.id.pwdicon);
         login=findViewById(R.id.login);
         login.setOnClickListener(this);
         Typeface font = Typeface.createFromAsset(getAssets(), "Font Awesome 5 Free-Solid-900.otf" );
         login.setTypeface(font);
+        pwdicon.setTypeface(font);
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Font Awesome 5 Free-Regular-400.otf" );
+        usericon.setTypeface(font2);
 
     }
     private boolean isValidEmail(String email) {
@@ -76,7 +83,5 @@ Button login;
                 Toast.makeText(this, emailid+pwd, Toast.LENGTH_SHORT).show();
             }
         }
-
-
     }
 }
