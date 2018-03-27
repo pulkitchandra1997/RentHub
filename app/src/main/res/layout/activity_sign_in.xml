@@ -73,8 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:text="OWNER"
-                android:onClick="owner"
+                android:text="&#xf015;            OWNER"
                 android:id="@+id/owner"
                 android:background="@color/colorPrimary"
                 android:textColor="#fff"
@@ -83,10 +82,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="TENANT"
+                android:text="&#xf084;           TENANT"
                 android:id="@+id/tenant"
                 android:layout_marginTop="10dp"
-                android:onClick="tenant"
+
                 android:background="@color/colorPrimary"
                 android:textColor="#fff"
                 />
