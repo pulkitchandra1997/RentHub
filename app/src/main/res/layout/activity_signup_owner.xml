@@ -42,14 +42,16 @@
                 android:id="@+id/email_login_form"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="25dp"
                 android:orientation="vertical"
-                android:padding="25dp">
+                android:padding="25dp"
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:id="@+id/loginhead"
@@ -73,7 +75,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="50dp"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:orientation="horizontal">

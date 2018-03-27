@@ -95,7 +95,7 @@
                         android:layout_marginTop="20dp">
 
                         <EditText
-                            android:id="@+id/tenantName"
+                            android:id="@+id/tenantname"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/prompt_name"
@@ -127,7 +127,7 @@
                         android:layout_marginTop="20dp">
 
                         <EditText
-                            android:id="@+id/tenantEmail"
+                            android:id="@+id/tenantemail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/prompt_onlyEmail"
@@ -158,7 +158,7 @@
                         android:layout_marginTop="20dp">
 
                         <EditText
-                            android:id="@+id/tenantPhone"
+                            android:id="@+id/tenantphone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/prompt_onlyPhone"
@@ -173,7 +173,7 @@
 
 
                 <Button
-                    android:id="@+id/ownerSignup"
+                    android:id="@+id/tenantsignup"
                     style="?android:textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
