@@ -6,7 +6,7 @@
     tools:context="appp.renthub.WelcomeScreen"
     android:orientation="vertical"
     android:gravity="center"
-    android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen"
+    android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
     >
 
     <ImageView
