@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class SignUp extends Activity implements View.OnClickListener{
 
@@ -33,7 +31,6 @@ public class SignUp extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.tenant){
-            //Toast.makeText(this, "make tenant", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(SignUp.this, SignupTenant.class);
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
                 ActivityOptions options = ActivityOptions.makeCustomAnimation(SignUp.this, R.anim.fade_in, R.anim.fade_out);
