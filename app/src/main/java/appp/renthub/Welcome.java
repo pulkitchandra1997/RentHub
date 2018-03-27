@@ -3,6 +3,7 @@
             import android.app.ActivityOptions;
             import android.content.DialogInterface;
             import android.content.Intent;
+            import android.content.SharedPreferences;
             import android.content.pm.PackageManager;
             import android.os.Build;
             import android.os.Handler;
@@ -20,8 +21,10 @@
         android.support.v7.widget.AppCompatButton login, signup;
         private static final int PERMISSION_REQUEST_CODE = 200;
 
+        SharedPreferences sp;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
+            checksp();
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_welcome);
             login = findViewById(R.id.login);
@@ -30,6 +33,25 @@
             signup.setOnClickListener(this);
             checkPermission();
         }
+
+        private void checksp() {
+            sp=getSharedPreferences("RentHub_data",MODE_PRIVATE);
+            if(sp!=null){
+                String type=sp.getString("type",null);
+                String username=sp.getString("username",null);
+                String name=sp.getString("name",null);
+                String mobileno=sp.getString("mobileno",null);
+                if(type.equalsIgnoreCase("owner")){
+
+                }
+                else {
+                    if (type.equalsIgnoreCase("tenant")){
+
+                    }
+                }
+            }
+        }
+
         boolean doubleBackToExitPressedOnce = false;
 
         @Override

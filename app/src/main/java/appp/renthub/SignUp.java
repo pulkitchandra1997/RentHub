@@ -33,7 +33,6 @@ public class SignUp extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.tenant){
-            //Toast.makeText(this, "make tenant", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(SignUp.this, SignupTenant.class);
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
                 ActivityOptions options = ActivityOptions.makeCustomAnimation(SignUp.this, R.anim.fade_in, R.anim.fade_out);
