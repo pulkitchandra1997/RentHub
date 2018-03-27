@@ -26,6 +26,7 @@ public class SignUp extends Activity implements View.OnClickListener{
         owner=findViewById(R.id.owner);
         tenant.setOnClickListener(this);
         owner.setOnClickListener(this);
+
     }
 
 
