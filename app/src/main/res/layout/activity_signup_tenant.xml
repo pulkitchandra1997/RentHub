@@ -76,8 +76,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:layout_marginTop="30dp">
+                    android:focusableInTouchMode="true">
 
 
                     <TextView
