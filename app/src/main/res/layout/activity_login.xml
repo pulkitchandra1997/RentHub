@@ -68,7 +68,7 @@
     android:layout_width="30dp"
     android:layout_height="30dp"
     android:text="&#xf007;"
-    android:layout_marginTop="30dp"
+    android:layout_marginTop="20dp"
     android:id="@+id/usericon"
     />
                 <android.support.design.widget.TextInputLayout
@@ -101,7 +101,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:text="&#xf023;"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="20dp"
                     android:id="@+id/pwdicon"
                     />
 
