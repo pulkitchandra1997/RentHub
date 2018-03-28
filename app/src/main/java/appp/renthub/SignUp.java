@@ -24,14 +24,19 @@ public class SignUp extends Activity implements View.OnClickListener{
         owner=findViewById(R.id.owner);
         tenant.setOnClickListener(this);
         owner.setOnClickListener(this);
-
     }
-
+    @Override
+    public void onBackPressed()
+    {
+        this.startActivity(new Intent(SignUp.this,Welcome.class));
+        return;
+    }
 
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.tenant){
-            Intent intent = new Intent(SignUp.this, SignupTenant.class);
+            Intent intent = new Intent(SignUp.this, SignUpVerify.class);
+            intent.putExtra("type","Tenant");
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
                 ActivityOptions options = ActivityOptions.makeCustomAnimation(SignUp.this, R.anim.fade_in, R.anim.fade_out);
                 startActivity(intent, options.toBundle());
@@ -40,7 +45,8 @@ public class SignUp extends Activity implements View.OnClickListener{
             }
         }
         if(v.getId()==R.id.owner){
-            Intent intent = new Intent(SignUp.this, SignupOwner.class);
+            Intent intent = new Intent(SignUp.this, SignUpVerify.class);
+            intent.putExtra("type","Owner");
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
                 ActivityOptions options = ActivityOptions.makeCustomAnimation(SignUp.this, R.anim.fade_in, R.anim.fade_out);
                 startActivity(intent, options.toBundle());

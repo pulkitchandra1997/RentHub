@@ -30,10 +30,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".SignUp" />
-        <activity android:name=".SignupOwner"></activity>
-        <activity android:name=".SignupTenant"></activity>
+        <activity
+            android:name=".SignupOwner"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".SignupTenant"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity android:name=".SignUpVerify"></activity>
     </application>
 
 </manifest>

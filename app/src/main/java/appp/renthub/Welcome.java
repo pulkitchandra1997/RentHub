@@ -41,12 +41,12 @@
                 String username=sp.getString("username",null);
                 String name=sp.getString("name",null);
                 String mobileno=sp.getString("mobileno",null);
-                if(type.equalsIgnoreCase("owner")){
+                if(type!=null) {
+                    if (type.equalsIgnoreCase("owner")) {
+                    } else {
+                        if (type.equalsIgnoreCase("tenant")) {
 
-                }
-                else {
-                    if (type.equalsIgnoreCase("tenant")){
-
+                        }
                     }
                 }
             }

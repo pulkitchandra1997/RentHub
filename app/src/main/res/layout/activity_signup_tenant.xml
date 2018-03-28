@@ -42,8 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginBottom="15dp"
-                android:layout_margin="25dp">
+                android:layout_margin="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -89,14 +88,13 @@
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:padding="5dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="12dp"
                         android:id="@+id/nameicon"
                         android:text="&#xf007;"/>
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp">
+                        android:layout_height="wrap_content">
 
                         <EditText
                             android:id="@+id/tenantname"
@@ -121,14 +119,13 @@
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:padding="5dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="12dp"
                         android:id="@+id/emailicon"
                         android:text="&#xf2b9;"/>
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp">
+                        android:layout_height="wrap_content">
 
                         <EditText
                             android:id="@+id/tenantemail"
@@ -152,21 +149,20 @@
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:padding="5dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="12dp"
             android:text="&#xf095;"
             android:id="@+id/phoneicon"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/tenantphone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_onlyPhone"
-                android:inputType="text"
+                android:inputType="phone"
                 android:maxLines="1"
                 android:singleLine="true" />
 
@@ -183,7 +179,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
                     android:background="@color/bootstrap_brand_primary"
-                    android:text="SIGN UP"
+                    android:text="&#xf2f6;  SIGN UP"
                     android:textColor="#fff"
                     android:textStyle="bold" />
 
@@ -191,8 +187,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="30dp">
+                    android:orientation="horizontal">
 
                     <com.beardedhen.androidbootstrap.AwesomeTextView
                         android:layout_width="wrap_content"

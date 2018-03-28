@@ -40,6 +40,12 @@ Button login;
         forgot=findViewById(R.id.forgot);
         forgot.setOnClickListener(this);
     }
+    @Override
+    public void onBackPressed()
+    {
+        this.startActivity(new Intent(LoginActivity.this,Welcome.class));
+        return;
+    }
     private boolean isValidEmail(String email) {
         String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";

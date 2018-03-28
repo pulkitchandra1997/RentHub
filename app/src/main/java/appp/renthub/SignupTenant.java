@@ -40,6 +40,13 @@ public class SignupTenant extends Activity   implements View.OnClickListener {
         nameicon.setTypeface(font);
         emailicon.setTypeface(font);
         phoneicon.setTypeface(font);
+        tenantsignup.setTypeface(font);
+    }
+    @Override
+    public void onBackPressed()
+    {
+        this.startActivity(new Intent(SignupTenant.this,SignUp.class));
+        return;
     }
     private boolean isValidName( String name) {
         String NAME_PATTERN = "^[a-zA-Z\\s]*$";

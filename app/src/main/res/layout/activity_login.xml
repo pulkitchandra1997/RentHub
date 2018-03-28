@@ -61,14 +61,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="20dp"
                     android:focusable="true"
                     android:focusableInTouchMode="true">
 <TextView
     android:layout_width="30dp"
     android:layout_height="30dp"
     android:text="&#xf007;"
-    android:layout_marginTop="15dp"
+    android:layout_marginTop="30dp"
     android:id="@+id/usericon"
     />
                 <android.support.design.widget.TextInputLayout
@@ -83,7 +83,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/prompt_email"
-                        android:inputType="text"
+                        android:inputType="textVisiblePassword"
                         android:maxLines="1"
 
                         android:singleLine="true" />
@@ -101,7 +101,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:text="&#xf023;"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:id="@+id/pwdicon"
                     />
 
@@ -129,9 +129,9 @@
                     style="?android:textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="45dp"
+                    android:layout_marginTop="20dp"
                     android:background="@color/bootstrap_brand_primary"
-                    android:text="&#xf2f6; LOGIN"
+                    android:text="&#xf2f6;  LOGIN"
                     android:textColor="#fff"
                     android:textStyle="bold" />
 

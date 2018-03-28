@@ -13,10 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 
 public class SignupOwner extends Activity implements View.OnClickListener {
 
@@ -32,21 +30,22 @@ public class SignupOwner extends Activity implements View.OnClickListener {
         ownerphone=findViewById(R.id.ownerphone);
         ownerSignup=findViewById(R.id.ownerSignup);
         login=findViewById(R.id.login);
-
-
         usericon=findViewById(R.id.usericon);
         mailicon=findViewById(R.id.mailicon);
         phoneicon=findViewById(R.id.phoneicon);
-
-
         Typeface font = Typeface.createFromAsset(getAssets(), "Font Awesome 5 Free-Solid-900.otf" );
         usericon.setTypeface(font);
         mailicon.setTypeface(font);
         phoneicon.setTypeface(font);
-
-
+        ownerSignup.setTypeface(font);
         ownerSignup.setOnClickListener(this);
         login.setOnClickListener(this);
+    }
+    @Override
+    public void onBackPressed()
+    {
+        this.startActivity(new Intent(SignupOwner.this,SignUp.class));
+        return;
     }
 
     private boolean isValidName( String name) {
