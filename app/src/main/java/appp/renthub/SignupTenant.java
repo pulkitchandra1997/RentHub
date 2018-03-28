@@ -2,6 +2,7 @@ package appp.renthub;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -9,12 +10,14 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +27,7 @@ public class SignupTenant extends Activity   implements View.OnClickListener {
     Button tenantsignup,tenantnext,tenantprevious;
     RadioGroup tenantgender;
 LinearLayout pageone,pagetwo;
+    int day,year,month;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,7 @@ LinearLayout pageone,pagetwo;
         statusicon.setTypeface(font);
         tenantnext.setOnClickListener(this);
         tenantprevious.setOnClickListener(this);
+        tenantdob.setOnClickListener(this);
     }
     @Override
     public void onBackPressed()
@@ -83,6 +88,13 @@ LinearLayout pageone,pagetwo;
 
     private boolean isValidPhone(String phone) {
         return android.util.Patterns.PHONE.matcher(phone).matches();
+    }
+    public String getDate(){
+        StringBuilder builder=new StringBuilder();
+        builder.append(day+"/");
+        builder.append((month + 1)+"/");//month is 0 based
+        builder.append(year);
+        return builder.toString();
     }
     @Override
     public void onClick(View v) {
@@ -107,6 +119,28 @@ LinearLayout pageone,pagetwo;
             pagetwo.setVisibility(View.GONE);
 
         }
+        if (v.getId() == R.id.tenantdob)
+        {
+            Calendar mcurrentDate=Calendar.getInstance();
+            int mYear=mcurrentDate.get(Calendar.YEAR);
+            int mMonth=mcurrentDate.get(Calendar.MONTH);
+            int mDay=mcurrentDate.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog mDatePicker=new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
+                    // TODO Auto-generated method stub
+                    /*      Your code   to get date and time    */
+                    day=selectedday;
+                    month=selectedmonth;
+                    year=selectedyear;
+                    tenantdob.setText(getDate());
+                }
+            },mYear, mMonth, mDay);
+            mDatePicker.setTitle("Select date");
+            mDatePicker.show();
+
+        }
+
+
 
 
 
