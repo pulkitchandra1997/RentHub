@@ -29,7 +29,9 @@
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".SignupTenant"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing" >
+
+        </activity>
         <activity android:name=".SignUpVerify"></activity>
         <activity
             android:name=".WelcomeScreen"

@@ -10,6 +10,8 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,10 +19,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SignupTenant extends Activity   implements View.OnClickListener {
-    TextView login,emailicon,phoneicon,nameicon;
-    EditText tenantemail,tenantphone,tenantname;
-    Button tenantsignup;
-
+    TextView login,emailicon,phoneicon,nameicon,dobicon,statusicon,cityicon,gendericon;
+    EditText tenantemail,tenantphone,tenantname,tenantdob;
+    Button tenantsignup,tenantnext,tenantprevious;
+    RadioGroup tenantgender;
+LinearLayout pageone,pagetwo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +36,32 @@ public class SignupTenant extends Activity   implements View.OnClickListener {
         tenantemail=findViewById(R.id.tenantemail);
         tenantname=findViewById(R.id.tenantname);
         tenantphone=findViewById(R.id.tenantphone);
+        tenantdob=findViewById(R.id.tenantdob);
+        tenantgender=findViewById(R.id.tenantgender);
         emailicon=findViewById(R.id.emailicon);
         phoneicon=findViewById(R.id.phoneicon);
         nameicon=findViewById(R.id.nameicon);
+        dobicon=findViewById(R.id.dobicon);
+        cityicon=findViewById(R.id.cityicon);
+        gendericon=findViewById(R.id.gendericon);
+        statusicon=findViewById(R.id.statusicon);
+        tenantnext=findViewById(R.id.tenantnext);
+        pagetwo=findViewById(R.id.pagetwo);
+        pageone=findViewById(R.id.pageone);
+        tenantprevious=findViewById(R.id.tenantprevious);
         Typeface font = Typeface.createFromAsset(getAssets(), "Font Awesome 5 Free-Solid-900.otf" );
         nameicon.setTypeface(font);
         emailicon.setTypeface(font);
         phoneicon.setTypeface(font);
         tenantsignup.setTypeface(font);
+        tenantprevious.setTypeface(font);
+        tenantnext.setTypeface(font);
+        dobicon.setTypeface(font);
+        cityicon.setTypeface(font);
+        gendericon.setTypeface(font);
+        statusicon.setTypeface(font);
+        tenantnext.setOnClickListener(this);
+        tenantprevious.setOnClickListener(this);
     }
     @Override
     public void onBackPressed()
@@ -74,6 +95,21 @@ public class SignupTenant extends Activity   implements View.OnClickListener {
                 startActivity(intent);
             }
         }
+        if (v.getId() == R.id.tenantnext)
+        {
+            pagetwo.setVisibility(View.VISIBLE);
+            pageone.setVisibility(View.GONE);
+
+        }
+        if (v.getId() == R.id.tenantprevious)
+        {
+            pageone.setVisibility(View.VISIBLE);
+            pagetwo.setVisibility(View.GONE);
+
+        }
+
+
+
         if (v.getId() == R.id.tenantsignup) {
             String name= tenantname.getText().toString().trim();
             String mail = tenantemail.getText().toString().trim();

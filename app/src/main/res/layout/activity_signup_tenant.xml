@@ -81,7 +81,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:focusable="true"
-                    android:focusableInTouchMode="true">
+                    android:focusableInTouchMode="true"
+                    android:layout_marginTop="10dp">
 
 
                     <TextView
@@ -89,7 +90,7 @@
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:padding="5dp"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="10dp"
                         android:id="@+id/nameicon"
                         android:text="&#xf007;"/>
 
@@ -112,14 +113,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:padding="5dp"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="10dp"
                         android:id="@+id/emailicon"
                         android:text="&#xf2b9;"/>
 
@@ -142,14 +144,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:padding="5dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
             android:text="&#xf095;"
             android:id="@+id/phoneicon"/>
 
@@ -169,22 +172,175 @@
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:layout_marginTop="10dp"
+            android:text="&#xf1fd;"
+            android:id="@+id/dobicon"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/tenantdob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Date of Birth"
+                android:maxLines="1"
+                android:singleLine="true"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:layout_marginTop="10dp"
+            android:text="&#xf0c0;"
+            android:id="@+id/statusicon"/>
 
 
+           <Spinner
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="12dp"
+               android:entries="@array/marrystatus"
+               android:id="@+id/marrystatus">
 
-                <Button
-                    android:id="@+id/tenantsignup"
+           </Spinner>
+
+
+    </LinearLayout>
+
+
+    <Button
+                    android:id="@+id/tenantnext"
                     style="?android:textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
                     android:background="@color/bootstrap_brand_primary"
-                    android:text="&#xf2f6;  SIGN UP"
+                    android:text="NEXT     &#xf061;"
                     android:textColor="#fff"
                     android:textStyle="bold" />
 
     </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/pagetwo"
+                    android:visibility="gone">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:layout_marginTop="10dp">
+
+
+                        <TextView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:padding="5dp"
+                            android:layout_marginTop="10dp"
+                            android:id="@+id/gendericon"
+                            android:text="&#xf228;"/>
+
+                        <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="12dp"
+                            android:id="@+id/tenantgender"
+                            >
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Male"
+                                android:layout_marginRight="40dp"/>
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Female"/>
+                        </RadioGroup>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:padding="5dp"
+                            android:layout_marginTop="10dp"
+                            android:id="@+id/cityicon"
+                            android:text="&#xf015;"/>
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:entries="@array/citylist"
+                            android:padding="5dp"
+                            android:id="@+id/tenantcity">
+
+                        </Spinner>
+
+
+
+                    </LinearLayout>
+
+
+
+
+                    <Button
+                        android:id="@+id/tenantprevious"
+                        style="?android:textAppearanceSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:background="@color/bootstrap_brand_primary"
+                        android:text="&#xf060;  PREVIOUS"
+                        android:textColor="#fff"
+                        android:textStyle="bold" />
+                    <Button
+                        android:id="@+id/tenantsignup"
+                        style="?android:textAppearanceSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/bootstrap_brand_primary"
+                        android:text="&#xf2f6;  SIGNUP"
+                        android:textColor="#fff"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
