@@ -236,17 +236,17 @@ public class SignupTenant extends Activity   implements View.OnClickListener {
                     tenantaddress.setError("Enter Address");
                     tenantaddress.requestFocus();
                 }
-            if (!male.isChecked()|| !female.isChecked())
-            {
-                Toast.makeText(this, "Please select Gender", Toast.LENGTH_SHORT).show();
-                tenantgender.requestFocus();
-            }
-            if (((String) tenantcity.getSelectedItem()).equalsIgnoreCase("Select City"))
-            {
-                Toast.makeText(this, "Select City", Toast.LENGTH_SHORT).show();
-                tenantcity.requestFocus();
-                tenantcity.performClick();
-            }
+                if (!male.isChecked()|| !female.isChecked())
+                {
+                    Toast.makeText(this, "Please select Gender", Toast.LENGTH_SHORT).show();
+                    tenantgender.requestFocus();
+                }
+                if (((String) tenantcity.getSelectedItem()).equalsIgnoreCase("Select City"))
+                {
+                    Toast.makeText(this, "Select City", Toast.LENGTH_SHORT).show();
+                    tenantcity.requestFocus();
+                    tenantcity.performClick();
+                }
             }
         }
 
