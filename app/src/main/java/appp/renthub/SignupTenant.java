@@ -230,7 +230,7 @@ public class SignupTenant extends Activity   implements View.OnClickListener {
                 gender=female.getText().toString();
             }
 
-            if (!male.isChecked()|| !female.isChecked() || ((String) tenantcity.getSelectedItem()).equalsIgnoreCase("Select City") || TextUtils.isEmpty(address)){
+            if (!male.isChecked() && !female.isChecked() || ((String) tenantcity.getSelectedItem()).equalsIgnoreCase("Select City") || TextUtils.isEmpty(address)){
 
                 if (TextUtils.isEmpty(address)) {
                     tenantaddress.setError("Enter Address");

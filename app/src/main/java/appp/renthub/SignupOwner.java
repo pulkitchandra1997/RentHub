@@ -237,7 +237,7 @@ public class SignupOwner extends Activity implements View.OnClickListener {
                 gender=female.getText().toString();
             }
 
-            if (!male.isChecked()|| !female.isChecked() || ((String) ownercity.getSelectedItem()).equalsIgnoreCase("Select City") || TextUtils.isEmpty(address)|| ((String) ownerplaces.getSelectedItem()).equalsIgnoreCase("Select No of Places"))
+            if (!male.isChecked() && !female.isChecked() || ((String) ownercity.getSelectedItem()).equalsIgnoreCase("Select City") || TextUtils.isEmpty(address)|| ((String) ownerplaces.getSelectedItem()).equalsIgnoreCase("Select No of Places"))
             {
                 if (!male.isChecked()|| !female.isChecked())
                 {
