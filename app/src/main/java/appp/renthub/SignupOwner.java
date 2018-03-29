@@ -261,6 +261,11 @@ public class SignupOwner extends Activity implements View.OnClickListener {
                     ownerplaces.performClick();
                 }
             }
+
+
+
+
+
         }
 
 
