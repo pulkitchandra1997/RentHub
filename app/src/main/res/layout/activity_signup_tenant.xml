@@ -318,7 +318,37 @@
 
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
 
+                        <TextView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:padding="5dp"
+                            android:layout_marginTop="10dp"
+                            android:text="&#xf2bb;"
+                            android:id="@+id/addressicon"/>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/tenantaddress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/prompt_address"
+                                android:inputType="phone"
+                                android:maxLines="1"
+                                android:singleLine="true" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                    </LinearLayout>
 
 
                     <Button

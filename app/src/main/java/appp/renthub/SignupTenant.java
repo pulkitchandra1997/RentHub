@@ -24,15 +24,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SignupTenant extends Activity   implements View.OnClickListener {
-    TextView login,emailicon,phoneicon,nameicon,dobicon,statusicon,cityicon,gendericon;
-    EditText tenantemail,tenantphone,tenantname,tenantdob;
+    TextView login,emailicon,phoneicon,nameicon,dobicon,statusicon,cityicon,gendericon,addressicon;
+    EditText tenantemail,tenantphone,tenantname,tenantdob,tenantaddress;
     Button tenantsignup,tenantnext,tenantprevious;
     RadioGroup tenantgender;
-LinearLayout pageone,pagetwo;
+    LinearLayout pageone,pagetwo;
     int day,year,month;
-    String name,phone,email,dob,status,city,gender;
+    String name,phone,email,dob,status,city,gender,address;
     Spinner marrystatus,tenantcity;
     RadioButton male,female;
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,8 @@ LinearLayout pageone,pagetwo;
         tenantsignup=findViewById(R.id.tenantsignup);
         tenantsignup.setOnClickListener(this);
         tenantemail=findViewById(R.id.tenantemail);
+        tenantaddress=findViewById(R.id.tenantaddress);
+        addressicon=findViewById(R.id.addressicon);
         tenantname=findViewById(R.id.tenantname);
         tenantphone=findViewById(R.id.tenantphone);
         tenantdob=findViewById(R.id.tenantdob);
@@ -73,6 +76,7 @@ LinearLayout pageone,pagetwo;
         cityicon.setTypeface(font);
         gendericon.setTypeface(font);
         statusicon.setTypeface(font);
+        addressicon.setTypeface(font);
         tenantnext.setOnClickListener(this);
         tenantprevious.setOnClickListener(this);
         tenantdob.setOnClickListener(this);
@@ -127,15 +131,10 @@ LinearLayout pageone,pagetwo;
             phone= tenantphone.getText().toString().trim();
             dob=tenantdob.getText().toString().trim();
             status=(String)marrystatus.getSelectedItem();
+
+
             if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(phone)||TextUtils.isEmpty(dob)||status.equalsIgnoreCase("Select Marital Status")) {
 
-                if (((String) marrystatus.getSelectedItem()).equalsIgnoreCase("Select Marital Status"))
-                {
-                    Toast.makeText(this, "Select Marital Status", Toast.LENGTH_SHORT).show();
-                    marrystatus.requestFocus();
-                    marrystatus.performClick();
-
-                }
                 if (TextUtils.isEmpty(name)) {
                     tenantname.setError("Enter name");
                     tenantname.requestFocus();
@@ -154,6 +153,12 @@ LinearLayout pageone,pagetwo;
                 if (TextUtils.isEmpty(dob)) {
                     tenantdob.setError("Select DOB");
                     tenantdob.requestFocus();
+                }
+                if (((String) marrystatus.getSelectedItem()).equalsIgnoreCase("Select Marital Status"))
+                {
+                    Toast.makeText(this, "Select Marital Status", Toast.LENGTH_SHORT).show();
+                    marrystatus.requestFocus();
+                    marrystatus.performClick();
                 }
                 tenantname.requestFocus();
             }
@@ -213,11 +218,28 @@ LinearLayout pageone,pagetwo;
         }
 
         if (v.getId() == R.id.tenantsignup) {
-            if (!male.isChecked()|| !female.isChecked() || ((String) tenantcity.getSelectedItem()).equalsIgnoreCase("Select City")){
+            city=(String)tenantcity.getSelectedItem();
+            id=tenantgender.getCheckedRadioButtonId();
+            address=tenantaddress.getText().toString().trim();
+            if (male.isChecked())
+            {
+                gender=male.getText().toString();
+            }
+            else if (female.isChecked())
+            {
+                gender=female.getText().toString();
+            }
 
+            if (!male.isChecked()|| !female.isChecked() || ((String) tenantcity.getSelectedItem()).equalsIgnoreCase("Select City") || TextUtils.isEmpty(address)){
+
+                if (TextUtils.isEmpty(address)) {
+                    tenantaddress.setError("Enter Address");
+                    tenantaddress.requestFocus();
+                }
             if (!male.isChecked()|| !female.isChecked())
             {
                 Toast.makeText(this, "Please select Gender", Toast.LENGTH_SHORT).show();
+                tenantgender.requestFocus();
             }
             if (((String) tenantcity.getSelectedItem()).equalsIgnoreCase("Select City"))
             {

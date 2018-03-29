@@ -28,6 +28,7 @@
     <string name="prompt_name">Your Name</string>
     <string name="prompt_onlyEmail">Email Address</string>
     <string name="prompt_onlyPhone">Phone Number</string>
+    <string name="prompt_address">Permanent Address</string>
 <array name="marrystatus">
     <item>Select Marital Status</item>
     <item>Married</item>
