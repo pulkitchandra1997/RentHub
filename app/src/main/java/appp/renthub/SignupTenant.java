@@ -13,7 +13,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +30,9 @@ public class SignupTenant extends Activity   implements View.OnClickListener {
     RadioGroup tenantgender;
 LinearLayout pageone,pagetwo;
     int day,year,month;
+    String name,phone,email,dob,status,city,gender;
+    Spinner marrystatus,tenantcity;
+    RadioButton male,female;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,10 @@ LinearLayout pageone,pagetwo;
         tenantphone=findViewById(R.id.tenantphone);
         tenantdob=findViewById(R.id.tenantdob);
         tenantgender=findViewById(R.id.tenantgender);
+        marrystatus=findViewById(R.id.marrystatus);
+        tenantcity=findViewById(R.id.tenantcity);
+        male=findViewById(R.id.male);
+        female=findViewById(R.id.female);
         emailicon=findViewById(R.id.emailicon);
         phoneicon=findViewById(R.id.phoneicon);
         nameicon=findViewById(R.id.nameicon);
@@ -86,8 +95,12 @@ LinearLayout pageone,pagetwo;
         return Patterns.EMAIL_ADDRESS.matcher(mail).matches();
     }
 
-    private boolean isValidPhone(String phone) {
-        return android.util.Patterns.PHONE.matcher(phone).matches();
+    private boolean isValidPhone(String target) {
+        if (target == null || target.length() < 10 || target.length() > 10) {
+            return false;
+        } else {
+            return android.util.Patterns.PHONE.matcher(target).matches();
+        }
     }
     public String getDate(){
         StringBuilder builder=new StringBuilder();
@@ -109,8 +122,67 @@ LinearLayout pageone,pagetwo;
         }
         if (v.getId() == R.id.tenantnext)
         {
-            pagetwo.setVisibility(View.VISIBLE);
-            pageone.setVisibility(View.GONE);
+            name= tenantname.getText().toString().trim();
+            email= tenantemail.getText().toString().trim();
+            phone= tenantphone.getText().toString().trim();
+            dob=tenantdob.getText().toString().trim();
+            status=(String)marrystatus.getSelectedItem();
+            if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(phone)||TextUtils.isEmpty(dob)||status.equalsIgnoreCase("Select Marital Status")) {
+
+                if (((String) marrystatus.getSelectedItem()).equalsIgnoreCase("Select Marital Status"))
+                {
+                    Toast.makeText(this, "Select Marital Status", Toast.LENGTH_SHORT).show();
+                    marrystatus.requestFocus();
+                    marrystatus.performClick();
+
+                }
+                if (TextUtils.isEmpty(name)) {
+                    tenantname.setError("Enter name");
+                    tenantname.requestFocus();
+                }
+
+                if (TextUtils.isEmpty(email)) {
+                    tenantemail.setError("Enter email");
+                    tenantemail.requestFocus();
+                }
+
+                if (TextUtils.isEmpty(phone)) {
+                    tenantphone.setError("Enter phone number");
+                    tenantphone.requestFocus();
+                }
+
+                if (TextUtils.isEmpty(dob)) {
+                    tenantdob.setError("Select DOB");
+                    tenantdob.requestFocus();
+                }
+                tenantname.requestFocus();
+            }
+
+            if (!isValidEmail(email)) {
+                tenantemail.setError("Enter Correct Email");
+
+
+            }
+
+            else if (!isValidName(name) || !isValidEmail(email) || !isValidPhone(phone)) {
+
+                if (!isValidName(name)) {
+                    tenantname.setError("Enter Correct Name");
+                    tenantemail.requestFocus();
+                }
+
+                if (!isValidPhone(phone)) {
+                    tenantphone.setError("Enter Correct Phone Number");
+                    tenantphone.requestFocus();
+                }
+
+            }
+            else {
+               /* Toast.makeText(this, name + email + phone, Toast.LENGTH_SHORT).show();*/
+                pagetwo.setVisibility(View.VISIBLE);
+                pageone.setVisibility(View.GONE);
+            }
+
 
         }
         if (v.getId() == R.id.tenantprevious)
@@ -140,53 +212,19 @@ LinearLayout pageone,pagetwo;
 
         }
 
-
-
-
-
         if (v.getId() == R.id.tenantsignup) {
-            String name= tenantname.getText().toString().trim();
-            String mail = tenantemail.getText().toString().trim();
-            String phone= tenantphone.getText().toString().trim();
-            if (TextUtils.isEmpty(name) || TextUtils.isEmpty(mail) || TextUtils.isEmpty(phone)) {
+            if (!male.isChecked()|| !female.isChecked() || ((String) tenantcity.getSelectedItem()).equalsIgnoreCase("Select City")){
 
-                if (TextUtils.isEmpty(name)) {
-                    tenantname.setError("Enter name");
-                    tenantname.requestFocus();
-                }
-
-                if (TextUtils.isEmpty(mail)) {
-                    tenantemail.setError("Enter email");
-                    tenantemail.requestFocus();
-                }
-
-                if (TextUtils.isEmpty(phone)) {
-                    tenantphone.setError("Enter phone number");
-                    tenantphone.requestFocus();
-                }
-
+            if (!male.isChecked()|| !female.isChecked())
+            {
+                Toast.makeText(this, "Please select Gender", Toast.LENGTH_SHORT).show();
             }
-
-            else if (!isValidName(name) || !isValidEmail(mail) || !isValidPhone(phone)) {
-
-                if (!isValidName(name)) {
-                    tenantname.setError("Enter Correct Name");
-                    tenantname.requestFocus();
-                }
-
-                if (!isValidEmail(mail)) {
-                    tenantemail.setError("Enter Correct Email");
-                    tenantemail.requestFocus();
-                }
-
-                if (!isValidPhone(phone)) {
-                    tenantphone.setError("Enter Correct Phone Number");
-                    tenantphone.requestFocus();
-                }
-
+            if (((String) tenantcity.getSelectedItem()).equalsIgnoreCase("Select City"))
+            {
+                Toast.makeText(this, "Select City", Toast.LENGTH_SHORT).show();
+                tenantcity.requestFocus();
+                tenantcity.performClick();
             }
-            else {
-                Toast.makeText(this, name + mail + phone, Toast.LENGTH_SHORT).show();
             }
         }
 

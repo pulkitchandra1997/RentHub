@@ -55,8 +55,12 @@ Button login;
         return matcher.matches();
     }
 
-    private boolean isValidPhone(String email) {
-        return android.util.Patterns.PHONE.matcher(email).matches();
+    private boolean isValidPhone(String target) {
+        if (target == null || target.length() < 10 || target.length() > 10) {
+            return false;
+        } else {
+            return android.util.Patterns.PHONE.matcher(target).matches();
+        }
     }
 
     @Override
