@@ -25,12 +25,12 @@ public class SignUp extends Activity implements View.OnClickListener{
         tenant.setOnClickListener(this);
         owner.setOnClickListener(this);
     }
-    @Override
+/*    @Override
     public void onBackPressed()
     {
         this.startActivity(new Intent(SignUp.this,Welcome.class));
         return;
-    }
+    }*/
 
     @Override
     public void onClick(View v) {
