@@ -54,6 +54,7 @@ public class UserProfile extends Activity {
         setContentView(R.layout.activity_user_profile);
         fragment = new SearchFrag();
         switchFragment();
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
