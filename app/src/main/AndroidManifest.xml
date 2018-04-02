@@ -30,11 +30,6 @@
 
 
         </activity>
-        <activity
-            android:name=".SignupTenant"
-            android:windowSoftInputMode="adjustNothing" >
-
-        </activity>
         <activity android:name=".UserProfile">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />

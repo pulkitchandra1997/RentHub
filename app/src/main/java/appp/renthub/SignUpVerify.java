@@ -120,12 +120,8 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
                 se.remove("otp_sent");
                 se.commit();
                 Intent intent=null;
-                if(type.equalsIgnoreCase("Tenant")){
-                    intent = new Intent(SignUpVerify.this, SignupTenant.class);
-                }
-                else{
-                    intent = new Intent(SignUpVerify.this, SignupOwner.class);
-                }
+                intent = new Intent(SignUpVerify.this, SignUpForm.class);
+                intent.putExtra("type",type);
                 intent.putExtra("email",emailtext);
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
                     ActivityOptions options = ActivityOptions.makeCustomAnimation(SignUpVerify.this, R.anim.fade_in, R.anim.fade_out);
