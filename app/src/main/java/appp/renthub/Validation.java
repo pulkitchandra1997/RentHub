@@ -1,7 +1,6 @@
 package appp.renthub;
 
 import android.util.Patterns;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

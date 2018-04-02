@@ -14,7 +14,6 @@
             import android.os.Bundle;
             import android.view.View;
             import android.widget.Toast;
-
             import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
             import static android.Manifest.permission.ACCESS_FINE_LOCATION;
     public class Welcome extends Activity implements View.OnClickListener {

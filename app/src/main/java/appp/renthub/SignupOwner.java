@@ -1,6 +1,4 @@
 package appp.renthub;
-
-
         import android.app.Activity;
         import android.app.ActivityOptions;
         import android.app.DatePickerDialog;
@@ -8,7 +6,6 @@ package appp.renthub;
         import android.graphics.Typeface;
         import android.os.Bundle;
         import android.text.TextUtils;
-        import android.util.Patterns;
         import android.view.View;
         import android.widget.Button;
         import android.widget.DatePicker;
@@ -19,10 +16,7 @@ package appp.renthub;
         import android.widget.Spinner;
         import android.widget.TextView;
         import android.widget.Toast;
-
         import java.util.Calendar;
-        import java.util.regex.Matcher;
-        import java.util.regex.Pattern;
 
 public class SignupOwner extends Activity implements View.OnClickListener {
 
