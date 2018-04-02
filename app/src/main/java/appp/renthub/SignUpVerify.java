@@ -101,6 +101,7 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
         }
         if(v.getId()==R.id.signup){
             otptext=pinView.getText().toString();
+            pinView.clearFocus();
             checkotp();
         }
         if(v.getId()==R.id.resendotp2){
@@ -129,6 +130,10 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
                     startActivity(intent);
                 }
             }
+            else{
+                pinView.setError("Incorrect OTP");
+                pinView.requestFocus();
+            }
         }
     }
 
@@ -150,7 +155,7 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
                                 long min,sec;
                                 if(millisUntilFinished>60000){
                                     min=millisUntilFinished/60000;
-                                    sec=millisUntilFinished%60000;
+                                    sec=(millisUntilFinished-(min*60000))/1000;
                                     resendotp1.setText("Resend Otp in " + min +" min "+sec+" sec");
                                 }
                                     else {
@@ -165,16 +170,7 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
                         }.start();
                     } else {
                         resendotp1.setVisibility(View.VISIBLE);
-                        new CountDownTimer(30000, 1000) {
-                            public void onTick(long millisUntilFinished) {
-                                resendotp1.setText("Resend Otp in " + millisUntilFinished / 1000);
-                            }
 
-                            public void onFinish() {
-                                resendotp1.setVisibility(View.GONE);
-                                resendotp2.setVisibility(View.VISIBLE);
-                            }
-                        }.start();
                     }
             }
         }, new Response.ErrorListener() {
