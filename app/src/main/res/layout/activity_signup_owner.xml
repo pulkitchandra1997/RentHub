@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_margin="20dp">
+                android:padding="25dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -57,7 +57,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="start"
                         android:text="SignUp"
-                        android:textAlignment="textStart"
+                        android:textAlignment="center"
                         android:textColor="#ef5350"
                         android:textSize="35dp" />
 
@@ -75,6 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:layout_marginTop="20dp"
                     android:id="@+id/pageone">
 
                     <LinearLayout
@@ -83,7 +84,7 @@
                         android:orientation="horizontal"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
-                        android:layout_marginTop="10dp">
+                        >
 
 
                         <TextView
@@ -116,6 +117,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginTop="10dp">
+                        >
 
                         <TextView
                             android:layout_width="30dp"
@@ -124,7 +126,7 @@
                             android:padding="5dp"
                             android:layout_marginTop="10dp"
                             android:id="@+id/emailicon"
-                            android:text="&#xf2b9;"/>
+                            android:text="&#xf0e0;"/>
 
                         <android.support.design.widget.TextInputLayout
                             android:layout_width="match_parent"

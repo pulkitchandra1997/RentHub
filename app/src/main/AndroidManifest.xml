@@ -28,6 +28,7 @@
             android:name=".SignupOwner"
             android:windowSoftInputMode="adjustNothing" >
 
+
         </activity>
         <activity
             android:name=".SignupTenant"
@@ -47,11 +48,14 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="adjustResize">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
         </activity>
 
     </application>
