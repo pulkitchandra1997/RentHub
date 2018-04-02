@@ -46,23 +46,6 @@ Button login;
         this.startActivity(new Intent(LoginActivity.this,Welcome.class));
         return;
     }*/
-    private boolean isValidEmail(String email) {
-        String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
-        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
-
-    private boolean isValidPhone(String target) {
-        if (target == null || target.length() < 10 || target.length() > 10) {
-            return false;
-        } else {
-            return android.util.Patterns.PHONE.matcher(target).matches();
-        }
-    }
-
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.login) {
@@ -77,8 +60,8 @@ Button login;
                     password.setError("Enter password");
                     password.requestFocus();
                 }
-            } else if (!isValidEmail(emailid)) {
-                if (!isValidPhone(emailid)) {
+            } else if (!Validation.isValidEmail(emailid)) {
+                if (!Validation.isValidPhone(emailid)) {
                     email.setError("Enter correct Email or Phone Number");
                     email.requestFocus();
                 } else {

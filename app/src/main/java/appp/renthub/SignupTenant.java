@@ -87,25 +87,6 @@ public class SignupTenant extends Activity   implements View.OnClickListener {
         this.startActivity(new Intent(SignupTenant.this,SignUp.class));
         return;
     }
-    private boolean isValidName( String name) {
-        String NAME_PATTERN = "^[a-zA-Z\\s]*$";
-        Pattern pattern = Pattern.compile(NAME_PATTERN);
-        Matcher matcher = pattern.matcher(name);
-        return matcher.matches();
-    }
-
-    private boolean isValidEmail(String mail) {
-
-        return Patterns.EMAIL_ADDRESS.matcher(mail).matches();
-    }
-
-    private boolean isValidPhone(String target) {
-        if (target == null || target.length() < 10 || target.length() > 10) {
-            return false;
-        } else {
-            return android.util.Patterns.PHONE.matcher(target).matches();
-        }
-    }
     public String getDate(){
         StringBuilder builder=new StringBuilder();
         builder.append(day+"/");
@@ -131,25 +112,19 @@ public class SignupTenant extends Activity   implements View.OnClickListener {
             phone= tenantphone.getText().toString().trim();
             dob=tenantdob.getText().toString().trim();
             status=(String)marrystatus.getSelectedItem();
-
-
             if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(phone)||TextUtils.isEmpty(dob)||status.equalsIgnoreCase("Select Marital Status")) {
-
                 if (TextUtils.isEmpty(name)) {
                     tenantname.setError("Enter name");
                     tenantname.requestFocus();
                 }
-
                 if (TextUtils.isEmpty(email)) {
                     tenantemail.setError("Enter email");
                     tenantemail.requestFocus();
                 }
-
                 if (TextUtils.isEmpty(phone)) {
                     tenantphone.setError("Enter phone number");
                     tenantphone.requestFocus();
                 }
-
                 if (TextUtils.isEmpty(dob)) {
                     tenantdob.setError("Select DOB");
                     tenantdob.requestFocus();
@@ -162,39 +137,28 @@ public class SignupTenant extends Activity   implements View.OnClickListener {
                 }
                 tenantname.requestFocus();
             }
-
-            if (!isValidEmail(email)) {
+            if (!Validation.isValidEmail(email)) {
                 tenantemail.setError("Enter Correct Email");
-
-
             }
-
-            else if (!isValidName(name) || !isValidEmail(email) || !isValidPhone(phone)) {
-
-                if (!isValidName(name)) {
+            else if (!Validation.isValidName(name) || !Validation.isValidEmail(email) || !Validation.isValidPhone(phone)) {
+                if (!Validation.isValidName(name)) {
                     tenantname.setError("Enter Correct Name");
                     tenantemail.requestFocus();
                 }
-
-                if (!isValidPhone(phone)) {
+                if (!Validation.isValidPhone(phone)) {
                     tenantphone.setError("Enter Correct Phone Number");
                     tenantphone.requestFocus();
                 }
-
             }
             else {
-               /* Toast.makeText(this, name + email + phone, Toast.LENGTH_SHORT).show();*/
                 pagetwo.setVisibility(View.VISIBLE);
                 pageone.setVisibility(View.GONE);
             }
-
-
         }
         if (v.getId() == R.id.tenantprevious)
         {
             pageone.setVisibility(View.VISIBLE);
             pagetwo.setVisibility(View.GONE);
-
         }
         if (v.getId() == R.id.tenantdob)
         {
@@ -204,8 +168,6 @@ public class SignupTenant extends Activity   implements View.OnClickListener {
             int mDay=mcurrentDate.get(Calendar.DAY_OF_MONTH);
             DatePickerDialog mDatePicker=new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
-                    // TODO Auto-generated method stub
-                    /*      Your code   to get date and time    */
                     day=selectedday;
                     month=selectedmonth;
                     year=selectedyear;
@@ -214,9 +176,7 @@ public class SignupTenant extends Activity   implements View.OnClickListener {
             },mYear, mMonth, mDay);
             mDatePicker.setTitle("Select date");
             mDatePicker.show();
-
         }
-
         if (v.getId() == R.id.tenantsignup) {
             city=(String)tenantcity.getSelectedItem();
             id=tenantgender.getCheckedRadioButtonId();
@@ -229,9 +189,7 @@ public class SignupTenant extends Activity   implements View.OnClickListener {
             {
                 gender=female.getText().toString();
             }
-
             if (!male.isChecked() && !female.isChecked() || ((String) tenantcity.getSelectedItem()).equalsIgnoreCase("Select City") || TextUtils.isEmpty(address)){
-
                 if (TextUtils.isEmpty(address)) {
                     tenantaddress.setError("Enter Address");
                     tenantaddress.requestFocus();
@@ -249,7 +207,5 @@ public class SignupTenant extends Activity   implements View.OnClickListener {
                 }
             }
         }
-
-
     }
 }

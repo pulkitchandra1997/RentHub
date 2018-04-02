@@ -1,28 +1,28 @@
 package appp.renthub;
 
 
-import android.app.Activity;
-import android.app.ActivityOptions;
-import android.app.DatePickerDialog;
-import android.content.Intent;
-import android.graphics.Typeface;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Patterns;
-import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
+        import android.app.Activity;
+        import android.app.ActivityOptions;
+        import android.app.DatePickerDialog;
+        import android.content.Intent;
+        import android.graphics.Typeface;
+        import android.os.Bundle;
+        import android.text.TextUtils;
+        import android.util.Patterns;
+        import android.view.View;
+        import android.widget.Button;
+        import android.widget.DatePicker;
+        import android.widget.EditText;
+        import android.widget.LinearLayout;
+        import android.widget.RadioButton;
+        import android.widget.RadioGroup;
+        import android.widget.Spinner;
+        import android.widget.TextView;
+        import android.widget.Toast;
 
-import java.util.Calendar;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+        import java.util.Calendar;
+        import java.util.regex.Matcher;
+        import java.util.regex.Pattern;
 
 public class SignupOwner extends Activity implements View.OnClickListener {
 
@@ -93,25 +93,6 @@ public class SignupOwner extends Activity implements View.OnClickListener {
         this.startActivity(new Intent(SignupOwner.this,SignUp.class));
         return;
     }
-    private boolean isValidName( String name) {
-        String NAME_PATTERN = "^[a-zA-Z\\s]*$";
-        Pattern pattern = Pattern.compile(NAME_PATTERN);
-        Matcher matcher = pattern.matcher(name);
-        return matcher.matches();
-    }
-
-    private boolean isValidEmail(String mail) {
-
-        return Patterns.EMAIL_ADDRESS.matcher(mail).matches();
-    }
-
-    private boolean isValidPhone(String target) {
-        if (target == null || target.length() < 10 || target.length() > 10) {
-            return false;
-        } else {
-            return android.util.Patterns.PHONE.matcher(target).matches();
-        }
-    }
     public String getDate(){
         StringBuilder builder=new StringBuilder();
         builder.append(day+"/");
@@ -137,25 +118,19 @@ public class SignupOwner extends Activity implements View.OnClickListener {
             phone= ownerphone.getText().toString().trim();
             dob=ownerdob.getText().toString().trim();
             status=(String)marrystatus.getSelectedItem();
-
-
             if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(phone)||TextUtils.isEmpty(dob)||status.equalsIgnoreCase("Select Marital Status")) {
-
                 if (TextUtils.isEmpty(name)) {
                     ownername.setError("Enter name");
                     ownername.requestFocus();
                 }
-
                 if (TextUtils.isEmpty(email)) {
                     owneremail.setError("Enter email");
                     owneremail.requestFocus();
                 }
-
                 if (TextUtils.isEmpty(phone)) {
                     ownerphone.setError("Enter phone number");
                     ownerphone.requestFocus();
                 }
-
                 if (TextUtils.isEmpty(dob)) {
                     ownerdob.setError("Select DOB");
                     ownerdob.requestFocus();
@@ -168,33 +143,23 @@ public class SignupOwner extends Activity implements View.OnClickListener {
                 }
                 ownername.requestFocus();
             }
-
-            if (!isValidEmail(email)) {
+            if (!Validation.isValidEmail(email)) {
                 owneremail.setError("Enter Correct Email");
-
-
             }
-
-            else if (!isValidName(name) || !isValidEmail(email) || !isValidPhone(phone)) {
-
-                if (!isValidName(name)) {
+            else if (!Validation.isValidName(name) || !Validation.isValidEmail(email) || !Validation.isValidPhone(phone)) {
+                if (!Validation.isValidName(name)) {
                     ownername.setError("Enter Correct Name");
                     owneremail.requestFocus();
                 }
-
-                if (!isValidPhone(phone)) {
+                if (!Validation.isValidPhone(phone)) {
                     ownerphone.setError("Enter Correct Phone Number");
                     ownerphone.requestFocus();
                 }
-
             }
             else {
-               /* Toast.makeText(this, name + email + phone, Toast.LENGTH_SHORT).show();*/
                 pagetwo.setVisibility(View.VISIBLE);
                 pageone.setVisibility(View.GONE);
             }
-
-
         }
         if (v.getId() == R.id.ownerprevious)
         {
@@ -210,8 +175,6 @@ public class SignupOwner extends Activity implements View.OnClickListener {
             int mDay=mcurrentDate.get(Calendar.DAY_OF_MONTH);
             DatePickerDialog mDatePicker=new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
-                    // TODO Auto-generated method stub
-                    /*      Your code   to get date and time    */
                     day=selectedday;
                     month=selectedmonth;
                     year=selectedyear;
@@ -220,14 +183,11 @@ public class SignupOwner extends Activity implements View.OnClickListener {
             },mYear, mMonth, mDay);
             mDatePicker.setTitle("Select date");
             mDatePicker.show();
-
         }
-
         if (v.getId() == R.id.ownersignup) {
             city=(String)ownercity.getSelectedItem();
             address=owneraddress.getText().toString().trim();
             noofplaces=(String)ownerplaces.getSelectedItem();
-
             if (male.isChecked())
             {
                 gender=male.getText().toString();
@@ -236,7 +196,6 @@ public class SignupOwner extends Activity implements View.OnClickListener {
             {
                 gender=female.getText().toString();
             }
-
             if (!male.isChecked() && !female.isChecked() || ((String) ownercity.getSelectedItem()).equalsIgnoreCase("Select City") || TextUtils.isEmpty(address)|| ((String) ownerplaces.getSelectedItem()).equalsIgnoreCase("Select No of Places"))
             {
                 if (!male.isChecked()|| !female.isChecked())
@@ -261,13 +220,6 @@ public class SignupOwner extends Activity implements View.OnClickListener {
                     ownerplaces.performClick();
                 }
             }
-
-
-
-
-
         }
-
-
     }
 }
