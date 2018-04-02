@@ -42,15 +42,20 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
         otp=findViewById(R.id.otp);
         resendotp1=findViewById(R.id.resendotp1);
         resendotp2=findViewById(R.id.resendotp2);
+        resendotp2.setOnClickListener(this);
         emailinput=findViewById(R.id.emailinput);
         login=findViewById(R.id.login);
+        login.setOnClickListener(this);
         Typeface font = Typeface.createFromAsset(getAssets(), "Font Awesome 5 Free-Solid-900.otf" );
         usericon.setTypeface(font);
         otpicon.setTypeface(font);
         otp.setTypeface(font);
         signup=findViewById(R.id.signup);
+        signup.setOnClickListener(this);
+        signup.setTypeface(font);
         pinView=findViewById(R.id.pinView);
         pinView.setEnabled(false);
+        otp.setOnClickListener(this);
         Intent intent=getIntent();
         if(intent!=null){
             type=intent.getStringExtra("type");
@@ -77,6 +82,7 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
             }
         }
         if(v.getId()==R.id.otp) {
+                emailinput.clearFocus();
                 emailtext = emailinput.getText().toString().trim();
                 if (TextUtils.isEmpty(emailtext)) {
                     emailinput.setError("Enter Email ID");
@@ -89,6 +95,7 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
                     else{
                         sendotp();
                         pinView.setEnabled(true);
+                        pinView.requestFocus();
                     }
                 }
         }
@@ -105,6 +112,8 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
         if(num!=0 || sp!=null) {
             int num2=sp.getInt("otp_sent",0);
             if(Integer.valueOf(otptext)==num2 || Integer.valueOf(otptext)==num){
+                se.remove("otp_sent");
+                se.commit();
                 Intent intent=null;
                 if(type.equalsIgnoreCase("Tenant")){
                     intent = new Intent(SignUpVerify.this, SignupTenant.class);
@@ -132,15 +141,23 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
             @Override
             public void onResponse(String response)
             {
-                if(response=="1") {
                     if (otp.getVisibility() == View.VISIBLE) {
                         otp.setVisibility(View.GONE);
                         signup.setVisibility(View.VISIBLE);
                         resendotp1.setVisibility(View.VISIBLE);
-                        new CountDownTimer(30000, 1000) {
+                        new CountDownTimer(120000, 1000) {
                             public void onTick(long millisUntilFinished) {
-                                resendotp1.setText("Resend Otp in " + millisUntilFinished / 1000);
+                                long min,sec;
+                                if(millisUntilFinished>60000){
+                                    min=millisUntilFinished/60000;
+                                    sec=millisUntilFinished%60000;
+                                    resendotp1.setText("Resend Otp in " + min +" min "+sec+" sec");
+                                }
+                                    else {
+                                    resendotp1.setText("Resend Otp in " + millisUntilFinished / 1000+" sec");
+                                }
                             }
+
                             public void onFinish() {
                                 resendotp1.setVisibility(View.GONE);
                                 resendotp2.setVisibility(View.VISIBLE);
@@ -152,13 +169,13 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
                             public void onTick(long millisUntilFinished) {
                                 resendotp1.setText("Resend Otp in " + millisUntilFinished / 1000);
                             }
+
                             public void onFinish() {
                                 resendotp1.setVisibility(View.GONE);
                                 resendotp2.setVisibility(View.VISIBLE);
                             }
                         }.start();
                     }
-                }
             }
         }, new Response.ErrorListener() {
             @Override
