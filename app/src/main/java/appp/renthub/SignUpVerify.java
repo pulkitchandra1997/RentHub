@@ -100,9 +100,14 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
                 }
         }
         if(v.getId()==R.id.signup){
-            otptext=pinView.getText().toString();
+            otptext=pinView.getText().toString().trim();
             pinView.clearFocus();
-            checkotp();
+            if(TextUtils.isEmpty(otptext)){
+                pinView.setError("Enter OTP");
+                pinView.requestFocus();
+            }
+            else
+                checkotp();
         }
         if(v.getId()==R.id.resendotp2){
             sendotp();
