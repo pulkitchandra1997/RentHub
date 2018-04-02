@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="appp.renthub.UserProfile"
     android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen"
     >
@@ -27,6 +26,7 @@
         app:itemTextColor="@color/bootstrap_brand_primary"
         android:background="?android:attr/windowBackground"
         android:layout_alignParentBottom="true"
+        app:itemIconTint="@color/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
