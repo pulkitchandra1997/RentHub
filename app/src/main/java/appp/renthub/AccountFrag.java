@@ -15,7 +15,7 @@ import android.widget.TextView;
  */
 
 public class AccountFrag extends Fragment {
-    TextView name,emailicon,phoneicon,bdayicon,statusicon,cityicon,gendericon,addressicon,tenantemail,tenantphone,tenantdob,tenantaddress,tenantgender,tenantcity,tenantstatus;
+    TextView name,email,bday,address,mobile,gender,city,marrystatus,emailicon,phoneicon,bdayicon,statusicon,cityicon,gendericon,addressicon,tenantemail,tenantphone,tenantdob,tenantaddress,tenantgender,tenantcity,tenantstatus;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -28,6 +28,13 @@ public class AccountFrag extends Fragment {
         tenantgender=v.findViewById(R.id.tenantgender);
         tenantstatus=v.findViewById(R.id.tenantstatus);
         tenantcity=v.findViewById(R.id.tenantcity);
+        email=v.findViewById(R.id.email);
+        address=v.findViewById(R.id.address);
+        mobile=v.findViewById(R.id.mobile);
+        bday=v.findViewById(R.id.bday);
+        gender=v.findViewById(R.id.gender);
+        marrystatus=v.findViewById(R.id.marrystatus);
+        city=v.findViewById(R.id.city);
         emailicon=v.findViewById(R.id.emailicon);
         phoneicon=v.findViewById(R.id.phoneicon);
         bdayicon=v.findViewById(R.id.bdayicon);
@@ -53,9 +60,13 @@ public class AccountFrag extends Fragment {
         tenantdob.setTypeface(fontface);
         tenantphone.setTypeface(fontface);
         tenantgender.setTypeface(fontface);
-
-
-
+        address.setTypeface(fontstyle);
+        email.setTypeface(fontstyle);
+        marrystatus.setTypeface(fontstyle);
+        city.setTypeface(fontstyle);
+        bday.setTypeface(fontstyle);
+        mobile.setTypeface(fontstyle);
+        gender.setTypeface(fontstyle);
         return v;
     }
 }
