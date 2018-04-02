@@ -17,7 +17,6 @@ public class Validation {
         return matcher.matches();
     }
     public static boolean isValidEmail(String mail) {
-
         return Patterns.EMAIL_ADDRESS.matcher(mail).matches();
     }
     public static boolean isValidPhone(String target) {

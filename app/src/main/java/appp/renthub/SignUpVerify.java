@@ -3,7 +3,13 @@ package appp.renthub;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,17 +18,28 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.chaos.view.PinView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpVerify extends Activity implements View.OnClickListener {
     String type=null,emailtext=null,otptext=null;
-    TextView usericon,otpicon,login;
-    Button otp;
-    EditText otpinput,emailinput;
+    int num;
+    TextView usericon,otpicon,login,resendotp1,resendotp2;
+    Button otp,signup;
+    EditText emailinput;
     com.beardedhen.androidbootstrap.AwesomeTextView signuptype;
     com.chaos.view.PinView pinView;
-    int flag=0;
+    SharedPreferences sp;
+    SharedPreferences.Editor se;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,12 +48,15 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
         usericon=findViewById(R.id.usericon);
         otpicon=findViewById(R.id.otpicon);
         otp=findViewById(R.id.otp);
+        resendotp1=findViewById(R.id.resendotp1);
+        resendotp2=findViewById(R.id.resendotp2);
         emailinput=findViewById(R.id.emailinput);
         login=findViewById(R.id.login);
         Typeface font = Typeface.createFromAsset(getAssets(), "Font Awesome 5 Free-Solid-900.otf" );
         usericon.setTypeface(font);
         otpicon.setTypeface(font);
         otp.setTypeface(font);
+        signup=findViewById(R.id.signup);
         pinView=findViewById(R.id.pinView);
         pinView.setEnabled(false);
         Intent intent=getIntent();
@@ -44,6 +64,8 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
             type=intent.getStringExtra("type");
             signuptype.setText("as "+type);
         }
+        sp=getSharedPreferences("RentHub_data",MODE_PRIVATE);
+        se=sp.edit();
     }
     @Override
     public void onBackPressed()
@@ -63,26 +85,112 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
             }
         }
         if(v.getId()==R.id.otp) {
-            if (flag == 0) {
                 emailtext = emailinput.getText().toString().trim();
                 if (TextUtils.isEmpty(emailtext)) {
                     emailinput.setError("Enter Email ID");
                     emailinput.requestFocus();
                 } else {
-                    if (!Validation.isValidEmail(email)) {
-                        owneremail.setError("Enter Correct Email");
-
-
+                    if (!Validation.isValidEmail(emailtext)) {
+                        emailinput.setError("Enter Correct Email");
+                        emailinput.requestFocus();
                     }
-            /*
-            CODE for sending OTP
-             */
-            /*
-            IF success
-             */
+                    else{
+                        sendotp();
+                        pinView.setEnabled(true);
+                    }
+                }
+        }
+        if(v.getId()==R.id.signup){
+            otptext=pinView.getText().toString();
+            checkotp();
+        }
+        if(v.getId()==R.id.resendotp2){
+            sendotp();
+        }
+    }
 
+    private void checkotp() {
+        if(num!=0 || sp!=null) {
+            int num2=sp.getInt("otp_sent",0);
+            if(Integer.valueOf(otptext)==num2 || Integer.valueOf(otptext)==num){
+                Intent intent=null;
+                if(type.equalsIgnoreCase("Tenant")){
+                    intent = new Intent(SignUpVerify.this, SignupTenant.class);
+                }
+                else{
+                    intent = new Intent(SignUpVerify.this, SignupOwner.class);
+                }
+                intent.putExtra("email",emailtext);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    ActivityOptions options = ActivityOptions.makeCustomAnimation(SignUpVerify.this, R.anim.fade_in, R.anim.fade_out);
+                    startActivity(intent, options.toBundle());
+                } else {
+                    startActivity(intent);
                 }
             }
         }
     }
+
+    private void sendotp() {
+        num=OTP_GENERATION.generateRandomNumber();
+        se.putInt("otp_sent", num);
+        se.commit();
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_SEND_OTP, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+                if(response=="1") {
+                    if (otp.getVisibility() == View.VISIBLE) {
+                        otp.setVisibility(View.GONE);
+                        signup.setVisibility(View.VISIBLE);
+                        resendotp1.setVisibility(View.VISIBLE);
+                        new CountDownTimer(30000, 1000) {
+                            public void onTick(long millisUntilFinished) {
+                                resendotp1.setText("Resend Otp in " + millisUntilFinished / 1000);
+                            }
+                            public void onFinish() {
+                                resendotp1.setVisibility(View.GONE);
+                                resendotp2.setVisibility(View.VISIBLE);
+                            }
+                        }.start();
+                    } else {
+                        resendotp1.setVisibility(View.VISIBLE);
+                        new CountDownTimer(30000, 1000) {
+                            public void onTick(long millisUntilFinished) {
+                                resendotp1.setText("Resend Otp in " + millisUntilFinished / 1000);
+                            }
+                            public void onFinish() {
+                                resendotp1.setVisibility(View.GONE);
+                                resendotp2.setVisibility(View.VISIBLE);
+                            }
+                        }.start();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                Snackbar snackbar = Snackbar
+                        .make(getWindow().getDecorView().getRootView(), "Error in sending OTP. Retry!", Snackbar.LENGTH_LONG);
+                View sbView = snackbar.getView();
+                TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
+                textView.setTextColor(Color.RED);
+                snackbar.show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", emailtext);
+                params.put("otp", String.valueOf(num));
+                return params;
+            }
+        };
+        MySingleton.getInstance(SignUpVerify.this).addToRequestQueue(stringRequest);
+    }
+
 }
