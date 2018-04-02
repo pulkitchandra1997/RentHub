@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -119,8 +121,7 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
             if(Integer.valueOf(otptext)==num2 || Integer.valueOf(otptext)==num){
                 se.remove("otp_sent");
                 se.commit();
-                Intent intent=null;
-                intent = new Intent(SignUpVerify.this, SignUpForm.class);
+                Intent intent = new Intent(SignUpVerify.this, SignUpForm.class);
                 intent.putExtra("type",type);
                 intent.putExtra("email",emailtext);
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
@@ -138,6 +139,7 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
     }
     private void sendotp() {
         num=OTP_GENERATION.generateRandomNumber();
+        Toast.makeText(this, String.valueOf(num), Toast.LENGTH_SHORT).show();
         se.putInt("otp_sent", num);
         se.commit();
         StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_SEND_OTP, new Response.Listener<String>()

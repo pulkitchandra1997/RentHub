@@ -19,17 +19,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Welcome" />
-
         <activity
             android:name=".LoginActivity"
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".SignUp" />
-        <activity
-            android:name=".SignupOwner"
-            android:windowSoftInputMode="adjustNothing" >
-
-
-        </activity>
+        <activity android:name=".SignUpForm"/>
         <activity android:name=".UserProfile">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />

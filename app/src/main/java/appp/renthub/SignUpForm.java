@@ -19,7 +19,7 @@ package appp.renthub;
 
 public class SignUpForm extends Activity implements View.OnClickListener {
 
-    TextView login,emailicon,phoneicon,nameicon,dobicon,statusicon,cityicon,gendericon,addressicon,typeicon;
+    TextView emailicon,phoneicon,nameicon,dobicon,statusicon,cityicon,gendericon,addressicon,typeicon;
     EditText inputemail,inputphone,inputname,inputdob,inputaddress;
     Button inputsignup,inputnext,inputprevious;
     RadioGroup inputgender;
@@ -32,8 +32,6 @@ public class SignUpForm extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_form);
-        login=findViewById(R.id.login);
-        login.setOnClickListener(this);
         inputsignup=findViewById(R.id.inputsignup);
         inputsignup.setOnClickListener(this);
         inputemail=findViewById(R.id.inputemail);
@@ -50,6 +48,7 @@ public class SignUpForm extends Activity implements View.OnClickListener {
         emailicon=findViewById(R.id.emailicon);
         phoneicon=findViewById(R.id.phoneicon);
         nameicon=findViewById(R.id.nameicon);
+        typeicon=findViewById(R.id.type);
         dobicon=findViewById(R.id.dobicon);
         cityicon=findViewById(R.id.cityicon);
         gendericon=findViewById(R.id.gendericon);
