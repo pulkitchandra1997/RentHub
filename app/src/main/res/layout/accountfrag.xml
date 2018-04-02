@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-
+    android:background="@mipmap/welcomeback"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -20,15 +20,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="20dp"
-        app:cardBackgroundColor="#fff"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
+        android:backgroundTint="#fff"
         app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@mipmap/profileback">
         <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
             android:layout_width="160dp"
             android:layout_height="160dp"
@@ -41,10 +42,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="PRANJAL VERMA"
+            android:text="Pranjal Verma"
             android:id="@+id/name"
             android:textSize="30dp"
-            app:bootstrapBrand="primary"/>
+            app:bootstrapBrand="secondary"/>
 
     </LinearLayout>
     </android.support.v7.widget.CardView>
@@ -77,6 +78,7 @@
                 android:orientation="horizontal"
                 android:stretchColumns="*"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingLeft="@dimen/activity_horizontal_margin">
             <TableRow>
@@ -85,17 +87,18 @@
                 android:layout_height="wrap_content"
                 android:text="&#xf2b9;"
                 android:id="@+id/emailicon"
+                android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
+                android:layout_gravity="left"
                 android:textSize="15dp"
-
                 />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Email"
                     android:id="@+id/email"
-                    android:layout_marginLeft="-50dp"
                     android:textSize="15dp"
+                    android:layout_gravity="left"
 
                     />
             <TextView
@@ -106,21 +109,16 @@
                 android:text="pranjalv206@gmail.com"
                 android:layout_gravity="right"/>
                 </TableRow>
-            </TableLayout>
+        <TableRow>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:background="#949393"
+            android:layout_span="3"
             />
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:stretchColumns="*"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin">
+        </TableRow>
             <TableRow>
                 <TextView
                     android:layout_width="wrap_content"
@@ -128,6 +126,8 @@
                     android:text="&#xf095;"
                     android:id="@+id/phoneicon"
                     android:textSize="15dp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_gravity="left"
                     android:textStyle="bold"
                     />
                 <TextView
@@ -136,7 +136,7 @@
                     android:text="Mobile"
                     android:id="@+id/mobile"
                     android:textSize="15dp"
-                    android:layout_marginLeft="-70dp"
+                    android:layout_gravity="left"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -146,21 +146,16 @@
                     android:text="1234567890"
                     android:layout_gravity="right"/>
             </TableRow>
-        </TableLayout>
+        <TableRow>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:background="#949393"
+            android:layout_span="3"
             />
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:stretchColumns="*"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin">
+        </TableRow>
             <TableRow>
                 <TextView
                     android:layout_width="wrap_content"
@@ -168,7 +163,9 @@
                     android:text="&#xf1fd;"
                     android:id="@+id/bdayicon"
                     android:textSize="15dp"
+                    android:textColor="@color/colorPrimary"
                     android:textStyle="bold"
+                    android:layout_gravity="left"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -176,7 +173,7 @@
                     android:text="DOB"
                     android:id="@+id/bday"
                     android:textSize="15dp"
-                    android:layout_marginLeft="-80dp"
+                    android:layout_gravity="left"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -186,21 +183,16 @@
                     android:text="12/01/1998"
                     android:layout_gravity="right"/>
             </TableRow>
-        </TableLayout>
+        <TableRow>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:background="#949393"
+            android:layout_span="3"
             />
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:stretchColumns="*"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin">
+        </TableRow>
             <TableRow>
                 <TextView
                     android:layout_width="wrap_content"
@@ -208,14 +200,18 @@
                     android:text="&#xf015;"
                     android:id="@+id/cityicon"
                     android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:layout_gravity="left"
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="City"
                     android:id="@+id/city"
                     android:textSize="15dp"
-                    android:layout_marginLeft="-90dp"/>
+                    android:layout_gravity="left"
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -224,36 +220,34 @@
                     android:id="@+id/tenantcity"
                     android:layout_gravity="right"/>
             </TableRow>
-        </TableLayout>
+        <TableRow>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:background="#949393"
-            />
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:stretchColumns="*"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin">
+            android:layout_span="3"
+            /></TableRow>
             <TableRow>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="&#xf228;"
                     android:id="@+id/gendericon"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_gravity="left"
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Gender"
                     android:id="@+id/gender"
                     android:textSize="15dp"
-                    android:layout_marginLeft="-90dp"/>
+                    android:layout_gravity="left"
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -262,36 +256,34 @@
                     android:text="Male"
                     android:layout_gravity="right"/>
             </TableRow>
-        </TableLayout>
+        <TableRow>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:background="#949393"
-            />
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:stretchColumns="*"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin">
-            <TableRow>
+            android:layout_span="3"
+            /></TableRow>
+                <TableRow>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="&#xf0c0;"
                     android:id="@+id/statusicon"
                     android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:layout_gravity="left"
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Marital Status"
                     android:textSize="15dp"
                     android:id="@+id/marrystatus"
-                    android:layout_marginLeft="-60dp" />
+                    android:layout_gravity="left"
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -300,22 +292,16 @@
                     android:text="Unmarried"
                     android:layout_gravity="right"/>
             </TableRow>
-        </TableLayout>
+        <TableRow>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:background="#949393"
-            />
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:stretchColumns="*"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingBottom="@dimen/activity_horizontal_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin">
+            android:layout_span="3"
+            /></TableRow>
+
             <TableRow>
                 <TextView
                     android:layout_width="wrap_content"
@@ -323,7 +309,10 @@
                     android:text="&#xf2bb;"
                     android:id="@+id/addressicon"
                     android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_gravity="left"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -331,7 +320,8 @@
                     android:text="Address"
                     android:id="@+id/address"
                     android:textSize="15dp"
-                    android:layout_marginLeft="-50dp"/>
+                    android:layout_gravity="left"
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -340,8 +330,7 @@
                     android:text="Kantipuram,Lucknow"
                     android:layout_gravity="right"/>
             </TableRow>
-        </TableLayout>
-
+            </TableLayout>
     </LinearLayout>
         </LinearLayout>
 
