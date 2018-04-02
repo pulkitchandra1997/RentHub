@@ -42,6 +42,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="PRANJAL VERMA"
+            android:id="@+id/name"
             android:textSize="30dp"
             app:bootstrapBrand="primary"/>
 
@@ -78,11 +79,12 @@
                 android:layout_marginTop="20dp"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingLeft="@dimen/activity_horizontal_margin">
-                <TableRow>
+            <TableRow>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email"
+                android:text="&#xf2b9;  Email"
+                android:id="@+id/emailicon"
                 android:textStyle="bold"
                 android:textSize="15dp"
 
@@ -91,6 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
+                android:id="@+id/tenantemail"
                 android:text="pranjalv206@gmail.com"
                 android:layout_gravity="right"/>
                 </TableRow>
@@ -113,16 +116,24 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Phone No"
+                    android:text="&#xf095;"
+                    android:id="@+id/phoneicon"
                     android:textSize="15dp"
                     android:textStyle="bold"
-
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mobile"
+                    android:id="@+id/mobile"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="-70dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
-                    
+                    android:id="@+id/tenantphone"
                     android:text="1234567890"
                     android:layout_gravity="right"/>
             </TableRow>
@@ -145,7 +156,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Birthday"
+                    android:text="&#xf1fd;  DOB"
+                    android:id="@+id/bdayicon"
                     android:textSize="15dp"
                     android:textStyle="bold"
 
@@ -154,6 +166,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
+                    android:id="@+id/tenantdob"
                     android:text="12/01/1998"
                     android:layout_gravity="right"/>
             </TableRow>
@@ -176,7 +189,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="City"
+                    android:text="&#xf015;  City"
+                    android:id="@+id/cityicon"
                     android:textSize="15dp"
                     android:textStyle="bold"
 
@@ -186,6 +200,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
                     android:text="Lucknow"
+                    android:id="@+id/tenantcity"
                     android:layout_gravity="right"/>
             </TableRow>
         </TableLayout>
@@ -207,7 +222,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gender"
+                    android:text="&#xf228;  Gender"
+                    android:id="@+id/gendericon"
                     android:textSize="15dp"
                     android:textStyle="bold"
 
@@ -216,7 +232,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
-                    
+                    android:id="@+id/tenantgender"
                     android:text="Male"
                     android:layout_gravity="right"/>
             </TableRow>
@@ -239,7 +255,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Marital Status"
+                    android:text="&#xf0c0;"
+                    android:id="@+id/statusicon"
                     android:textSize="15dp"
                     android:textStyle="bold"
 
@@ -247,8 +264,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Marital Status"
                     android:textSize="15dp"
-                    
+                    android:id="@+id/marrystatus"
+                    android:layout_marginLeft="-50dp"
+
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:id="@+id/tenantstatus"
                     android:text="Unmarried"
                     android:layout_gravity="right"/>
             </TableRow>
@@ -265,22 +291,24 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:stretchColumns="*"
-            android:layout_marginBottom="20dp"
             android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_horizontal_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin">
             <TableRow>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Address"
+                    android:text="&#xf2bb;  Address"
+                    android:id="@+id/addressicon"
                     android:textSize="15dp"
                     android:textStyle="bold"
 
                     />
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
+                    android:layout_height="wrap_content"
                     android:textSize="15dp"
+                    android:id="@+id/tenantaddress"
                     android:text="Kantipuram,Lucknow"
                     android:layout_gravity="right"/>
             </TableRow>
