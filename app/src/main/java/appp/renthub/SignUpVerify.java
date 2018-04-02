@@ -108,7 +108,6 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
             sendotp();
         }
     }
-
     private void checkotp() {
         if(num!=0 || sp!=null) {
             int num2=sp.getInt("otp_sent",0);
@@ -136,7 +135,6 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
             }
         }
     }
-
     private void sendotp() {
         num=OTP_GENERATION.generateRandomNumber();
         se.putInt("otp_sent", num);
@@ -197,5 +195,4 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
         };
         MySingleton.getInstance(SignUpVerify.this).addToRequestQueue(stringRequest);
     }
-
 }
