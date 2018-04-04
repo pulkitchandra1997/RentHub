@@ -37,22 +37,27 @@
             sp=getSharedPreferences("RentHub_data",MODE_PRIVATE);
             if(sp!=null){
                 String type=sp.getString("type",null);
-                String username=sp.getString("username",null);
-                String name=sp.getString("name",null);
-                String mobileno=sp.getString("mobileno",null);
                 if(type!=null) {
+                    Intent intent=null;
                     if (type.equalsIgnoreCase("owner")) {
+                        intent = new Intent(Welcome.this, OwnerProfile.class);
                     } else {
                         if (type.equalsIgnoreCase("tenant")) {
-
+                            intent = new Intent(Welcome.this, UserProfile.class);
                         }
+                    }
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                        ActivityOptions options = ActivityOptions.makeCustomAnimation(Welcome.this, R.anim.fade_in, R.anim.fade_out);
+                        startActivity(intent, options.toBundle());
+                    } else {
+                        startActivity(intent);
                     }
                 }
             }
         }
 
-        boolean doubleBackToExitPressedOnce = false;
 
+        boolean doubleBackToExitPressedOnce = false;
         @Override
         public void onBackPressed() {
             if (doubleBackToExitPressedOnce) {

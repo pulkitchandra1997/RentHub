@@ -5,4 +5,6 @@ package appp.renthub;
 public class Url {
     private static final String URL="http://rentzshop.in/admin/test/";
     public static final String URL_SEND_OTP=URL+"send-otp.php";
+    public static final String URL_SIGNUP_FORM=URL+"signup-form.php";
+
 }
