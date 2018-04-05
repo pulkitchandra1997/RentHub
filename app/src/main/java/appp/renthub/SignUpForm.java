@@ -278,11 +278,10 @@ public class SignUpForm extends Activity implements View.OnClickListener {
             @Override
             public void onResponse(String response)
             {
-                Toast.makeText(SignUpForm.this, response, Toast.LENGTH_SHORT).show();
-                /*if(response.equalsIgnoreCase("success"))
+                if(response.equalsIgnoreCase("success"))
                     qqsta=1;
                 if(response.equalsIgnoreCase("error"))
-                    qqsta=0;*/
+                    qqsta=0;
             }
         }, new Response.ErrorListener() {
             @Override
