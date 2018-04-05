@@ -20,7 +20,7 @@ public class OwnerProfile extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_post:
-                    fragment=new SearchFrag();
+                    fragment=new PostFrag();
                     switchFragment();
                     return true;
                 case R.id.navigation_account:
