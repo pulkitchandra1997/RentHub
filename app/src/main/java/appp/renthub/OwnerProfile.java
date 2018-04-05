@@ -54,7 +54,7 @@ public class OwnerProfile extends AppCompatActivity {
         fragment = new PostFrag();
         switchFragment();
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.ownernavigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 }
