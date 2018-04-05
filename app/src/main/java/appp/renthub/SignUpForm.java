@@ -239,7 +239,7 @@ public class SignUpForm extends Activity implements View.OnClickListener {
             }
             else{
                 toserver();
-                if(qqsta>1){
+                if(qqsta>=1){
                     se.putString("type", type);
                     se.putString("email", email);
                     se.putString("name", name);
@@ -278,8 +278,11 @@ public class SignUpForm extends Activity implements View.OnClickListener {
             @Override
             public void onResponse(String response)
             {
-                if(response.equalsIgnoreCase("success"))
+                Toast.makeText(SignUpForm.this, response, Toast.LENGTH_SHORT).show();
+                /*if(response.equalsIgnoreCase("success"))
                     qqsta=1;
+                if(response.equalsIgnoreCase("error"))
+                    qqsta=0;*/
             }
         }, new Response.ErrorListener() {
             @Override
@@ -287,7 +290,7 @@ public class SignUpForm extends Activity implements View.OnClickListener {
             {
                 qqsta=0;
                 Snackbar snackbar = Snackbar
-                        .make(getWindow().getDecorView().getRootView(), "Error in Registration!", Snackbar.LENGTH_LONG);
+                        .make(getWindow().getDecorView().getRootView(), error.toString(), Snackbar.LENGTH_LONG);
                 View sbView = snackbar.getView();
                 TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
                 textView.setTextColor(Color.RED);
