@@ -145,34 +145,64 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
         StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_SEND_OTP, new Response.Listener<String>()
         {
             @Override
-            public void onResponse(String response)
-            {
-                    if (otp.getVisibility() == View.VISIBLE) {
-                        otp.setVisibility(View.GONE);
-                        signup.setVisibility(View.VISIBLE);
-                        resendotp1.setVisibility(View.VISIBLE);
-                        new CountDownTimer(120000, 1000) {
-                            public void onTick(long millisUntilFinished) {
-                                long min,sec;
-                                if(millisUntilFinished>60000){
-                                    min=millisUntilFinished/60000;
-                                    sec=(millisUntilFinished-(min*60000))/1000;
-                                    resendotp1.setText("Resend Otp in " + min +" min "+sec+" sec");
-                                }
-                                    else {
-                                    resendotp1.setText("Resend Otp in " + millisUntilFinished / 1000+" sec");
+            public void onResponse(String response) {
+                if(response.equalsIgnoreCase("1") ){
+                if (otp.getVisibility() == View.VISIBLE) {
+                    otp.setVisibility(View.GONE);
+                    signup.setVisibility(View.VISIBLE);
+                    resendotp1.setVisibility(View.VISIBLE);
+                    new CountDownTimer(120000, 1000) {
+                        public void onTick(long millisUntilFinished) {
+                            long min, sec;
+                            if (millisUntilFinished > 60000) {
+                                min = millisUntilFinished / 60000;
+                                sec = (millisUntilFinished - (min * 60000)) / 1000;
+                                resendotp1.setText("Resend Otp in " + min + " min " + sec + " sec");
+                            } else {
+                                resendotp1.setText("Resend Otp in " + millisUntilFinished / 1000 + " sec");
+                            }
+                        }
+
+                        public void onFinish() {
+                            resendotp1.setVisibility(View.GONE);
+                            resendotp2.setVisibility(View.VISIBLE);
+                        }
+                    }.start();
+                } else {
+                    resendotp1.setVisibility(View.VISIBLE);
+                }
+            }
+            else{
+                    if(response.equalsIgnoreCase("0")) {
+                        Snackbar snackbar = Snackbar
+                                .make(getWindow().getDecorView().getRootView(), "Email already Registered.", Snackbar.LENGTH_LONG);
+                        View sbView = snackbar.getView();
+                        TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
+                        textView.setTextColor(Color.RED);
+                        snackbar.setAction("Login",new View.OnClickListener(){
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(SignUpVerify.this, LoginActivity.class);
+                                intent.putExtra("email",emailtext);
+                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                    ActivityOptions options = ActivityOptions.makeCustomAnimation(SignUpVerify.this, R.anim.fade_in, R.anim.fade_out);
+                                    startActivity(intent, options.toBundle());
+                                } else {
+                                    startActivity(intent);
                                 }
                             }
-
-                            public void onFinish() {
-                                resendotp1.setVisibility(View.GONE);
-                                resendotp2.setVisibility(View.VISIBLE);
-                            }
-                        }.start();
-                    } else {
-                        resendotp1.setVisibility(View.VISIBLE);
-
+                        });
+                        snackbar.show();
                     }
+                    if(response.equalsIgnoreCase("error")){
+                        Snackbar snackbar = Snackbar
+                                .make(getWindow().getDecorView().getRootView(), "Error in sending OTP. Retry!", Snackbar.LENGTH_LONG);
+                        View sbView = snackbar.getView();
+                        TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
+                        textView.setTextColor(Color.RED);
+                        snackbar.show();
+                    }
+                }
             }
         }, new Response.ErrorListener() {
             @Override
