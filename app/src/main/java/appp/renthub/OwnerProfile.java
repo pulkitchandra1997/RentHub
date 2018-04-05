@@ -1,12 +1,13 @@
 package appp.renthub;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class OwnerProfile extends AppCompatActivity {
+public class OwnerProfile extends Activity {
 
     android.app.Fragment fragment = null;
     android.app.FragmentTransaction ft;
