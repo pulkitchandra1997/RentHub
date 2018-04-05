@@ -23,30 +23,30 @@
             android:name=".LoginActivity"
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".SignUp" />
-        <activity android:name=".SignUpForm"/>
+        <activity android:name=".SignUpForm" />
         <activity android:name=".UserProfile">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
-        </activity>
-        <activity android:name=".SignUpVerify"></activity>
-        <activity
-            android:name=".WelcomeScreen"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="adjustResize">
-
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
+            -->
         </activity>
+        <activity android:name=".SignUpVerify" />
+        <activity
+            android:name=".WelcomeScreen"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".OwnerProfile"></activity>
     </application>
 
 </manifest>

@@ -1,12 +1,12 @@
 package appp.renthub;
 
-import android.app.Activity;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.MenuItem;
 
-public class OwnerProfile extends Activity {
+public class OwnerProfile extends AppCompatActivity {
 
     android.app.Fragment fragment = null;
     android.app.FragmentTransaction ft;
@@ -19,8 +19,8 @@ public class OwnerProfile extends Activity {
 
 
             switch (item.getItemId()) {
-                case R.id.navigation_search:
-                    fragment=new SearchFrag();
+                case R.id.navigation_post:
+                    fragment=new PostFrag();
                     switchFragment();
                     return true;
                 case R.id.navigation_account:
@@ -50,12 +50,11 @@ public class OwnerProfile extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
-        fragment = new SearchFrag();
+        setContentView(R.layout.activity_owner_profile);
+        fragment = new PostFrag();
         switchFragment();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
-
 }

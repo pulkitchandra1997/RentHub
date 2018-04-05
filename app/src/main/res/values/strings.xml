@@ -60,5 +60,6 @@
     <string name="title_dashboard">Account</string>
     <string name="title_notifications">Manage</string>
     <string name="title_messages">Messages</string>
+    <string name="title_post">Rent Home</string>
 
 </resources>

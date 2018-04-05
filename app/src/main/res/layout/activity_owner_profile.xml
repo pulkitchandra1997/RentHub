@@ -2,23 +2,21 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/usercontainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/ownercontainer"
     android:gravity="center"
-    tools:context="appp.renthub.UserProfile"
-    android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen"
-    >
+    tools:context="appp.renthub.OwnerProfile"
+    android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen">
 
-<FrameLayout
+    <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/content" >
 
 </FrameLayout>
-
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
+        android:id="@+id/ownernavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="0dp"
