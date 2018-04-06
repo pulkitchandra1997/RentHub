@@ -23,16 +23,10 @@
             android:name=".LoginActivity"
             android:windowSoftInputMode="adjustNothing" >
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".SignUp" />
         <activity android:name=".SignUpForm" />
         <activity android:name=".UserProfile">
-
         </activity>
         <activity android:name=".SignUpVerify" />
         <activity
