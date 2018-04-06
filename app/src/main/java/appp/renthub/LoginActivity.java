@@ -3,6 +3,7 @@ package appp.renthub;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -19,7 +20,12 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +37,9 @@ EditText email;
 EditText password;
 TextView pwdicon,usericon,forgot,signup;
 Button login;
+    SharedPreferences sp;
+    SharedPreferences.Editor se;
+String typevalue,emailvalue,namevalue,phonevalue,dobvalue,marriagestatusvalue,cityvalue,permanentaddressvalue,pincodevalue,gendervalue,passwordvalue,verifiedvalue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +59,8 @@ Button login;
         signup.setOnClickListener(this);
         forgot=findViewById(R.id.forgot);
         forgot.setOnClickListener(this);
+        sp=getSharedPreferences("RentHub_data",MODE_PRIVATE);
+        se=sp.edit();
     }
 /*    @Override
     public void onBackPressed()
@@ -72,40 +83,86 @@ Button login;
                     password.requestFocus();
                 }
             } else{
-                if(!Validation.isValidEmail(emailid)||!Validation.isValidPhone(emailid)){
+                if(!Validation.isValidEmail(emailid)&&!Validation.isValidPhone(emailid)){
                     email.setError("Enter Valid Email/Phone no");
                     email.requestFocus();
                 }
                 else{
-                    StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_LOGIN, new Response.Listener<String>()
-                    {
-                        @Override
-                        public void onResponse(String response) {
-                            //receive JSON object
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error)
-                        {
-                            Snackbar snackbar = Snackbar
-                                    .make(getWindow().getDecorView().getRootView(), "Error in sending OTP. Retry!", Snackbar.LENGTH_LONG);
-                            View sbView = snackbar.getView();
-                            TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
-                            textView.setTextColor(Color.RED);
-                            snackbar.show();
-                        }
-                    })
-                    {
+                    JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST,Url.URL_LOGIN,null,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    if(response.toString().equalsIgnoreCase("error")){
+                                        Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
+                                    }
+                                    try{
+                                        JSONArray array = response.getJSONArray("userdetails");
+                                        for(int i=0;i<array.length();i++){
+                                            JSONObject userdetails = array.getJSONObject(i);
+                                            typevalue=userdetails.getString("type");
+                                            emailvalue=userdetails.getString("email");
+                                            namevalue=userdetails.getString("name");
+                                            phonevalue=userdetails.getString("phone");
+                                            dobvalue=userdetails.getString("dob");
+                                            marriagestatusvalue=userdetails.getString("marriagestatus");
+                                            cityvalue=userdetails.getString("city");
+                                            permanentaddressvalue=userdetails.getString("permanentaddress");
+                                            pincodevalue=userdetails.getString("pincode");
+                                            gendervalue=userdetails.getString("gender");
+                                            passwordvalue=userdetails.getString("password");
+                                            verifiedvalue=userdetails.getString("verified");
+                                            se.putString("type", typevalue);
+                                            se.putString("email", emailvalue);
+                                            se.putString("name", namevalue);
+                                            se.putString("phone", phonevalue);
+                                            se.putString("dob", dobvalue);
+                                            se.putString("marriagestatus", marriagestatusvalue);
+                                            se.putString("city", cityvalue);
+                                            se.putString("permanentaddress", permanentaddressvalue);
+                                            se.putString("pincode", pincodevalue);
+                                            se.putString("gender", gendervalue);
+                                            se.putString("password", passwordvalue);
+                                            se.putString("verifystatus",verifiedvalue);
+                                            se.commit();
+                                            Intent intent;
+                                            if(typevalue.equalsIgnoreCase("owner")) {
+                                                OWNER owner=new OWNER(namevalue,phonevalue,dobvalue,marriagestatusvalue,cityvalue,permanentaddressvalue,pincodevalue,gendervalue,passwordvalue,verifiedvalue);
+                                                intent = new Intent(LoginActivity.this, OwnerProfile.class);
+                                                intent.putExtra("profile",owner);
+                                            }
+                                            else {
+                                                USER user=new USER(namevalue,phonevalue,dobvalue,marriagestatusvalue,cityvalue,permanentaddressvalue,pincodevalue,gendervalue,passwordvalue,verifiedvalue);
+                                                intent = new Intent(LoginActivity.this, UserProfile.class);
+                                                intent.putExtra("profile",user);
+                                            }
+                                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                                                ActivityOptions options = ActivityOptions.makeCustomAnimation(LoginActivity.this, R.anim.fade_in, R.anim.fade_out);
+                                                startActivity(intent, options.toBundle());
+                                            } else {
+                                                startActivity(intent);
+                                            }                                        }
+                                    }catch (JSONException e){
+                                        e.printStackTrace();
+                                    }
+                                }
+                            },
+                            new Response.ErrorListener(){
+                                @Override
+                                public void onErrorResponse(VolleyError error){
+                                    // Do something when error occurred
+                                    Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                                }
+                            }){
                         @Override
                         protected Map<String, String> getParams() throws AuthFailureError
                         {
                             Map<String, String> params = new HashMap<>();
                             params.put("email", emailid);
-                            params.put("password", String.valueOf(pwd));
+                            params.put("password", pwd);
                             return params;
                         }
                     };
-                    MySingleton.getInstance(LoginActivity.this).addToRequestQueue(stringRequest);
+                    MySingleton.getInstance(LoginActivity.this).addToRequestQueue(jsonObjectRequest);
                 }
 
         }
