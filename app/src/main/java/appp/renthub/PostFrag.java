@@ -61,7 +61,7 @@ public class PostFrag extends Fragment implements View.OnClickListener{
         refigrator = view.findViewById(R.id.refigrator);
         ac = view.findViewById(R.id.ac);
         invertor = view.findViewById(R.id.invertor);
-        tv= view.findViewById(R.id.tv);
+        tv = view.findViewById(R.id.tv);
         wifi = view.findViewById(R.id.wifi);
         mess = view.findViewById(R.id.mess);
         parking = view.findViewById(R.id.parking);
