@@ -198,7 +198,7 @@ public class SignUpForm extends Activity implements View.OnClickListener {
             mDatePicker.show();
         }
         if (v.getId() == R.id.inputsignup) {
-            city=(String)inputcity.getSelectedItem();
+           city=(String)inputcity.getSelectedItem();
             address=inputaddress.getText().toString().trim();
             pincode=inputpincode.getText().toString().trim();
             status=(String)marrystatus.getSelectedItem();

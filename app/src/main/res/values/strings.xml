@@ -61,5 +61,36 @@
     <string name="title_notifications">Manage</string>
     <string name="title_messages">Messages</string>
     <string name="title_post">Rent Home</string>
+    <!-- Strings related to renthome -->
+    <string name="prompt_onlyAddress">Your Address</string>
+    <string name="prompt_onlyPincode">Pincode</string>
+    <array name="city">
+        <item>Select City</item>
+        <item>Lucknow</item>
+        <item>Kanpur</item>
+        <item>Delhi</item>
+        <item>Gurgaon</item>
+        <item>Mumbai</item>
+        <item>Pune</item>
+        <item>Kolkata</item>
+        <item>Chennai</item>
+        <item>Bangalore</item>
+        <item>Ahmedabad</item>
+        <item>Hyderabad</item>
+        <item>Jaipur</item>
+        <item>Ghaziabad</item>
+        <item>Noida</item>
+        <item>Patna</item>
+        <item>Chandigarh</item>
+        <item>Allahabad</item>
+    </array>
+    <array name="roomstatus">
+        <item>Select type of room</item>
 
+        <item>2BHK</item>
+        <item>3BHK</item>
+        <item>Single</item>
+    </array>
+    <string name="prompt_amount">Rent amount per month</string>
+    <string name="Room">Select Room Status</string>
 </resources>
