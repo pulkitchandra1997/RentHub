@@ -285,17 +285,19 @@
                         android:orientation="horizontal"
                         android:layout_marginTop="10dp"
                         >
-                        <android.support.v7.widget.AppCompatCheckBox android:id="@+id/inventor"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Inventor"
-                            android:padding="10dp"/>
+
                         <android.support.v7.widget.AppCompatCheckBox android:id="@+id/mess"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Mess"
                             android:padding="10dp"/>
-                        <android.support.v7.widget.AppCompatCheckBox android:id="@+id/parkingspace"
+                        <android.support.v7.widget.AppCompatCheckBox android:id="@+id/invertor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Invertor"
+                            android:padding="10dp"/>
+
+                        <android.support.v7.widget.AppCompatCheckBox android:id="@+id/parking"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Parking"

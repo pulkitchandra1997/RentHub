@@ -33,10 +33,10 @@ public class PostFrag extends Fragment implements View.OnClickListener{
     Spinner roomstatus,inputcity;
     Button inputsubmit,inputnext,inputprevious;
     LinearLayout pageone,pagetwo;
-    CheckBox sofa,bed,refigrator,ac;
-    Activity activity = getActivity();
+    CheckBox sofa,bed,refigrator,ac,wifi,invertor,parking,tv,mess;
+    String sofaid,bedid,refigratorid,acid,wifiid,invertorid,parkingid,tvid,messid;
+
     String city,address,amount,pincode,status;
-    private boolean doubleBackToExitPressedOnce;
 
 
     @Nullable
@@ -60,6 +60,12 @@ public class PostFrag extends Fragment implements View.OnClickListener{
         bed = view.findViewById(R.id.bed);
         refigrator = view.findViewById(R.id.refigrator);
         ac = view.findViewById(R.id.ac);
+        invertor = view.findViewById(R.id.invertor);
+        tv= view.findViewById(R.id.tv);
+        wifi = view.findViewById(R.id.wifi);
+        mess = view.findViewById(R.id.mess);
+        parking = view.findViewById(R.id.parking);
+
         inputprevious = view.findViewById(R.id.inputprevious);
         inputsubmit = view.findViewById(R.id.inputsubmit);
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Font Awesome 5 Free-Solid-900.otf");
@@ -75,27 +81,11 @@ public class PostFrag extends Fragment implements View.OnClickListener{
 
         inputnext.setOnClickListener(this);
         inputprevious.setOnClickListener(this);
+        inputsubmit.setOnClickListener(this);
 
 
         return view;
     }
-   /* @Override
-    public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-          //  super.onBackPressed();
-            return;
-        }
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(activity, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce=false;
-            }
-        }, 2000);
-    }*/
-
 
     @Override
     public void onClick(View v) {
