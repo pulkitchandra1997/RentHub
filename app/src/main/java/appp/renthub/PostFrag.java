@@ -33,7 +33,7 @@ public class PostFrag extends Fragment implements View.OnClickListener{
     Spinner roomstatus,inputcity;
     Button inputsubmit,inputnext,inputprevious;
     LinearLayout pageone,pagetwo;
-    CheckBox sofa,bed,refigrator,ac,wifi,invertor,parking,tv,mess;
+    CheckBox sofa,bed,refrigerator,ac,wifi,invertor,parking,tv,mess;
     String sofaid,bedid,refigratorid,acid,wifiid,invertorid,parkingid,tvid,messid;
 
     String city,address,amount,pincode,status;
@@ -58,7 +58,7 @@ public class PostFrag extends Fragment implements View.OnClickListener{
         pageone = view.findViewById(R.id.pageone);
         sofa = view.findViewById(R.id.sofa);
         bed = view.findViewById(R.id.bed);
-        refigrator = view.findViewById(R.id.refigrator);
+        refrigerator = view.findViewById(R.id.refrigerator);
         ac = view.findViewById(R.id.ac);
         invertor = view.findViewById(R.id.invertor);
         tv = view.findViewById(R.id.tv);
@@ -85,7 +85,6 @@ public class PostFrag extends Fragment implements View.OnClickListener{
 
         return view;
     }
-
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.inputnext)
