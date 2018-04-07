@@ -65,7 +65,6 @@ public class PostFrag extends Fragment implements View.OnClickListener{
         wifi = view.findViewById(R.id.wifi);
         mess = view.findViewById(R.id.mess);
         parking = view.findViewById(R.id.parking);
-
         inputprevious = view.findViewById(R.id.inputprevious);
         inputsubmit = view.findViewById(R.id.inputsubmit);
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Font Awesome 5 Free-Solid-900.otf");
