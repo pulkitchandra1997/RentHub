@@ -140,8 +140,61 @@ public class PostFrag extends Fragment implements View.OnClickListener{
                 pagetwo.setVisibility(View.GONE);
 
             }
+            if (v.getId() == R.id.inputsubmit) {
+            if (sofa.isChecked() || bed.isChecked() || ac.isChecked() || tv.isChecked() || parking.isChecked() || invertor.isChecked() || refrigerator.isChecked() || mess.isChecked() || wifi.isChecked()) {
+                if (sofa.isChecked()) {
+                    sofaid = "1";
+                } else {
+                    sofaid = "0";
+                }
 
+                if (bed.isChecked()) {
+                    bedid = "1";
+                } else {
+                    bedid = "0";
+                }
+                if (ac.isChecked()) {
+                    acid = "1";
+                } else {
+                    acid = "0";
+                }
+                if (tv.isChecked()) {
+                    tvid = "1";
+                } else {
+                    tvid = "0";
+                }
+                if (parking.isChecked()) {
+                    parkingid = "1";
+                } else {
+                    parkingid = "0";
+                }
+                if (invertor.isChecked()) {
+                    invertorid = "1";
+                } else {
+                    invertorid = "0";
+                }
+                if (refrigerator.isChecked()) {
+                    refigratorid = "1";
+                } else {
+                    refigratorid = "0";
+                }
+                if (mess.isChecked()) {
+                    messid = "1";
+                } else {
+                    messid = "0";
+                }
+                if (wifi.isChecked()) {
+                    wifiid = "1";
+                } else {
+                    wifiid = "0";
+                }
+            }else {
+                Toast.makeText(getActivity(), "Select atleast one facility", Toast.LENGTH_SHORT).show();
+            }
 
+                Toast.makeText(getActivity(), city+address+pincode+amount+status+bedid+tvid+acid+refigratorid+messid+wifiid+parkingid+sofaid+invertorid, Toast.LENGTH_SHORT).show();
+
+            }
         }
 
     }
