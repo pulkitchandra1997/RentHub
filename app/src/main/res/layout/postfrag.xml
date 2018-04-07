@@ -173,7 +173,7 @@
                         android:layout_gravity="center"
                         android:padding="5dp"
                         android:id="@+id/amounticon"
-                        android:text="&#xf4d3;"
+                        android:text="&#xf156;"
                         />
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"

@@ -146,11 +146,13 @@ public class PostFrag extends Fragment implements View.OnClickListener{
                  }
 
             }
+
             if (v.getId() == R.id.inputprevious) {
                 pageone.setVisibility(View.VISIBLE);
                 pagetwo.setVisibility(View.GONE);
 
             }
+
 
         }
 
