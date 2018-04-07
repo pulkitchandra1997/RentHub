@@ -136,7 +136,8 @@ public class SignUpForm extends Activity implements View.OnClickListener {
             phone = inputphone.getText().toString().trim();
             dob = inputdob.getText().toString().trim();
             password=inputpassword.getText().toString().trim();
-            if (TextUtils.isEmpty(name) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(dob)||TextUtils.isEmpty(password)) {
+            if (TextUtils.isEmpty(name) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(dob)||TextUtils.isEmpty(password))
+            {
                 if(TextUtils.isEmpty(password)){
                     inputpassword.setError("Enter Password");
                     inputpassword.requestFocus();

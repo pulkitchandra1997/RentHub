@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,7 +21,8 @@ import android.widget.TextView;
 
 public class AccountFrag extends Fragment implements View.OnClickListener {
     TextView editprofileicon,viewprofileicon,viewprofile,editprofile,name,email,bday,address,mobile,gender,city,marrystatus,emailicon,phoneicon,bdayicon,statusicon,cityicon,gendericon,addressicon,tenantemail,tenantphone,tenantdob,tenantaddress,tenantgender,tenantcity,tenantstatus;
-    TextView email2,bday2,address2,mobile2,gender2,city2,marrystatus2,emailicon2,phoneicon2,bdayicon2,statusicon2,cityicon2,gendericon2,addressicon2,tenantemail2,tenantphone2,tenantdob2,tenantaddress2,tenantgender2;
+    TextView email2,bday2,address2,mobile2,gender2,city2,marrystatus2,emailicon2,phoneicon2,bdayicon2,statusicon2,cityicon2,gendericon2,addressicon2,logout,changepassword;
+    EditText tenantemail2,tenantphone2,tenantdob2,tenantaddress2,tenantgender2;
     CardView viewcard,editcard;
     Spinner tenantcity2,tenantstatus2;
     LinearLayout viewlink,editlink;
@@ -48,6 +50,11 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         tenantgender=v.findViewById(R.id.tenantgender);
         tenantstatus=v.findViewById(R.id.tenantstatus);
         tenantcity=v.findViewById(R.id.tenantcity);
+        tenantemail2=v.findViewById(R.id.tenantemail2);
+        tenantaddress2=v.findViewById(R.id.tenantaddress2);
+        tenantphone2=v.findViewById(R.id.tenantphone2);
+        tenantdob2=v.findViewById(R.id.tenantdob2);
+        tenantgender2=v.findViewById(R.id.tenantgender2);
         email=v.findViewById(R.id.email);
         address=v.findViewById(R.id.address);
         mobile=v.findViewById(R.id.mobile);
@@ -77,6 +84,8 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         gendericon2=v.findViewById(R.id.gendericon2);
         statusicon2=v.findViewById(R.id.statusicon2);
         addressicon2=v.findViewById(R.id.addressicon2);
+        logout=v.findViewById(R.id.logout);
+        changepassword=v.findViewById(R.id.changepassword);
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Font Awesome 5 Free-Solid-900.otf" );
         emailicon.setTypeface(font);
         phoneicon.setTypeface(font);
@@ -104,6 +113,11 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         tenantdob.setTypeface(fontface);
         tenantphone.setTypeface(fontface);
         tenantgender.setTypeface(fontface);
+        tenantaddress2.setTypeface(fontface);
+        tenantemail2.setTypeface(fontface);
+        tenantdob2.setTypeface(fontface);
+        tenantphone2.setTypeface(fontface);
+        tenantgender2.setTypeface(fontface);
 
         address.setTypeface(fontstyle);
         email.setTypeface(fontstyle);
@@ -123,6 +137,8 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         editprofile.setOnClickListener(this);
         editbtn.setOnClickListener(this);
         viewprofile.setOnClickListener(this);
+        logout.setOnClickListener(this);
+        changepassword.setOnClickListener(this);
         return v;
     }
 

@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="RentHome"
+                    android:text="Rent Your Home"
                     android:textAlignment="textStart"
                     android:textColor="#ef5350"
                     android:textSize="35dp" />
@@ -71,6 +71,7 @@
                         android:layout_marginTop="10dp"
                         android:id="@+id/addressicon"
                         android:text="&#xf015;"/>
+
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -97,6 +98,7 @@
                         android:layout_marginTop="10dp"
                         android:id="@+id/pincodeicon"
                         android:text="&#xf2c2;"/>
+
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -123,19 +125,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="15dp">
                         <TextView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center"
                             android:padding="5dp"
-                            android:layout_marginTop="10dp"
                             android:id="@+id/cityicon"
                             android:text="&#xf2bb;"/>
                         <Spinner
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
                             android:entries="@array/city"
                             android:padding="2dp"
                             android:id="@+id/inputcity"/>
@@ -144,20 +144,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="15dp">
                     <TextView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:padding="5dp"
-                        android:layout_marginTop="10dp"
                         android:text="&#xf494;"
                         android:id="@+id/roomsicon"/>
                     <Spinner
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
                         android:entries="@array/roomstatus"
+                        android:padding="2dp"
                         android:id="@+id/roomstatus"/>
 
 
@@ -173,9 +172,9 @@
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:padding="5dp"
-                        android:layout_marginTop="10dp"
                         android:id="@+id/amounticon"
-                        android:text="&#xf4d3;"/>
+                        android:text="&#xf4d3;"
+                        />
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -186,8 +185,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/prompt_amount"
                             android:inputType="number"
-                            android:maxLength="6"
-                            android:maxLines="4"
+                            android:maxLength="9"
                             android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -241,20 +239,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sofa"
-                    android:onClick="onCheckboxClicked"
                     android:padding="10dp"/>
-                <android.support.v7.widget.AppCompatCheckBox android:id="@+id/ac"
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/ac"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="AC"
-                    android:onClick="onCheckboxClicked"
                     android:padding="10dp"/>
-                    <android.support.v7.widget.AppCompatCheckBox android:id="@+id/wifi"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Wifi"
-                        android:onClick="onCheckboxClicked"
-                        android:padding="10dp"/>
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/wifi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wifi"
+                    android:padding="10dp"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -262,23 +259,23 @@
                     android:orientation="horizontal"
                     android:layout_marginTop="10dp"
                    >
-                    <android.support.v7.widget.AppCompatCheckBox android:id="@+id/bed"
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/bed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Bed"
-                        android:onClick="onCheckboxClicked"
                         android:padding="10dp"/>
-                    <android.support.v7.widget.AppCompatCheckBox android:id="@+id/tv"
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TV"
-                        android:onClick="onCheckboxClicked"
                         android:padding="10dp"/>
-                    <CheckBox android:id="@+id/refigrator"
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/refigrator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Refrigator"
-                        android:onClick="onCheckboxClicked"
                         android:padding="10dp"/>
 
                 </LinearLayout>
@@ -292,19 +289,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Inventor"
-                            android:onClick="onCheckboxClicked"
                             android:padding="10dp"/>
                         <android.support.v7.widget.AppCompatCheckBox android:id="@+id/mess"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Mess"
-                            android:onClick="onCheckboxClicked"
                             android:padding="10dp"/>
                         <android.support.v7.widget.AppCompatCheckBox android:id="@+id/parkingspace"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Parking Space"
-                            android:onClick="onCheckboxClicked"
+                            android:text="Parking"
                             android:padding="10dp"/></LinearLayout>
 
 

@@ -86,10 +86,10 @@
     </array>
     <array name="roomstatus">
         <item>Select type of room</item>
-
+        <item>Single</item>
         <item>2BHK</item>
         <item>3BHK</item>
-        <item>Single</item>
+
     </array>
     <string name="prompt_amount">Rent amount per month</string>
     <string name="Room">Select Room Status</string>

@@ -35,6 +35,7 @@ public class PostFrag extends Fragment implements View.OnClickListener{
     LinearLayout pageone,pagetwo;
     CheckBox sofa,bed,refigrator,ac;
     Activity activity = getActivity();
+    String city,address,amount,pincode,status;
     private boolean doubleBackToExitPressedOnce;
 
 
@@ -98,15 +99,17 @@ public class PostFrag extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.inputnext) {
-            String city = (String) inputcity.getSelectedItem();
-            String address = inputaddress.getText().toString().trim();
-            String pincode = inputpincode.getText().toString().trim();
-            String status = (String) roomstatus.getSelectedItem();
-            if (TextUtils.isEmpty(city) || TextUtils.isEmpty(address) || TextUtils.isEmpty(pincode) || TextUtils.isEmpty(status)) {
-                if (((String) roomstatus.getSelectedItem()).equalsIgnoreCase("Select Room Status")) {
-                    // Toast.makeText(this, "Select Room Status", LENGTH_SHORT).show();
-                    Toast.makeText(activity, "Select Room Status", Toast.LENGTH_SHORT).show();
+        if (v.getId() == R.id.inputnext)
+        {
+            city = (String) inputcity.getSelectedItem();
+            address = inputaddress.getText().toString().trim();
+            pincode = inputpincode.getText().toString().trim();
+            status = (String) roomstatus.getSelectedItem();
+            amount= inputamount.getText().toString().trim();
+
+            if (((String) inputcity.getSelectedItem()).equalsIgnoreCase("Select City") || TextUtils.isEmpty(address) || TextUtils.isEmpty(pincode)|| TextUtils.isEmpty(amount) || ((String) roomstatus.getSelectedItem()).equalsIgnoreCase("Select type of room")) {
+                if (((String) roomstatus.getSelectedItem()).equalsIgnoreCase("Select type of room")) {
+                    Toast.makeText(getActivity(), "Select Room Status", Toast.LENGTH_SHORT).show();
                     roomstatus.requestFocus();
                     roomstatus.performClick();
                 }
@@ -114,37 +117,34 @@ public class PostFrag extends Fragment implements View.OnClickListener{
                     inputpincode.setError("Enter Pincode");
                     inputpincode.requestFocus();
                 }
-                if (((String) inputcity.getSelectedItem()).equalsIgnoreCase("Select City")) {
-                    // Toast.makeText(, "Select City", LENGTH_SHORT).show();
 
-                    Toast.makeText(activity, "Select City", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(amount)) {
+                    inputamount.setError("Enter Amount");
+                    inputamount.requestFocus();
+                }
+                if (((String) inputcity.getSelectedItem()).equalsIgnoreCase("Select City")) {
+
+                    Toast.makeText(getActivity(), "Select City", Toast.LENGTH_SHORT).show();
                     inputcity.requestFocus();
                     inputcity.performClick();
                 }
                 if (TextUtils.isEmpty(address)) {
                     inputaddress.setError("Enter Address");
                     inputaddress.requestFocus();
-                }/* else {
-                    if (!Validation.isValidName(address) || !Validation.isValidPhone(pincode) || pincode.length() < 6) {
-                        if (pincode.length() < 6) {
-                            inputpincode.setError("Password must contains 6 characters");
-                            inputpincode.requestFocus();
-                        }
-                       *//* if(!Validation.isValidPhone(pincode)){
-                            inputphone.setError("Enter Valid Name");
-                            inputphone.requestFocus();
-                        }*//*
-                        if (!Validation.isValidName(address)) {
-                            inputaddress.setError("Enter Valid Address");
-                            inputaddress.requestFocus();
-                        }
-
-                    } */else {
-                        pagetwo.setVisibility(View.VISIBLE);
-                        pageone.setVisibility(View.GONE);
-
-                    }
                 }
+                inputaddress.requestFocus();
+            }
+            else if (pincode.length() < 6 || pincode.length()>6)
+                 {
+                     inputpincode.setError("Pincode must be 6 digits");
+                     inputpincode.requestFocus();
+                 }
+                    else
+                 {
+                     pagetwo.setVisibility(View.VISIBLE);
+                     pageone.setVisibility(View.GONE);
+                 }
+
             }
             if (v.getId() == R.id.inputprevious) {
                 pageone.setVisibility(View.VISIBLE);

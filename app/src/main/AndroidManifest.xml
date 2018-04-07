@@ -26,7 +26,8 @@
         </activity>
         <activity android:name=".SignUp" />
         <activity android:name=".SignUpForm" />
-        <activity android:name=".UserProfile">
+        <activity android:name=".UserProfile"
+            android:windowSoftInputMode="adjustNothing">
         </activity>
         <activity android:name=".SignUpVerify" />
         <activity
@@ -34,13 +35,14 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="adjustResize">
-           <!-- <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
-        <activity android:name=".OwnerProfile">
+        <activity android:name=".OwnerProfile"
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
