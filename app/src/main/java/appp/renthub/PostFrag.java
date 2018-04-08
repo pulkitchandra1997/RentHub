@@ -3,11 +3,14 @@ package appp.renthub;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,18 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -36,9 +51,10 @@ public class PostFrag extends Fragment implements View.OnClickListener{
     CheckBox sofa,bed,refrigerator,ac,wifi,invertor,parking,tv,mess;
     String sofaid,bedid,refigratorid,acid,wifiid,invertorid,parkingid,tvid,messid;
 
-    String city,address,amount,pincode,status;
+    String city,address,amount,pincode,status,email,type;
+    OWNER owner;
 
-
+    JSONObject jsonObject;
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.postfrag, container, false);
@@ -82,6 +98,7 @@ public class PostFrag extends Fragment implements View.OnClickListener{
         inputprevious.setOnClickListener(this);
         inputsubmit.setOnClickListener(this);
 
+        email=null;
 
         return view;
     }
@@ -140,6 +157,7 @@ public class PostFrag extends Fragment implements View.OnClickListener{
                 pagetwo.setVisibility(View.GONE);
 
             }
+
             if (v.getId() == R.id.inputsubmit)
             {
             if (sofa.isChecked() || bed.isChecked() || ac.isChecked() || tv.isChecked() || parking.isChecked() || invertor.isChecked() || refrigerator.isChecked() || mess.isChecked() || wifi.isChecked()) {
@@ -193,9 +211,74 @@ public class PostFrag extends Fragment implements View.OnClickListener{
                 Toast.makeText(getActivity(), "Select atleast one facility", Toast.LENGTH_SHORT).show();
             }
 
-                Toast.makeText(getActivity(), city+address+pincode+amount+status+bedid+tvid+acid+refigratorid+messid+wifiid+parkingid+sofaid+invertorid, Toast.LENGTH_SHORT).show();
+                /*Toast.makeText(getActivity(), city+address+pincode+amount+status+bedid+tvid+acid+refigratorid+messid+wifiid+parkingid+sofaid+invertorid, Toast.LENGTH_SHORT).show();
+*/
+                jsonObject=new JSONObject();
+                try {
+                    jsonObject.put("status",status);
+                    jsonObject.put("city",city);
+                    jsonObject.put("address",address);
+                    jsonObject.put("pincode",pincode);
+                    jsonObject.put("amount",amount);
+                    jsonObject.put("email",email);
+                    jsonObject.put("acid",acid);
+                    jsonObject.put("wifiid",wifiid);
+                    jsonObject.put("tvid",tvid);
+                    jsonObject.put("invertorid",invertorid);
+                    jsonObject.put("parkingid",parkingid);
+                    jsonObject.put("refrigeratorid",refigratorid);
+                    jsonObject.put("bedid",bedid);
+                    jsonObject.put("sofaid",sofaid);
+                    jsonObject.put("messid",messid);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                toserver();
 
             }
         }
-
+    private void toserver() {
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_RENT_FORM, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+                if(response.equalsIgnoreCase("success"))
+                   /* loginsuccess();*/ {
+                    Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                }
+                if(response.equalsIgnoreCase("error")){
+                    Snackbar snackbar = Snackbar
+                            .make(getActivity().getWindow().getDecorView().getRootView(), "Error in connection!", Snackbar.LENGTH_LONG);
+                    View sbView = snackbar.getView();
+                    TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(Color.RED);
+                    snackbar.show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                Snackbar snackbar = Snackbar
+                        .make(getActivity().getWindow().getDecorView().getRootView(), "Connection error! Retry", Snackbar.LENGTH_LONG);
+                View sbView = snackbar.getView();
+                TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
+                textView.setTextColor(Color.RED);
+                snackbar.show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put("data",jsonObject.toString());
+                return params;
+            }
+        };
+        MySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
     }

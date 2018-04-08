@@ -7,4 +7,5 @@ public class Url {
     public static final String URL_SEND_OTP=URL+"send-otp.php";
     public static final String URL_SIGNUP_FORM=URL+"signup-form.php";
     public static final String URL_LOGIN=URL+"login.php";
+    public static final String URL_RENT_FORM=URL+"rentform.php";
 }

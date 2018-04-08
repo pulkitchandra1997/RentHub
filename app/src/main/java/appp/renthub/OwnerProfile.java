@@ -1,13 +1,17 @@
 package appp.renthub;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import java.security.acl.Owner;
+
 public class OwnerProfile extends Activity {
+
 
     android.app.Fragment fragment = null;
     android.app.FragmentTransaction ft;
@@ -50,7 +54,13 @@ public class OwnerProfile extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_profile);
+        Intent intent=getIntent();
+
+/*
+        Bundle bundle=new Bundle();
+        bundle.putString("owneremail",email);*/
         fragment = new PostFrag();
+       /* fragment.setArguments(bundle);*/
         switchFragment();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.ownernavigation);
