@@ -18,6 +18,8 @@ public class MessageFrag extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.messagefrag,container,false);
 
+
+
         return view;
     }
 }

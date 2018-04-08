@@ -39,6 +39,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v= inflater.inflate(R.layout.accountfrag,container,false);
+
         editbtn=v.findViewById(R.id.editbtn);
         editlink=v.findViewById(R.id.editlink);
         viewlink=v.findViewById(R.id.viewlink);
@@ -93,6 +94,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         addressicon2=v.findViewById(R.id.addressicon2);
         logout=v.findViewById(R.id.logout);
         changepassword=v.findViewById(R.id.changepassword);
+
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Font Awesome 5 Free-Solid-900.otf" );
         emailicon.setTypeface(font);
         phoneicon.setTypeface(font);
