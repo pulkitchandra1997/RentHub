@@ -1,36 +1,40 @@
 package appp.renthub;
-        import android.app.Activity;
-        import android.app.ActivityOptions;
-        import android.app.DatePickerDialog;
-        import android.content.Intent;
-        import android.content.SharedPreferences;
-        import android.graphics.Color;
-        import android.graphics.Typeface;
-        import android.os.Bundle;
-        import android.os.Handler;
-        import android.support.design.widget.Snackbar;
-        import android.text.TextUtils;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.DatePicker;
-        import android.widget.EditText;
-        import android.widget.LinearLayout;
-        import android.widget.RadioButton;
-        import android.widget.RadioGroup;
-        import android.widget.Spinner;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.app.Activity;
+import android.app.ActivityOptions;
+import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.Snackbar;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import com.android.volley.AuthFailureError;
-        import com.android.volley.Request;
-        import com.android.volley.Response;
-        import com.android.volley.VolleyError;
-        import com.android.volley.toolbox.StringRequest;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 
-        import java.util.Calendar;
-        import java.util.Date;
-        import java.util.HashMap;
-        import java.util.Map;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpForm extends Activity implements View.OnClickListener {
 
@@ -39,12 +43,13 @@ public class SignUpForm extends Activity implements View.OnClickListener {
     Button inputsignup,inputnext,inputprevious;
     RadioGroup inputgender;
     LinearLayout pageone,pagetwo;
-    int day,year,month,qqsta;
+    int day,year,month;
     String name,phone,email,dob,status,city,gender,address,type,pincode,password;
     Spinner marrystatus,inputcity;
     RadioButton male,female;
     SharedPreferences sp;
     SharedPreferences.Editor se;
+    JSONObject jsonObject;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -199,7 +204,7 @@ public class SignUpForm extends Activity implements View.OnClickListener {
             mDatePicker.show();
         }
         if (v.getId() == R.id.inputsignup) {
-           city=(String)inputcity.getSelectedItem();
+            city=(String)inputcity.getSelectedItem();
             address=inputaddress.getText().toString().trim();
             pincode=inputpincode.getText().toString().trim();
             status=(String)marrystatus.getSelectedItem();
@@ -239,58 +244,81 @@ public class SignUpForm extends Activity implements View.OnClickListener {
                 }
             }
             else{
-                toserver();
-                if(qqsta>=1){
-                    se.putString("type", type);
-                    se.putString("email", email);
-                    se.putString("name", name);
-                    se.putString("phone", phone);
-                    se.putString("dob", dob);
-                    se.putString("marriagestatus", status);
-                    se.putString("city", city);
-                    se.putString("permanentaddress", address);
-                    se.putString("pincode", pincode);
-                    se.putString("gender", gender);
-                    se.putString("password", password);
-                    se.putString("verifystatus","0");
-                    se.commit();
-                    Intent intent=null;
-                    if(type.equalsIgnoreCase("owner")){
-                        intent = new Intent(SignUpForm.this, OwnerProfile.class);
-                    }
-                    else{
-                        intent = new Intent(SignUpForm.this, UserProfile.class);
-                    }
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                        ActivityOptions options = ActivityOptions.makeCustomAnimation(SignUpForm.this, R.anim.fade_in, R.anim.fade_out);
-                        startActivity(intent, options.toBundle());
-                    } else {
-                        startActivity(intent);
-                    }
+                jsonObject=new JSONObject();
+                try {
+                    jsonObject.put("type",type);
+                    jsonObject.put("email",email);
+                    jsonObject.put("name",name);
+                    jsonObject.put("phone",phone);
+                    jsonObject.put("dob",dob);
+                    jsonObject.put("marriagestatus",status);
+                    jsonObject.put("city",city);
+                    jsonObject.put("permanentaddress",address);
+                    jsonObject.put("pincode",pincode);
+                    jsonObject.put("gender",gender);
+                    jsonObject.put("password",password);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+                toserver();
             }
         }
     }
-
+    public void loginsuccess(){
+        se.putString("type", type);
+        se.putString("email", email);
+        se.putString("name", name);
+        se.putString("phone", phone);
+        se.putString("dob", dob);
+        se.putString("marriagestatus", status);
+        se.putString("city", city);
+        se.putString("permanentaddress", address);
+        se.putString("pincode", pincode);
+        se.putString("gender", gender);
+        se.putString("password", password);
+        se.putString("verifystatus","0");
+        se.commit();
+        Intent intent=null;
+        if(type.equalsIgnoreCase("owner")){
+            OWNER owner = new OWNER(name, phone, dob, status, city, address, pincode, gender, password, "0");
+            intent = new Intent(SignUpForm.this, OwnerProfile.class);
+            intent.putExtra("profile", owner);
+        }
+        else{
+            USER user = new USER(name, phone, dob, status, city, address, pincode, gender, password, "0");
+            intent = new Intent(SignUpForm.this, UserProfile.class);
+            intent.putExtra("profile", user);
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            ActivityOptions options = ActivityOptions.makeCustomAnimation(SignUpForm.this, R.anim.fade_in, R.anim.fade_out);
+            startActivity(intent, options.toBundle());
+        } else {
+            startActivity(intent);
+        }
+    }
     private void toserver() {
-
         StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_SIGNUP_FORM, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)
             {
                 if(response.equalsIgnoreCase("success"))
-                    qqsta=1;
-                if(response.equalsIgnoreCase("error"))
-                    qqsta=0;
+                    loginsuccess();
+                if(response.equalsIgnoreCase("error")){
+                    Snackbar snackbar = Snackbar
+                            .make(getWindow().getDecorView().getRootView(), "Error in connection!", Snackbar.LENGTH_LONG);
+                    View sbView = snackbar.getView();
+                    TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(Color.RED);
+                    snackbar.show();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                qqsta=0;
                 Snackbar snackbar = Snackbar
-                        .make(getWindow().getDecorView().getRootView(), error.toString(), Snackbar.LENGTH_LONG);
+                        .make(getWindow().getDecorView().getRootView(), "Connection error! Retry", Snackbar.LENGTH_LONG);
                 View sbView = snackbar.getView();
                 TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
                 textView.setTextColor(Color.RED);
@@ -302,17 +330,7 @@ public class SignUpForm extends Activity implements View.OnClickListener {
             protected Map<String, String> getParams() throws AuthFailureError
             {
                 Map<String, String> params = new HashMap<>();
-                params.put("type",type);
-                params.put("email",email);
-                params.put("name",name);
-                params.put("phone",phone);
-                params.put("dob",dob);
-                params.put("marriagestatus",status);
-                params.put("city",city);
-                params.put("permanentaddress",address);
-                params.put("pincode",pincode);
-                params.put("gender",gender);
-                params.put("password",password);
+                params.put("data",jsonObject.toString());
                 return params;
             }
         };
