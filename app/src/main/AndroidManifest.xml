@@ -25,11 +25,13 @@
 
         </activity>
         <activity android:name=".SignUp" />
-        <activity android:name=".SignUpForm" />
+        <activity android:name=".SignUpForm"
+            android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".UserProfile"
             android:windowSoftInputMode="adjustNothing">
         </activity>
-        <activity android:name=".SignUpVerify" />
+        <activity android:name=".SignUpVerify"
+            android:windowSoftInputMode="adjustNothing"/>
         <activity
             android:name=".WelcomeScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"

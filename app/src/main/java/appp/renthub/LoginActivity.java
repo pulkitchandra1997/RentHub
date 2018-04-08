@@ -59,12 +59,12 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         sp=getSharedPreferences("RentHub_data",MODE_PRIVATE);
         se=sp.edit();
     }
-    /*    @Override
+        @Override
         public void onBackPressed()
         {
             this.startActivity(new Intent(LoginActivity.this,Welcome.class));
             return;
-        }*/
+        }
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.login) {

@@ -569,7 +569,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                             android:layout_height="wrap_content"
                             android:entries="@array/citylist"
                             android:id="@+id/tenantcity2"
-                            android:paddingTop="10dp"
+                            android:padding="10dp"
                             android:layout_gravity="right"
                             />
 
@@ -646,11 +646,11 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                             android:layout_gravity="left"
                             />
                         <Spinner
-                            android:layout_width="match_parent"
+                            android:layout_width="170dp"
                             android:layout_height="wrap_content"
                             android:entries="@array/marrystatus"
                             android:id="@+id/tenantstatus2"
-                            android:paddingTop="10dp"
+                            android:padding="10dp"
                             android:layout_gravity="right"/>
 
                     </TableRow>
@@ -691,13 +691,11 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                             android:layout_height="wrap_content">
                             <EditText
                                 android:id="@+id/tenantaddress2"
-                                android:layout_width="match_parent"
+                                android:layout_width="120dp"
                                 android:layout_height="wrap_content"
                                 android:text="Kantipuram,Lucknow"
-                                android:inputType="textMultiLine"
                                 android:maxLines="4"
                                 android:textSize="13dp"
-                                android:singleLine="true"
                                 android:layout_gravity="right"/>
                         </android.support.design.widget.TextInputLayout>
 

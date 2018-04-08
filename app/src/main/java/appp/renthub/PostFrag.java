@@ -140,7 +140,8 @@ public class PostFrag extends Fragment implements View.OnClickListener{
                 pagetwo.setVisibility(View.GONE);
 
             }
-            if (v.getId() == R.id.inputsubmit) {
+            if (v.getId() == R.id.inputsubmit)
+            {
             if (sofa.isChecked() || bed.isChecked() || ac.isChecked() || tv.isChecked() || parking.isChecked() || invertor.isChecked() || refrigerator.isChecked() || mess.isChecked() || wifi.isChecked()) {
                 if (sofa.isChecked()) {
                     sofaid = "1";

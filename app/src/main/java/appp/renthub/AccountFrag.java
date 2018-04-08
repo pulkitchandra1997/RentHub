@@ -1,5 +1,8 @@
 package appp.renthub;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by pranj on 01-04-2018.
  */
@@ -27,6 +32,8 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     Spinner tenantcity2,tenantstatus2;
     LinearLayout viewlink,editlink;
     Button editbtn;
+    SharedPreferences sp;
+    SharedPreferences.Editor se;
 
     @Nullable
     @Override
@@ -139,6 +146,9 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         viewprofile.setOnClickListener(this);
         logout.setOnClickListener(this);
         changepassword.setOnClickListener(this);
+
+        sp=getActivity().getSharedPreferences("RentHub_data",MODE_PRIVATE);
+        se=sp.edit();
         return v;
     }
 
@@ -155,6 +165,30 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
             editcard.setVisibility(View.GONE);
             editlink.setVisibility(View.VISIBLE);
             viewlink.setVisibility(View.GONE);
+        }
+        if (v.getId() == R.id.logout);
+        {
+            se.remove("email");
+            se.remove("password");
+            se.remove("name");
+            se.remove("type");
+            se.remove("phone");
+            se.remove("dob");
+            se.remove("marriagestatus");
+            se.remove("city");
+            se.remove("permanentaddress");
+            se.remove("pincode");
+            se.remove("gender");
+            se.remove("verifystatus");
+            se.commit();
+            Intent intent=new Intent(getActivity(),LoginActivity.class);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                ActivityOptions options = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.fade_in, R.anim.fade_out);
+                startActivity(intent, options.toBundle());
+            }
+            else{
+                startActivity(intent);
+            }
         }
 
     }
