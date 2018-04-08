@@ -276,16 +276,16 @@ public class SignUpForm extends Activity implements View.OnClickListener {
         se.putString("pincode", pincode);
         se.putString("gender", gender);
         se.putString("password", password);
-        se.putString("verifystatus","0");
+        se.putString("verified","0");
         se.commit();
         Intent intent=null;
         if(type.equalsIgnoreCase("owner")){
-            OWNER owner = new OWNER(name, phone, dob, status, city, address, pincode, gender, password, "0");
+            OWNER owner = new OWNER(email,name, phone, dob, status, city, address, pincode, gender, password, "0");
             intent = new Intent(SignUpForm.this, OwnerProfile.class);
             intent.putExtra("profile", owner);
         }
         else{
-            USER user = new USER(name, phone, dob, status, city, address, pincode, gender, password, "0");
+            USER user = new USER(email,name, phone, dob, status, city, address, pincode, gender, password, "0");
             intent = new Intent(SignUpForm.this, UserProfile.class);
             intent.putExtra("profile", user);
         }

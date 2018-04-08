@@ -179,7 +179,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
             se.remove("permanentaddress");
             se.remove("pincode");
             se.remove("gender");
-            se.remove("verifystatus");
+            se.remove("verified");
             se.commit();
             Intent intent=new Intent(getActivity(),LoginActivity.class);
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {

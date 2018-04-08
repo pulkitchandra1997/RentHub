@@ -11,8 +11,19 @@ public class USER implements Serializable {
     String phone;
     String dob;
 
-    public USER(String name, String phone, String dob, String marriagestatus, String city, String permanentaddress, String pincode, String gender, String password, String verified) {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    String email;
+
+    public USER(String email, String name, String phone, String dob, String marriagestatus, String city, String permanentaddress, String pincode, String gender, String password, String verified) {
         this.name = name;
+        this.email=email;
         this.phone = phone;
         this.dob = dob;
         this.marriagestatus = marriagestatus;

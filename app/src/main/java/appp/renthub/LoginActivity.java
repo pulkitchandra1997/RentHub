@@ -36,7 +36,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     SharedPreferences sp;
     SharedPreferences.Editor se;
     String emailid,pwd;
-    String typevalue,emailvalue,namevalue,phonevalue,dobvalue,marriagestatusvalue,cityvalue,permanentaddressvalue,pincodevalue,gendervalue,passwordvalue,verifiedvalue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,12 +103,60 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     }
 
     private void toserver() {
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_SIGNUP_FORM, new Response.Listener<String>()
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_LOGIN, new Response.Listener<String>()
         {
             @Override
-            public void onResponse(String response)
-            {
-                Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
+            public void onResponse(String response) {
+                if (response.toLowerCase().contains("loginerror")) {
+                    if(response.toLowerCase().contains("loginerror0")){
+                        Snackbar snackbar = Snackbar
+                                .make(getWindow().getDecorView().getRootView(), "Incorrect Email/Mobile/Password", Snackbar.LENGTH_LONG);
+                        View sbView = snackbar.getView();
+                        TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
+                        textView.setTextColor(Color.RED);
+                        snackbar.show();
+                    }
+                    if(response.toLowerCase().contains("loginerror1")){
+                        Snackbar snackbar = Snackbar
+                                .make(getWindow().getDecorView().getRootView(), "Server Error", Snackbar.LENGTH_LONG);
+                        View sbView = snackbar.getView();
+                        TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
+                        textView.setTextColor(Color.RED);
+                        snackbar.show();
+                    }
+                    if(response.toLowerCase().contains("loginerror2")){
+                        Snackbar snackbar = Snackbar
+                                .make(getWindow().getDecorView().getRootView(), "Internet Error. check connection", Snackbar.LENGTH_LONG);
+                        View sbView = snackbar.getView();
+                        TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
+                        textView.setTextColor(Color.RED);
+                        snackbar.show();
+                    }
+                } else {
+                    try {
+                        JSONObject jsonObject=new JSONObject(response);
+                        tosharedpreference(jsonObject);
+                        Intent intent;
+                        if(jsonObject.get("type").toString().equalsIgnoreCase("owner")){
+                            OWNER owner=new OWNER(jsonObject.getString("email"),jsonObject.getString("name"),jsonObject.getString("phone"),jsonObject.getString("dob"),jsonObject.getString("marriagestatus"),jsonObject.getString("city"),jsonObject.getString("permanentaddress"),jsonObject.getString("pincode"),jsonObject.getString("gender"),jsonObject.getString("password"),jsonObject.getString("verified"));
+                            intent = new Intent(LoginActivity.this, OwnerProfile.class);
+                            intent.putExtra("profile", owner);
+                        }
+                        else{
+                            USER user=new USER(jsonObject.getString("email"),jsonObject.getString("name"),jsonObject.getString("phone"),jsonObject.getString("dob"),jsonObject.getString("marriagestatus"),jsonObject.getString("city"),jsonObject.getString("permanentaddress"),jsonObject.getString("pincode"),jsonObject.getString("gender"),jsonObject.getString("password"),jsonObject.getString("verified"));
+                            intent = new Intent(LoginActivity.this, UserProfile.class);
+                            intent.putExtra("profile", user);
+                        }
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                            ActivityOptions options = ActivityOptions.makeCustomAnimation(LoginActivity.this, R.anim.fade_in, R.anim.fade_out);
+                            startActivity(intent, options.toBundle());
+                        } else {
+                            startActivity(intent);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -136,6 +183,24 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         MySingleton.getInstance(LoginActivity.this).addToRequestQueue(stringRequest);
     }
 
-    private void loginsuccess() {
+    private void tosharedpreference(JSONObject jsonObject) {
+        try {
+            se.putString("type", jsonObject.getString("type"));
+            se.putString("email", jsonObject.getString("email"));
+            se.putString("name", jsonObject.getString("name"));
+            se.putString("phone", jsonObject.getString("phone"));
+            se.putString("dob", jsonObject.getString("dob"));
+            se.putString("marriagestatus", jsonObject.getString("marriagestatus"));
+            se.putString("city", jsonObject.getString("city"));
+            se.putString("permanentaddress", jsonObject.getString("permanentaddress"));
+            se.putString("pincode", jsonObject.getString("pincode"));
+            se.putString("gender", jsonObject.getString("gender"));
+            se.putString("password", jsonObject.getString("password"));
+            se.putString("verified",jsonObject.getString("verified"));
+            se.commit();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
+
 }
