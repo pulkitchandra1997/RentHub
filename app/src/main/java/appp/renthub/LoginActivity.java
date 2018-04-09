@@ -53,7 +53,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         usericon.setTypeface(font2);
         signup=findViewById(R.id.signup);
         signup.setOnClickListener(this);
-        forgot=findViewById(R.id.forgot);
+        forgot=findViewById(R.id.forgotpwd);
         forgot.setOnClickListener(this);
         sp=getSharedPreferences("RentHub_data",MODE_PRIVATE);
         se=sp.edit();
@@ -97,7 +97,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 startActivity(intent);
             }
         }
-        if(v.getId()==R.id.forgot){
+        if(v.getId()==R.id.forgotpwd)
+        {
             Intent intent = new Intent(LoginActivity.this, ForgotPasswordOtp.class);
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
                 ActivityOptions options = ActivityOptions.makeCustomAnimation(LoginActivity.this, R.anim.fade_in, R.anim.fade_out);
