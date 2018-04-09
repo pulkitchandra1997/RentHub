@@ -8,7 +8,6 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@mipmap/welcomeback"
     android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen">
 
@@ -63,13 +62,13 @@
                     android:orientation="horizontal"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="5dp">
                     <TextView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:padding="5dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="5dp"
                         android:id="@+id/addressicon"
                         android:text="&#xf015;"/>
 
@@ -89,8 +88,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
+                    android:orientation="horizontal">
                     <TextView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
@@ -116,17 +114,11 @@
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
-                <!--<LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/pagetwo"
-                    android:visibility="gone">-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginTop="15dp">
+                        android:layout_marginTop="10dp">
                         <TextView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -145,7 +137,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="15dp">
+                    android:layout_marginTop="10dp">
                     <TextView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
@@ -166,8 +158,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
+                    android:orientation="horizontal">
                     <TextView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
@@ -179,7 +170,6 @@
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-
                         <EditText
                             android:id="@+id/inputamount"
                             android:layout_width="match_parent"
@@ -197,7 +187,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:background="@color/bootstrap_brand_primary"
-        android:text="NEXT     &#xf061;"
+        android:text="NEXT  &#xf061;"
         android:textColor="#fff"
         android:textStyle="bold" />
             </LinearLayout>
@@ -211,7 +201,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="5dp">
                 <TextView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -229,81 +219,89 @@
                     android:text="Facilities"
                     />
             </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
-
-                <android.support.v7.widget.AppCompatCheckBox android:id="@+id/sofa"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sofa"
-                    android:padding="10dp"/>
-                <android.support.v7.widget.AppCompatCheckBox
-                    android:id="@+id/ac"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="AC"
-                    android:padding="10dp"/>
-                <android.support.v7.widget.AppCompatCheckBox
-                    android:id="@+id/wifi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Wifi"
-                    android:padding="10dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp"
-                   >
-                    <android.support.v7.widget.AppCompatCheckBox
-                        android:id="@+id/bed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Bed"
-                        android:padding="10dp"/>
-                    <android.support.v7.widget.AppCompatCheckBox
-                        android:id="@+id/tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TV"
-                        android:padding="10dp"/>
-                    <android.support.v7.widget.AppCompatCheckBox
-                        android:id="@+id/refrigerator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Refrigator"
-                        android:padding="10dp"/>
-
-                </LinearLayout>
-                    <LinearLayout
+                    <TableLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="10dp"
-                        >
+                        android:isScrollContainer="true">
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:paddingHorizontal="20dp">
+                            <android.support.v7.widget.AppCompatCheckBox    android:id="@+id/sofa"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Sofa"
+                                android:padding="10dp"/>
+                            <android.support.v7.widget.AppCompatCheckBox
+                                android:id="@+id/ac"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="AC"
+                                android:layout_marginLeft="20dp"
+                                android:padding="10dp"/>
+                        </TableRow>
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:paddingHorizontal="20dp">
+                            <android.support.v7.widget.AppCompatCheckBox
+                                android:id="@+id/wifi"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Wifi"
+                                android:padding="10dp"/>
+                            <android.support.v7.widget.AppCompatCheckBox
+                                android:id="@+id/bed"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
 
-                        <android.support.v7.widget.AppCompatCheckBox android:id="@+id/mess"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Mess"
-                            android:padding="10dp"/>
-                        <android.support.v7.widget.AppCompatCheckBox android:id="@+id/invertor"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Invertor"
-                            android:padding="10dp"/>
-
-                        <android.support.v7.widget.AppCompatCheckBox android:id="@+id/parking"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Parking"
-                            android:padding="10dp"/></LinearLayout>
-
-
+                                android:text="Bed"
+                                android:padding="10dp"/>
+                        </TableRow>
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:paddingHorizontal="20dp">
+                            <android.support.v7.widget.AppCompatCheckBox
+                                android:id="@+id/tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="TV"
+                                android:padding="10dp"/>
+                            <android.support.v7.widget.AppCompatCheckBox
+                                android:id="@+id/refrigerator"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:text="Refrigator"
+                                android:padding="10dp"/>
+                        </TableRow>
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:paddingHorizontal="20dp">
+                            <android.support.v7.widget.AppCompatCheckBox android:id="@+id/mess"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Mess"
+                                android:padding="10dp"/>
+                            <android.support.v7.widget.AppCompatCheckBox android:id="@+id/invertor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Invertor"
+                                android:layout_marginLeft="20dp"
+                                android:padding="10dp"/>
+                        </TableRow>
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:paddingHorizontal="20dp"
+                            >
+                            <android.support.v7.widget.AppCompatCheckBox android:id="@+id/parking"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Parking"
+                                android:layout_span="2"
+                                android:layout_marginLeft="50dp"
+                                android:padding="10dp"/>
+                        </TableRow>
+                    </TableLayout>
                     <Button
                         android:id="@+id/inputprevious"
                         style="?android:textAppearanceSmall"
