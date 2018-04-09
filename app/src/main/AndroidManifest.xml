@@ -48,6 +48,9 @@
             android:windowSoftInputMode="adjustNothing">
 
         </activity>
+
+
+
     </application>
 
 </manifest>
