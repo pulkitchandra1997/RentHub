@@ -21,7 +21,7 @@ public class ManageFrag extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.placedetailsfrag,container,false);
+        View view= inflater.inflate(R.layout.managefrag,container,false);
 
 
         return view;
