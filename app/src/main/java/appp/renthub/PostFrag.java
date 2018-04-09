@@ -1,5 +1,6 @@
 package appp.renthub;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
@@ -51,10 +52,16 @@ public class PostFrag extends Fragment implements View.OnClickListener{
     CheckBox sofa,bed,refrigerator,ac,wifi,invertor,parking,tv,mess;
     String sofaid,bedid,refigratorid,acid,wifiid,invertorid,parkingid,tvid,messid;
 
-    String city,address,amount,pincode,status,email,type;
-    OWNER owner;
+    String city,address,amount,pincode,status,email;
 
     JSONObject jsonObject;
+OWNER owner;
+@SuppressLint("ValidFragment")
+    public PostFrag(OWNER owner) {
+    this.owner=owner;
+    }
+    public PostFrag() {
+    }
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.postfrag, container, false);
@@ -97,9 +104,7 @@ public class PostFrag extends Fragment implements View.OnClickListener{
         inputnext.setOnClickListener(this);
         inputprevious.setOnClickListener(this);
         inputsubmit.setOnClickListener(this);
-
-        email=null;
-
+        email=owner.getEmail();
         return view;
     }
     @Override
@@ -149,15 +154,11 @@ public class PostFrag extends Fragment implements View.OnClickListener{
                      pagetwo.setVisibility(View.VISIBLE);
                      pageone.setVisibility(View.GONE);
                  }
-
             }
-
             if (v.getId() == R.id.inputprevious) {
                 pageone.setVisibility(View.VISIBLE);
                 pagetwo.setVisibility(View.GONE);
-
             }
-
             if (v.getId() == R.id.inputsubmit)
             {
             if (sofa.isChecked() || bed.isChecked() || ac.isChecked() || tv.isChecked() || parking.isChecked() || invertor.isChecked() || refrigerator.isChecked() || mess.isChecked() || wifi.isChecked()) {
@@ -166,7 +167,6 @@ public class PostFrag extends Fragment implements View.OnClickListener{
                 } else {
                     sofaid = "0";
                 }
-
                 if (bed.isChecked()) {
                     bedid = "1";
                 } else {
@@ -208,11 +208,8 @@ public class PostFrag extends Fragment implements View.OnClickListener{
                     wifiid = "0";
                 }
             }else {
-                Toast.makeText(getActivity(), "Select atleast one facility", Toast.LENGTH_SHORT).show();
+                acid=sofaid=wifiid=bedid=tvid=refigratorid=messid=invertorid=parkingid="0";
             }
-
-                /*Toast.makeText(getActivity(), city+address+pincode+amount+status+bedid+tvid+acid+refigratorid+messid+wifiid+parkingid+sofaid+invertorid, Toast.LENGTH_SHORT).show();
-*/
                 jsonObject=new JSONObject();
                 try {
                     jsonObject.put("status",status);
@@ -230,13 +227,11 @@ public class PostFrag extends Fragment implements View.OnClickListener{
                     jsonObject.put("bedid",bedid);
                     jsonObject.put("sofaid",sofaid);
                     jsonObject.put("messid",messid);
-
-
+                    inputaddress.setText(jsonObject.toString());
+                    toserver();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                toserver();
-
             }
         }
     private void toserver() {
@@ -246,7 +241,7 @@ public class PostFrag extends Fragment implements View.OnClickListener{
             public void onResponse(String response)
             {
                 if(response.equalsIgnoreCase("success"))
-                   /* loginsuccess();*/ {
+                {
                     Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                 }
                 if(response.equalsIgnoreCase("error")){
@@ -281,4 +276,4 @@ public class PostFrag extends Fragment implements View.OnClickListener{
         };
         MySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
-    }
+}

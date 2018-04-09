@@ -40,7 +40,19 @@
                 if(type!=null) {
                     Intent intent=null;
                     if (type.equalsIgnoreCase("owner")) {
+                        OWNER owner = new OWNER(
+                                sp.getString("email", null),sp.getString("name", null),
+                                sp.getString("phone", null),
+                                sp.getString("dob", null),
+                                sp.getString("marriagestatus", null),
+                                sp.getString("city", null),
+                                sp.getString("permanentaddress", null),
+                                sp.getString("pincode", null),
+                                sp.getString("gender", null),
+                                sp.getString("password", null),
+                                sp.getString("verified",null));
                         intent = new Intent(Welcome.this, OwnerProfile.class);
+                        intent.putExtra("profile",owner);
                     } else {
                         if (type.equalsIgnoreCase("tenant")) {
                             intent = new Intent(Welcome.this, UserProfile.class);

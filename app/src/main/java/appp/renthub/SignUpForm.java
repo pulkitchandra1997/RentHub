@@ -257,10 +257,11 @@ public class SignUpForm extends Activity implements View.OnClickListener {
                     jsonObject.put("pincode",pincode);
                     jsonObject.put("gender",gender);
                     jsonObject.put("password",password);
+                    toserver();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                toserver();
+
             }
         }
     }
