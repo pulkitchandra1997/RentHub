@@ -7,10 +7,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false"
-        android:paddingTop="5dp"
+        android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:background="#f7d7db"
-        android:queryHint="Search City Here">
+        android:background="@color/colorAccent"
+        android:queryBackground="@color/bootstrap_brand_secondary_fill"
+        android:queryHint="Search City Here"
+        android:drawingCacheQuality="high"
+        >
         <requestFocus />
     </SearchView>
     <ListView

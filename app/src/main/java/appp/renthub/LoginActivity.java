@@ -97,18 +97,16 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 startActivity(intent);
             }
         }
-        if(v.getId()==R.id.forgot) {
-            // Toast.makeText(this, "FORGOT", Toast.LENGTH_SHORT).show();
-            {
-                Intent intent = new Intent(LoginActivity.this, ForgotPasswordOtp.class);
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                    ActivityOptions options = ActivityOptions.makeCustomAnimation(LoginActivity.this, R.anim.fade_in, R.anim.fade_out);
-                    startActivity(intent, options.toBundle());
-                } else {
-                    startActivity(intent);
-                }
+        if(v.getId()==R.id.forgot){
+            Intent intent = new Intent(LoginActivity.this, ForgotPasswordOtp.class);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                ActivityOptions options = ActivityOptions.makeCustomAnimation(LoginActivity.this, R.anim.fade_in, R.anim.fade_out);
+                startActivity(intent, options.toBundle());
+            } else {
+                startActivity(intent);
             }
-        }}
+        }
+    }
 
     private void toserver() {
         StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_LOGIN, new Response.Listener<String>()

@@ -276,4 +276,4 @@ OWNER owner;
         };
         MySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
-    }
+}
