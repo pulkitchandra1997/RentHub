@@ -4,7 +4,6 @@ import android.util.Patterns;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static android.view.View.Z;
 
 /**
  * Created by PULKITCHANDRA on 02-Apr-18.
