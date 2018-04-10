@@ -34,6 +34,7 @@
         }
 
         private void checksp() {
+
             sp=getSharedPreferences("RentHub_data",MODE_PRIVATE);
             if(sp!=null){
                 String type=sp.getString("type",null);
@@ -106,9 +107,11 @@
                         boolean fineLocationAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                         boolean courseLocationAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
                         if (fineLocationAccepted && courseLocationAccepted)
-                            Snackbar.make(getWindow().getDecorView().getRootView(), "Permission Granted, Now you can access location data and camera.", Snackbar.LENGTH_LONG).show();
+                        {}
                         else {
-                            Snackbar.make(getWindow().getDecorView().getRootView(), "Permission Denied, You cannot access location data and camera.", Snackbar.LENGTH_LONG).show();
+                            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                            alertDialog.setMessage("Permission Denied");
+                            alertDialog.show();
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                 if (shouldShowRequestPermissionRationale(ACCESS_FINE_LOCATION)) {
                                     showMessageOKCancel("You need to allow access to both the permissions",

@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.CountDownTimer;
 import android.support.design.widget.Snackbar;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -157,27 +158,7 @@ public class ForgotPasswordOtp extends Activity implements View.OnClickListener 
                     }
                 }
                 else{
-                    if(response.equalsIgnoreCase("0")) {
-                        Snackbar snackbar = Snackbar
-                                .make(getWindow().getDecorView().getRootView(), "Email already Registered.", Snackbar.LENGTH_LONG);
-                        View sbView = snackbar.getView();
-                        TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
-                        textView.setTextColor(Color.RED);
-                        snackbar.setAction("Login",new View.OnClickListener(){
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(ForgotPasswordOtp.this, LoginActivity.class);
-                                intent.putExtra("email",emailtext);
-                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                                    ActivityOptions options = ActivityOptions.makeCustomAnimation(ForgotPasswordOtp.this, R.anim.fade_in, R.anim.fade_out);
-                                    startActivity(intent, options.toBundle());
-                                } else {
-                                    startActivity(intent);
-                                }
-                            }
-                        });
-                        snackbar.show();
-                    }
+
                     if(response.equalsIgnoreCase("error")){
                         Snackbar snackbar = Snackbar
                                 .make(getWindow().getDecorView().getRootView(), "Error in sending OTP. Retry!", Snackbar.LENGTH_LONG);

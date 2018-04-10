@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -57,10 +58,12 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
     }
     @Override
     public boolean onQueryTextSubmit(String query) {
-        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-        alertDialog.setMessage("Search keyword is " + query);
-        alertDialog.show();
+        searchcity();
         return false;
+    }
+
+    private void searchcity() {
+
     }
 
     @Override
@@ -79,6 +82,7 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
     @Override
     public void onItemClick(AdapterView <?> parent, View view, int position, long id) {
         String queryString = parent.getItemAtPosition(position).toString();
-        editsearch.setQuery(queryString,false);
+        editsearch.setQuery(queryString,true);
+        searchcity();
     }
 }

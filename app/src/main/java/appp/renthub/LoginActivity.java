@@ -151,6 +151,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         }
         if(v.getId()==R.id.forgotpwd)
         {
+
             Intent intent = new Intent(LoginActivity.this, ForgotPasswordOtp.class);
             if (android.os.Build.VERSION.SDK_INT >= JELLY_BEAN) {
                 ActivityOptions options = ActivityOptions.makeCustomAnimation(LoginActivity.this, R.anim.fade_in, R.anim.fade_out);
@@ -167,10 +168,15 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         {
             @Override
             public void onResponse(String response) {
-                 showProgress(true);
                 if (response.toLowerCase().contains("loginerror")) {
+                    showProgress(false);
                     if(response.toLowerCase().contains("loginerror0")){
-                        showProgress(false);
+                        Snackbar snackbar = Snackbar
+                                .make(getWindow().getDecorView().getRootView(), "Incorrect Email/ID or Password", Snackbar.LENGTH_LONG);
+                        View sbView = snackbar.getView();
+                        TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
+                        textView.setTextColor(Color.RED);
+                        snackbar.show();
                     }
                     if(response.toLowerCase().contains("loginerror1")){
                         Snackbar snackbar = Snackbar
@@ -179,8 +185,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                         TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
                         textView.setTextColor(Color.RED);
                         snackbar.show();
-                        showProgress(false);
-
                     }
                     if(response.toLowerCase().contains("loginerror2")){
                         Snackbar snackbar = Snackbar
@@ -189,8 +193,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                         TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
                         textView.setTextColor(Color.RED);
                         snackbar.show();
-                        showProgress(false);
-
                     }
                 } else {
                     try {
