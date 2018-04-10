@@ -51,7 +51,7 @@ public class ConfirmPassword extends Activity implements View.OnClickListener{
             } else
 
                 if(!Validation.isValidPassword(oldpwd)|| !Validation.isValidPassword(newpwd)||!oldpwd.equals(newpwd)){
-                    if(!!Validation.isValidPassword(oldpwd)){
+                    if(!Validation.isValidPassword(oldpwd)){
                         oldpassword.setError("Password must be alphanumeric & 8 characters");
                         oldpassword.requestFocus();
 
