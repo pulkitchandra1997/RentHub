@@ -1,11 +1,15 @@
 package appp.renthub;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
@@ -13,6 +17,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.AuthFailureError;
@@ -28,6 +34,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.os.Build.VERSION_CODES.*;
+
 public class LoginActivity extends Activity implements View.OnClickListener{
     EditText email;
     EditText password;
@@ -36,6 +44,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     SharedPreferences sp;
     SharedPreferences.Editor se;
     String emailid,pwd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +71,10 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         public void onBackPressed()
         {
             this.startActivity(new Intent(LoginActivity.this,Welcome.class));
-            return;
+             return;
         }
+
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.login) {
@@ -85,12 +96,14 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 }
                 else{
                     toserver();
+
+
                 }
             }
         }
         if(v.getId()==R.id.signup){
             Intent intent = new Intent(LoginActivity.this, SignUp.class);
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            if (android.os.Build.VERSION.SDK_INT >= JELLY_BEAN) {
                 ActivityOptions options = ActivityOptions.makeCustomAnimation(LoginActivity.this, R.anim.fade_in, R.anim.fade_out);
                 startActivity(intent, options.toBundle());
             } else {
@@ -100,7 +113,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         if(v.getId()==R.id.forgotpwd)
         {
             Intent intent = new Intent(LoginActivity.this, ForgotPasswordOtp.class);
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            if (android.os.Build.VERSION.SDK_INT >= JELLY_BEAN) {
                 ActivityOptions options = ActivityOptions.makeCustomAnimation(LoginActivity.this, R.anim.fade_in, R.anim.fade_out);
                 startActivity(intent, options.toBundle());
             } else {
@@ -149,7 +162,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                             intent = new Intent(LoginActivity.this, UserProfile.class);
                             intent.putExtra("profile", user);
                         }
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                        if (android.os.Build.VERSION.SDK_INT >= JELLY_BEAN) {
                             ActivityOptions options = ActivityOptions.makeCustomAnimation(LoginActivity.this, R.anim.fade_in, R.anim.fade_out);
                             startActivity(intent, options.toBundle());
                         } else {

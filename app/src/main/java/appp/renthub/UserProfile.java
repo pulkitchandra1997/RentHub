@@ -1,6 +1,7 @@
 package appp.renthub;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -47,6 +48,12 @@ public class UserProfile extends Activity {
         ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.content, fragment);
         ft.commit();
+    }
+    @Override
+    public void onBackPressed()
+    {
+        this.startActivity(new Intent(UserProfile.this,LoginActivity.class));
+        return;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -20,7 +20,12 @@ public class OwnerProfile extends Activity {
     SharedPreferences sp;
     SharedPreferences.Editor se;
     OWNER owner;
-
+    @Override
+    public void onBackPressed()
+    {
+        this.startActivity(new Intent(OwnerProfile.this,LoginActivity.class));
+        return;
+    }
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 

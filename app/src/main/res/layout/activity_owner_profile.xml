@@ -24,7 +24,7 @@
         app:itemTextColor="@color/bootstrap_brand_primary"
         android:background="?android:attr/windowBackground"
         android:layout_alignParentBottom="true"
-        app:itemIconTint="@color/ic_launcher_background"
+        app:itemIconTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
