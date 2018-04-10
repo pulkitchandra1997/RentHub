@@ -162,16 +162,15 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     }
 
     private void toserver() {
-
+        showProgress(true);
         StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_LOGIN, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response) {
-
+                 showProgress(true);
                 if (response.toLowerCase().contains("loginerror")) {
                     if(response.toLowerCase().contains("loginerror0")){
-
-
+                        showProgress(false);
                     }
                     if(response.toLowerCase().contains("loginerror1")){
                         Snackbar snackbar = Snackbar
@@ -180,6 +179,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                         TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
                         textView.setTextColor(Color.RED);
                         snackbar.show();
+                        showProgress(false);
 
                     }
                     if(response.toLowerCase().contains("loginerror2")){
@@ -189,6 +189,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                         TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
                         textView.setTextColor(Color.RED);
                         snackbar.show();
+                        showProgress(false);
 
                     }
                 } else {
