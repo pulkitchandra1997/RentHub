@@ -22,5 +22,13 @@
         android:layout_height="fill_parent"
         android:layout_below="@+id/search"
         android:visibility="gone"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/searchlist"
+        android:layout_below="@+id/listview">
+
+    </ListView>
 
 </RelativeLayout>

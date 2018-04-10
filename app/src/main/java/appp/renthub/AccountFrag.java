@@ -1,5 +1,6 @@
 package appp.renthub;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,7 +35,14 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     Button editbtn;
     SharedPreferences sp;
     SharedPreferences.Editor se;
+    OWNER owner;
+    USER user;
 
+    @SuppressLint("ValidFragment")
+    public AccountFrag(Object object, String type)
+    {
+
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
