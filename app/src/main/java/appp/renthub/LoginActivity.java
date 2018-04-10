@@ -44,6 +44,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     SharedPreferences sp;
     SharedPreferences.Editor se;
     String emailid,pwd;
+    ProgressBar login_progress;
+    ScrollView login_form;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,10 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         forgot.setOnClickListener(this);
         sp=getSharedPreferences("RentHub_data",MODE_PRIVATE);
         se=sp.edit();
+
+        login_progress=findViewById(R.id.login_progress);
+        login_form=findViewById(R.id.login_form);
+
     }
         @Override
         public void onBackPressed()
@@ -73,6 +79,38 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             this.startActivity(new Intent(LoginActivity.this,Welcome.class));
              return;
         }
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            login_form.setVisibility(show ? View.GONE : View.VISIBLE);
+            login_form.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    login_form.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
+            login_progress.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
+            login_form.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
+    }
+
 
 
     @Override
@@ -96,6 +134,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 }
                 else{
                     toserver();
+                    showProgress(true);
 
 
                 }
