@@ -7,9 +7,21 @@ import java.io.Serializable;
  */
 
 public class OWNER implements Serializable {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    String type;
     String name;
     String phone;
     String dob;
+
+    public OWNER() {
+    }
 
     public String getEmail() {
         return email;
@@ -32,6 +44,7 @@ public class OWNER implements Serializable {
         this.gender = gender;
         this.password = password;
         this.verified = verified;
+        this.type="owner";
     }
 
     public String getName() {

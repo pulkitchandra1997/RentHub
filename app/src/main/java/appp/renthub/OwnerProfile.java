@@ -37,7 +37,7 @@ public class OwnerProfile extends Activity {
                     switchFragment();
                     return true;
                 case R.id.navigation_account:
-                    fragment=new AccountFrag();
+                    fragment=new AccountFrag(owner,"owner");
                     switchFragment();
                     return true;
                 case R.id.navigation_manage:
