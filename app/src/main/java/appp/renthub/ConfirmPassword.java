@@ -49,9 +49,23 @@ public class ConfirmPassword extends Activity implements View.OnClickListener{
                     newpassword.requestFocus();
                 }
             } else
-                if(!oldpwd.equals(newpwd)){
-                    newpassword.setError("Re-Type Correct Password");
-                    newpassword.requestFocus();
+
+                if(!Validation.isValidPassword(oldpwd)|| !Validation.isValidPassword(newpwd)||!oldpwd.equals(newpwd)){
+                    if(!!Validation.isValidPassword(oldpwd)){
+                        oldpassword.setError("Password must be alphanumeric & 8 characters");
+                        oldpassword.requestFocus();
+
+                    }
+                    if(!Validation.isValidPassword(newpwd)){
+                        newpassword.setError("Re-Type Correct password");
+                        newpassword.requestFocus();
+
+                    }
+                    if(!oldpwd.equals(newpwd)){
+                        newpassword.setError("Re-Type Correct password");
+                        newpassword.requestFocus();
+
+                    }
                 }
                 else {
                     Toast.makeText(this, ""+oldpwd+newpwd, Toast.LENGTH_SHORT).show();
