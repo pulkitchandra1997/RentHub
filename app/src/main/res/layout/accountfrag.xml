@@ -147,13 +147,14 @@ android:paddingRight="@dimen/activity_horizontal_margin"
             android:layout_gravity="left"
             android:textSize="13dp"
             />
+
             <TextView
+                android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email"
-                android:id="@+id/email"
-                android:textSize="13dp"
                 android:layout_gravity="left"
+                android:text="Email"
+                android:textSize="13dp"
 
                 />
         <TextView

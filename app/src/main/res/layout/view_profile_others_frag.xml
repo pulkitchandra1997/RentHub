@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="#fff"
+                android:padding="20dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <com.beardedhen.androidbootstrap.BootstrapThumbnail
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="15dp"
+                        app:roundedCorners="true"
+                        android:src="@drawable/defaultpic"
+                        android:id="@+id/userpic"/>
+
+                    <com.beardedhen.androidbootstrap.AwesomeTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Ayushi Daksh"
+                        android:id="@+id/username"
+                        android:textSize="30dp"
+                        app:bootstrapBrand="secondary"/>
+
+
+                </LinearLayout>
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:stretchColumns="*">
+
+                    <TableRow>
+
+                        <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/callicon"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorPrimary"
+                            android:text="&#xf095;"
+                            android:textColor="#fff"
+                            android:textSize="30dp"
+                            android:layout_marginRight="5dp"/>
+
+                        <android.support.v7.widget.AppCompatButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorPrimary"
+                            android:text="&#xf3cd;"
+                            android:textColor="#fff"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:textSize="30dp"
+                            android:id="@+id/msgicon"/>
+
+                        <android.support.v7.widget.AppCompatButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorPrimary"
+                            android:text="&#xf0e0;"
+                            android:textColor="#fff"
+                            android:layout_marginLeft="5dp"
+                            android:textSize="30dp"
+                            android:id="@+id/mailicon"/>
+
+                    </TableRow>
+
+
+                </TableLayout>
+
+                </LinearLayout>
+
+
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="#fff"
+                android:padding="20dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginBottom="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="15dp"
+                        android:text="Other Details"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="20dp"
+                        android:id="@+id/otherdetails"
+                        android:textStyle="bold"/>
+
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:stretchColumns="*"
+                        android:layout_marginBottom="20dp"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:paddingLeft="@dimen/activity_horizontal_margin">
+
+                        <TableRow>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#xf1fd;"
+                                android:id="@+id/dobicon"
+                                android:textSize="13dp"
+                                android:textColor="@color/colorPrimary"
+                                android:textStyle="bold"
+                                android:layout_gravity="left"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="DOB"
+                                android:id="@+id/dob"
+                                android:textSize="13dp"
+                                android:layout_gravity="left"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:id="@+id/userdob"
+                                android:text="15/10/1997"
+                                android:layout_gravity="right"/>
+                        </TableRow>
+                        <TableRow>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="20dp"
+                                android:background="#949393"
+                                android:layout_span="3"
+                                />
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#xf015;"
+                                android:id="@+id/cityicon"
+                                android:textSize="13dp"
+                                android:textColor="@color/colorPrimary"
+                                android:textStyle="bold"
+                                android:layout_gravity="left"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="City"
+                                android:id="@+id/city"
+                                android:textSize="13dp"
+                                android:layout_gravity="left"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:text="Lucknow"
+                                android:id="@+id/usercity"
+                                android:layout_gravity="right"/>
+                        </TableRow>
+                        <TableRow>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="20dp"
+                                android:background="#949393"
+                                android:layout_span="3"
+                                /></TableRow>
+                        <TableRow>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#xf228;"
+                                android:id="@+id/gendericon"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="13dp"
+                                android:textStyle="bold"
+                                android:layout_gravity="left"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Gender"
+                                android:id="@+id/gender"
+                                android:textSize="13dp"
+                                android:layout_gravity="left"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:id="@+id/usergender"
+                                android:text="Female"
+                                android:layout_gravity="right"/>
+                        </TableRow>
+                        <TableRow>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="20dp"
+                                android:background="#949393"
+                                android:layout_span="3"
+                                /></TableRow>
+                        <TableRow>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#xf0c0;"
+                                android:id="@+id/marryicon"
+                                android:textSize="13dp"
+                                android:textColor="@color/colorPrimary"
+                                android:textStyle="bold"
+                                android:layout_gravity="left"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Marital Status"
+                                android:textSize="13dp"
+                                android:id="@+id/marry"
+                                android:layout_gravity="left"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:id="@+id/usermarry"
+                                android:text="Unmarried"
+                                android:layout_gravity="right"/>
+                        </TableRow>
+                        <TableRow>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="20dp"
+                                android:background="#949393"
+                                android:layout_span="3"
+                                /></TableRow>
+
+                        <TableRow>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#xf2bb;"
+                                android:id="@+id/addicon"
+                                android:textSize="13dp"
+                                android:textStyle="bold"
+                                android:textColor="@color/colorPrimary"
+                                android:layout_gravity="left"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Address"
+                                android:id="@+id/add"
+                                android:textSize="13dp"
+                                android:layout_gravity="left"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:id="@+id/useradd"
+                                android:text="Aliganj,Lucknow"
+                                android:layout_gravity="right"/>
+                        </TableRow>
+                    </TableLayout>
+
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="&#xf3c5;  ALL RENTED PLACES"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@color/bootstrap_brand_primary"
+                        android:textColor="#fff"
+                        android:id="@+id/showplaces"
+                        />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:id="@+id/layoutoptional">
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
