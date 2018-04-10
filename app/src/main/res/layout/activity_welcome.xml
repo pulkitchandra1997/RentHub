@@ -47,7 +47,8 @@
             android:textSize="15sp"
             android:layout_gravity="center_horizontal"
             android:text="Get Affordable space on Rent"
-            android:textStyle="italic"/>
+            android:textStyle="italic"
+            android:layout_marginTop="20dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

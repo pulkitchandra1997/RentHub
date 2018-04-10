@@ -73,11 +73,12 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         login_form=findViewById(R.id.login_form);
 
     }
+
         @Override
         public void onBackPressed()
         {
             this.startActivity(new Intent(LoginActivity.this,Welcome.class));
-             return;
+            return;
         }
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -87,7 +88,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
             login_form.setVisibility(show ? View.GONE : View.VISIBLE);
-            login_form.animate().setDuration(shortAnimTime).alpha(
+            login_form.animate().setDuration(1000).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
@@ -113,6 +114,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
 
 
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.login) {
@@ -134,8 +136,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 }
                 else{
                     toserver();
-                    showProgress(true);
-
 
                 }
             }
@@ -162,12 +162,15 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     }
 
     private void toserver() {
+
         StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_LOGIN, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response) {
+
                 if (response.toLowerCase().contains("loginerror")) {
                     if(response.toLowerCase().contains("loginerror0")){
+
 
                     }
                     if(response.toLowerCase().contains("loginerror1")){
@@ -177,6 +180,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                         TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
                         textView.setTextColor(Color.RED);
                         snackbar.show();
+
                     }
                     if(response.toLowerCase().contains("loginerror2")){
                         Snackbar snackbar = Snackbar
@@ -185,6 +189,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                         TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
                         textView.setTextColor(Color.RED);
                         snackbar.show();
+
                     }
                 } else {
                     try {
@@ -256,5 +261,4 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             e.printStackTrace();
         }
     }
-
 }
