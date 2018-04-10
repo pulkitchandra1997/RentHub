@@ -166,10 +166,10 @@ public class ForgotPasswordOtp extends Activity implements View.OnClickListener 
                         snackbar.setAction("Login",new View.OnClickListener(){
                             @Override
                             public void onClick(View v) {
-                                Intent intent = new Intent(SignUpVerify.this, LoginActivity.class);
+                                Intent intent = new Intent(ForgotPasswordOtp.this, LoginActivity.class);
                                 intent.putExtra("email",emailtext);
                                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                                    ActivityOptions options = ActivityOptions.makeCustomAnimation(SignUpVerify.this, R.anim.fade_in, R.anim.fade_out);
+                                    ActivityOptions options = ActivityOptions.makeCustomAnimation(ForgotPasswordOtp.this, R.anim.fade_in, R.anim.fade_out);
                                     startActivity(intent, options.toBundle());
                                 } else {
                                     startActivity(intent);
@@ -210,6 +210,6 @@ public class ForgotPasswordOtp extends Activity implements View.OnClickListener 
                 return params;
             }
         };
-        MySingleton.getInstance(SignUpVerify.this).addToRequestQueue(stringRequest);
+        MySingleton.getInstance(ForgotPasswordOtp.this).addToRequestQueue(stringRequest);
     }
 }
