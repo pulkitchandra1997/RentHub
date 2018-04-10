@@ -38,11 +38,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     OWNER owner;
     USER user;
 
-    @SuppressLint("ValidFragment")
-    public AccountFrag(Object object, String type)
-    {
 
-    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
