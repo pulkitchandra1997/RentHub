@@ -3,8 +3,10 @@ package appp.renthub;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -36,6 +38,9 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import appp.renthub.dbutil.RenthubConstant;
+import appp.renthub.dbutil.RenthubManager;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -227,7 +232,6 @@ OWNER owner;
                     jsonObject.put("bedid",bedid);
                     jsonObject.put("sofaid",sofaid);
                     jsonObject.put("messid",messid);
-                    inputaddress.setText(jsonObject.toString());
                     toserver();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -242,7 +246,8 @@ OWNER owner;
             {
                 if(response.equalsIgnoreCase("success"))
                 {
-                    Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                    tosqlite();
+                    clearform();
                 }
                 if(response.equalsIgnoreCase("error")){
                     Snackbar snackbar = Snackbar
@@ -276,4 +281,51 @@ OWNER owner;
         };
         MySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
-}
+
+    private void clearform() {
+    inputaddress.setText("");
+    inputamount.setText("");
+    inputcity.setSelection(-1);
+    inputpincode.setText("");
+    roomstatus.setSelection(-1);
+    ac.setChecked(false);
+        bed.setChecked(false);
+        wifi.setChecked(false);
+        sofa.setChecked(false);
+        refrigerator.setChecked(false);
+        parking.setChecked(false);
+        mess.setChecked(false);
+        tv.setChecked(false);
+        invertor.setChecked(false);
+    }
+
+    private void tosqlite() {
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(RenthubConstant.COL_ADDRESS,address);
+        contentValues.put(RenthubConstant.COL_CITY,city);
+        contentValues.put(RenthubConstant.COL_STATUS,status);
+        contentValues.put(RenthubConstant.COL_PINCODE,pincode);
+        contentValues.put(RenthubConstant.COL_AMOUNT,amount);
+        contentValues.put(RenthubConstant.COL_TVID,tvid);
+        contentValues.put(RenthubConstant.COL_ACID,acid);
+        contentValues.put(RenthubConstant.COL_BEDID,bedid);
+        contentValues.put(RenthubConstant.COL_MESSID,messid);
+        contentValues.put(RenthubConstant.COL_REFRIGERATORID,refigratorid);
+        contentValues.put(RenthubConstant.COL_INVERTORID,invertorid);
+        contentValues.put(RenthubConstant.COL_WIFI,wifiid);
+        contentValues.put(RenthubConstant.COL_SOFAID,sofaid);
+        contentValues.put(RenthubConstant.COL_PARKINGID,parkingid);
+        contentValues.put(RenthubConstant.COL_RENTED,"0");
+        RenthubManager renthubManager=new RenthubManager(getActivity());
+        SQLiteDatabase sqLiteDatabase=renthubManager.openDB();
+        Long l=sqLiteDatabase.insert(RenthubConstant.TABLE_NAME,null,contentValues);
+        if(l>0) {
+            Snackbar snackbar = Snackbar
+                    .make(getActivity().getWindow().getDecorView().getRootView(), "Posted", Snackbar.LENGTH_LONG);
+            snackbar.show();
+        }
+        else{
+            Snackbar snackbar = Snackbar
+                    .make(getActivity().getWindow().getDecorView().getRootView(), "Error in posting.", Snackbar.LENGTH_LONG);
+        snackbar.show();    }
+}}

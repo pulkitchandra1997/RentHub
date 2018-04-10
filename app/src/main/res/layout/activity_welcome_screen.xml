@@ -15,20 +15,13 @@
         android:src="@mipmap/ic_launcher_round"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
-        android:scaleX="1.5"
-        android:scaleY="1.5"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RENTHUB"
-        android:textSize="40sp"
-        android:textAllCaps="true"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:scaleX="3"
+        android:scaleY="3"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_caption"
         android:textSize="22sp"
-        android:letterSpacing=".05"
         android:textColor="@color/colorPrimaryDark"/>
 </LinearLayout>

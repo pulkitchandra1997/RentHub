@@ -116,12 +116,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             public void onResponse(String response) {
                 if (response.toLowerCase().contains("loginerror")) {
                     if(response.toLowerCase().contains("loginerror0")){
-                        Snackbar snackbar = Snackbar
-                                .make(getWindow().getDecorView().getRootView(), "Incorrect Email/Mobile/Password", Snackbar.LENGTH_LONG);
-                        View sbView = snackbar.getView();
-                        TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
-                        textView.setTextColor(Color.RED);
-                        snackbar.show();
+
                     }
                     if(response.toLowerCase().contains("loginerror1")){
                         Snackbar snackbar = Snackbar
