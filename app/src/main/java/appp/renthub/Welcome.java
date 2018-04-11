@@ -40,25 +40,22 @@
                 String type=sp.getString("type",null);
                 if(type!=null) {
                     Intent intent=null;
-                    if (type.equalsIgnoreCase("owner")) {
-                        OWNER owner = new OWNER(
-                                sp.getString("email", null),sp.getString("name", null),
-                                sp.getString("phone", null),
-                                sp.getString("dob", null),
-                                sp.getString("marriagestatus", null),
-                                sp.getString("city", null),
-                                sp.getString("permanentaddress", null),
-                                sp.getString("pincode", null),
-                                sp.getString("gender", null),
-                                sp.getString("password", null),
-                                sp.getString("verified",null));
+                    PROFILE profile = new PROFILE(
+                            sp.getString("email", null),sp.getString("name", null),
+                            sp.getString("phone", null),
+                            sp.getString("dob", null),
+                            sp.getString("marriagestatus", null),
+                            sp.getString("city", null),
+                            sp.getString("permanentaddress", null),
+                            sp.getString("pincode", null),
+                            sp.getString("gender", null),
+                            sp.getString("password", null),
+                            sp.getString("verified",null),type);
+                    if (type.equalsIgnoreCase("owner"))
                         intent = new Intent(Welcome.this, OwnerProfile.class);
-                        intent.putExtra("profile",owner);
-                    } else {
-                        if (type.equalsIgnoreCase("tenant")) {
+                    else
                             intent = new Intent(Welcome.this, UserProfile.class);
-                        }
-                    }
+                    intent.putExtra("profile",profile);
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
                         ActivityOptions options = ActivityOptions.makeCustomAnimation(Welcome.this, R.anim.fade_in, R.anim.fade_out);
                         startActivity(intent, options.toBundle());

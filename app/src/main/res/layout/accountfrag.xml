@@ -162,7 +162,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
             android:layout_height="wrap_content"
             android:textSize="13dp"
             android:id="@+id/tenantemail"
-            android:text="pranjalv206@gmail.com"
+            android:text=""
             android:layout_gravity="right"/>
             </TableRow>
     <TableRow>
@@ -199,7 +199,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
                 android:id="@+id/tenantphone"
-                android:text="1234567890"
+                android:text=""
                 android:layout_gravity="right"/>
         </TableRow>
     <TableRow>
@@ -236,7 +236,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
                 android:id="@+id/tenantdob"
-                android:text="12/01/1998"
+                android:text=""
                 android:layout_gravity="right"/>
         </TableRow>
     <TableRow>
@@ -272,7 +272,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
-                android:text="Lucknow"
+                android:text=""
                 android:id="@+id/tenantcity"
                 android:layout_gravity="right"/>
         </TableRow>
@@ -309,7 +309,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
                 android:id="@+id/tenantgender"
-                android:text="Male"
+                android:text=""
                 android:layout_gravity="right"/>
         </TableRow>
     <TableRow>
@@ -345,7 +345,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
                 android:id="@+id/tenantstatus"
-                android:text="Unmarried"
+                android:text=""
                 android:layout_gravity="right"/>
         </TableRow>
     <TableRow>
@@ -383,7 +383,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
                 android:id="@+id/tenantaddress"
-                android:text="Kantipuram,Lucknow"
+                android:text=""
                 android:layout_gravity="right"/>
         </TableRow>
         </TableLayout>

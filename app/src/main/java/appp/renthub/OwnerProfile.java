@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import java.security.acl.Owner;
+import java.io.Serializable;
 
 public class OwnerProfile extends Activity {
 
@@ -19,7 +17,7 @@ public class OwnerProfile extends Activity {
     android.app.FragmentTransaction ft;
     SharedPreferences sp;
     SharedPreferences.Editor se;
-    OWNER owner;
+    PROFILE profile;
     @Override
     public void onBackPressed()
     {
@@ -33,11 +31,11 @@ public class OwnerProfile extends Activity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_post:
-                    fragment=new PostFrag(owner);
+                    fragment=new PostFrag(profile);
                     switchFragment();
                     return true;
                 case R.id.navigation_account:
-                    fragment=new AccountFrag();
+                    fragment=new AccountFrag(profile);
                     switchFragment();
                     return true;
                 case R.id.navigation_manage:
@@ -65,12 +63,11 @@ public class OwnerProfile extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_profile);
         Intent intent=getIntent();
-        if(intent!=null)
-        owner=(OWNER) intent.getSerializableExtra("profile");
+        profile= (PROFILE)intent.getSerializableExtra("profile");
 /*
         Bundle bundle=new Bundle();
         bundle.putString("owneremail",email);*/
-        fragment = new PostFrag(owner);
+        fragment = new PostFrag(profile);
        /* fragment.setArguments(bundle);*/
         switchFragment();
 

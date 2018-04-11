@@ -199,16 +199,9 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                         JSONObject jsonObject=new JSONObject(response);
                         tosharedpreference(jsonObject);
                         Intent intent;
-                        if(jsonObject.get("type").toString().equalsIgnoreCase("owner")){
-                            OWNER owner=new OWNER(jsonObject.getString("email"),jsonObject.getString("name"),jsonObject.getString("phone"),jsonObject.getString("dob"),jsonObject.getString("marriagestatus"),jsonObject.getString("city"),jsonObject.getString("permanentaddress"),jsonObject.getString("pincode"),jsonObject.getString("gender"),jsonObject.getString("password"),jsonObject.getString("verified"));
+                            PROFILE profile=new PROFILE(jsonObject.getString("email"),jsonObject.getString("name"),jsonObject.getString("phone"),jsonObject.getString("dob"),jsonObject.getString("marriagestatus"),jsonObject.getString("city"),jsonObject.getString("permanentaddress"),jsonObject.getString("pincode"),jsonObject.getString("gender"),jsonObject.getString("password"),jsonObject.getString("verified"),jsonObject.getString("type"));
                             intent = new Intent(LoginActivity.this, OwnerProfile.class);
-                            intent.putExtra("profile", owner);
-                        }
-                        else{
-                            USER user=new USER(jsonObject.getString("email"),jsonObject.getString("name"),jsonObject.getString("phone"),jsonObject.getString("dob"),jsonObject.getString("marriagestatus"),jsonObject.getString("city"),jsonObject.getString("permanentaddress"),jsonObject.getString("pincode"),jsonObject.getString("gender"),jsonObject.getString("password"),jsonObject.getString("verified"));
-                            intent = new Intent(LoginActivity.this, UserProfile.class);
-                            intent.putExtra("profile", user);
-                        }
+                            intent.putExtra("profile", profile);
                         if (android.os.Build.VERSION.SDK_INT >= JELLY_BEAN) {
                             ActivityOptions options = ActivityOptions.makeCustomAnimation(LoginActivity.this, R.anim.fade_in, R.anim.fade_out);
                             startActivity(intent, options.toBundle());

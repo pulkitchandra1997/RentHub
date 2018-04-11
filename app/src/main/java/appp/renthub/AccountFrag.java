@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -35,9 +36,15 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     Button editbtn;
     SharedPreferences sp;
     SharedPreferences.Editor se;
-    OWNER owner;
-    USER user;
+    PROFILE profile;
 
+    @SuppressLint("ValidFragment")
+    public AccountFrag(PROFILE profile) {
+        this.profile = profile;
+    }
+
+    public AccountFrag() {
+    }
 
     @Nullable
     @Override
@@ -155,7 +162,19 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
 
         sp=getActivity().getSharedPreferences("RentHub_data",MODE_PRIVATE);
         se=sp.edit();
+        fill();
         return v;
+    }
+
+    private void fill() {
+        Toast.makeText(getActivity(), profile.getEmail(), Toast.LENGTH_SHORT).show();
+    tenantemail.setText(profile.getEmail());
+    tenantaddress.setText(profile.getPermanentaddress());
+    tenantcity.setText(profile.getCity());
+    tenantdob.setText(profile.getDob());
+    tenantgender.setText(profile.getGender());
+    tenantphone.setText(profile.getPhone());
+    tenantstatus.setText(profile.getMarriagestatus());
     }
 
     @Override

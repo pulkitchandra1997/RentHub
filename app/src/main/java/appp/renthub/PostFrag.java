@@ -1,16 +1,12 @@
 package appp.renthub;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -20,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -36,13 +31,12 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 import appp.renthub.dbutil.RenthubConstant;
 import appp.renthub.dbutil.RenthubManager;
-
-import static android.widget.Toast.LENGTH_SHORT;
 
 /**
  * Created by pranj on 05-04-2018.
@@ -60,10 +54,10 @@ public class PostFrag extends Fragment implements View.OnClickListener{
     String city,address,amount,pincode,status,email;
 
     JSONObject jsonObject;
-OWNER owner;
+PROFILE profile;
 @SuppressLint("ValidFragment")
-    public PostFrag(OWNER owner) {
-    this.owner=owner;
+    public PostFrag(Serializable profile) {
+    this.profile=(PROFILE) profile;
     }
     public PostFrag() {
     }
@@ -109,7 +103,7 @@ OWNER owner;
         inputnext.setOnClickListener(this);
         inputprevious.setOnClickListener(this);
         inputsubmit.setOnClickListener(this);
-        email=owner.getEmail();
+        email=profile.getEmail();
         return view;
     }
     @Override
