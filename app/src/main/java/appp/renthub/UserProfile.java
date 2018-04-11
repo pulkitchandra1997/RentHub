@@ -8,10 +8,14 @@ import android.support.design.widget.BottomNavigationView;
 
 import android.view.MenuItem;
 
+import java.io.Serializable;
+
 public class UserProfile extends Activity {
 
     android.app.Fragment fragment = null;
     android.app.FragmentTransaction ft;
+    PROFILE profile;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -59,6 +63,8 @@ public class UserProfile extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        Intent intent=getIntent();
+        profile=(PROFILE) intent.getSerializableExtra("profile");
         fragment = new SearchFrag();
         switchFragment();
 

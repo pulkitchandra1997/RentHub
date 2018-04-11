@@ -322,16 +322,10 @@ public class SignUpForm extends Activity implements View.OnClickListener {
         se.putString("verified","0");
         se.commit();
         Intent intent=null;
-        if(type.equalsIgnoreCase("owner")){
-            OWNER owner = new OWNER(email,name, phone, dob, status, city, address, pincode, gender, password, "0");
-            intent = new Intent(SignUpForm.this, OwnerProfile.class);
-            intent.putExtra("profile", owner);
-        }
-        else{
-            USER user = new USER(email,name, phone, dob, status, city, address, pincode, gender, password, "0");
+            PROFILE profile = new PROFILE(email,name, phone, dob, status, city, address, pincode, gender, password, "0",type);
             intent = new Intent(SignUpForm.this, UserProfile.class);
-            intent.putExtra("profile", user);
-        }
+            intent.putExtra("profile", profile);
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
             ActivityOptions options = ActivityOptions.makeCustomAnimation(SignUpForm.this, R.anim.fade_in, R.anim.fade_out);
             startActivity(intent, options.toBundle());

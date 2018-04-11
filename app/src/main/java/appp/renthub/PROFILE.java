@@ -6,11 +6,11 @@ import java.io.Serializable;
  * Created by PULKITCHANDRA on 07-Apr-18.
  */
 
-public class USER implements Serializable {
+public class PROFILE implements Serializable {
     String type;
     String name;
 
-    public USER() {
+    public PROFILE() {
     }
 
     public String getType() {
@@ -34,10 +34,10 @@ public class USER implements Serializable {
 
     String email;
 
-    public USER(String email, String name, String phone, String dob, String marriagestatus, String city, String permanentaddress, String pincode, String gender, String password, String verified) {
+    public PROFILE(String email, String name, String phone, String dob, String marriagestatus, String city, String permanentaddress, String pincode, String gender, String password, String verified,String type) {
         this.name = name;
         this.email=email;
-        this.type="tenant";
+        this.type=type;
         this.phone = phone;
         this.dob = dob;
         this.marriagestatus = marriagestatus;
