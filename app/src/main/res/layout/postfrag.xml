@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:paddingBottom="12dp"
-    android:paddingLeft="12dp"
-    android:paddingRight="12dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     android:background="@mipmap/welcomeback"
     android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen">
     <ProgressBar
@@ -72,7 +72,8 @@
                             android:text="@string/post_caption"
                             android:id="@+id/postcaption"
                             android:textColor="@color/bootstrap_gray_light"
-                            android:textSize="17dp" />
+                            android:textSize="15dp"
+                            android:fontFamily="serif-monospace"/>
 
                     </LinearLayout>
                     <LinearLayout
@@ -80,7 +81,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginLeft="-20dp"
-                        android:layout_marginTop="-30dp">
+                        android:layout_marginTop="-10dp">
                         <WebView
                            android:layout_width="350dp"
                            android:layout_height="200dp"
@@ -92,10 +93,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="30dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="30dp">
+                        android:layout_marginBottom="20dp">
                         <Button
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

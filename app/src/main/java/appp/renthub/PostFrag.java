@@ -144,9 +144,6 @@ public class PostFrag extends Fragment implements View.OnClickListener{
         inputnext.setTypeface(font);
         inputsubmit.setTypeface(font);
         listproperty.setTypeface(font);
-        Typeface fontface = Typeface.createFromAsset(getActivity().getAssets(), "JosefinSans-Light.ttf" );
-        postcaption.setTypeface(fontface);
-
 
         inputnext.setOnClickListener(this);
         inputprevious.setOnClickListener(this);

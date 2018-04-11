@@ -400,7 +400,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
         app:cardElevation="8dp"
         app:cardUseCompatPadding="true"
         android:id="@+id/editcard"
-        android:visibility="visible"
+        android:visibility="gone"
         >
 
         <LinearLayout
