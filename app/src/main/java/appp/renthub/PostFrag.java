@@ -67,6 +67,16 @@ public class PostFrag extends Fragment implements View.OnClickListener{
     JSONObject jsonObject;
     ProgressBar login_progress;
     ScrollView login_form;
+    PROFILE profile;
+
+    @SuppressLint("ValidFragment")
+    public PostFrag(PROFILE profile) {
+        this.profile = profile;
+    }
+
+    public PostFrag() {
+    }
+
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.postfrag, container, false);

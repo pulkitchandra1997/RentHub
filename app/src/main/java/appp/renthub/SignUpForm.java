@@ -206,16 +206,16 @@ public class SignUpForm extends Activity implements View.OnClickListener {
                 }
             } else {
                 if(!Validation.isValidName(name)||!Validation.isValidPhone(phone)||!Validation.isValidPassword(password)){
-                    if(Validation.isValidPassword(password)){
+                    if(!Validation.isValidPassword(password)){
                         inputpassword.setError("Password must be alphanumeric & 8 more than characters");
                         inputpassword.requestFocus();
                     }
                     if(!Validation.isValidPhone(phone)){
-                        inputphone.setError("Enter Valid Name");
+                        inputphone.setError("Enter Valid Phone no");
                         inputphone.requestFocus();
                     }
                     if(!Validation.isValidName(name)){
-                        inputname.setError("Enter Valid Phone NO");
+                        inputname.setError("Enter Valid Name");
                         inputname.requestFocus();
                     }
                 } else {
