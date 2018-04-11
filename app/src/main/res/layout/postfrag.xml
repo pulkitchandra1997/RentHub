@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="12dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
     android:background="@mipmap/welcomeback"
     android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen">
     <ProgressBar
@@ -23,15 +24,101 @@
         android:id="@+id/login_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="16dp"
+                app:cardBackgroundColor="#fff"
+                app:cardCornerRadius="6dp"
+                app:cardElevation="8dp"
+                app:cardUseCompatPadding="true"
+                android:id="@+id/card1">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="16dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Welcome To RentZHub"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="25dp" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="10dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/post_caption"
+                            android:id="@+id/postcaption"
+                            android:textColor="@color/bootstrap_gray_light"
+                            android:textSize="17dp" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="-20dp"
+                        android:layout_marginTop="-30dp">
+                        <WebView
+                           android:layout_width="350dp"
+                           android:layout_height="200dp"
+                           android:id="@+id/webview"
+                            tools:ignore="WebViewLayout"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="30dp">
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/bootstrap_edittext_disabled"
+                            android:text="Rent Property  &#xf061;"
+                            android:id="@+id/listproperty"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="16dp"
         app:cardBackgroundColor="#fff"
         app:cardCornerRadius="6dp"
         app:cardElevation="8dp"
-        app:cardUseCompatPadding="true">
+        app:cardUseCompatPadding="true"
+        android:id="@+id/card2"
+        android:visibility="gone">
+
         <LinearLayout
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
@@ -41,23 +128,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
                 <TextView
                     android:id="@+id/loginhead"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:text="Rent Your Home"
                     android:textAlignment="textStart"
-                    android:textColor="#ef5350"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="35dp" />
-                <com.beardedhen.androidbootstrap.AwesomeTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="7dp"
-                    android:text=""
-                    android:id="@+id/type"
-                    android:textSize="20dp" />
+
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -105,7 +187,7 @@
                         android:padding="5dp"
                         android:layout_marginTop="5dp"
                         android:id="@+id/pincodeicon"
-                        android:text="&#xf2c2;"/>
+                        android:text="&#xf2b9;"/>
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
@@ -197,11 +279,13 @@
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
         android:background="@color/bootstrap_brand_primary"
         android:text="NEXT  &#xf061;"
         android:textColor="#fff"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        />
             </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -337,5 +421,6 @@
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -349,7 +349,7 @@
                             android:layout_gravity="center"
                             android:padding="5dp"
                             android:layout_marginTop="10dp"
-                            android:text="&#xf2c2;"
+                            android:text="&#xf2b9;"
                             android:id="@+id/pincodeicon"/>
                         <android.support.design.widget.TextInputLayout
                             android:layout_width="match_parent"

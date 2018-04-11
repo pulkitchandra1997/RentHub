@@ -17,10 +17,13 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -55,13 +58,14 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 @SuppressLint("ValidFragment")
 public class PostFrag extends Fragment implements View.OnClickListener{
-    TextView addressicon,pincodeicon,cityicon,roomsicon,facilitesicon,amounticon;
+    TextView addressicon,pincodeicon,cityicon,roomsicon,facilitesicon,amounticon,postcaption;
     EditText inputaddress,inputpincode,inputamount;
     Spinner roomstatus,inputcity;
     Button inputsubmit,inputnext,inputprevious;
     LinearLayout pageone,pagetwo;
     CheckBox sofa,bed,refrigerator,ac,wifi,invertor,parking,tv,mess;
     String sofaid,bedid,refigratorid,acid,wifiid,invertorid,parkingid,tvid,messid;
+    WebView webview;
 
     String city,address,amount,pincode,status,email;
 
@@ -69,7 +73,8 @@ public class PostFrag extends Fragment implements View.OnClickListener{
     ProgressBar login_progress;
     ScrollView login_form;
     PROFILE profile;
-
+    CardView card1,card2;
+    Button listproperty;
     @SuppressLint("ValidFragment")
     public PostFrag(PROFILE profile)
     {
@@ -78,6 +83,27 @@ public class PostFrag extends Fragment implements View.OnClickListener{
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.postfrag, container, false);
+
+        webview=view.findViewById(R.id.webview);
+        webview.loadUrl("file:///android_asset/posthome.gif");
+        webview.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        webview.getSettings().setLoadsImagesAutomatically(true);
+        webview.getSettings().setJavaScriptEnabled(true);
+        webview.getSettings().setLoadWithOverviewMode(true);
+        webview.getSettings().setUseWideViewPort(true);
+        webview.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return (event.getAction() == MotionEvent.ACTION_MOVE);
+            }
+        });
+
+        card1=view.findViewById(R.id.card1);
+        card2=view.findViewById(R.id.card2);
+
+        listproperty=view.findViewById(R.id.listproperty);
+
+        postcaption=view.findViewById(R.id.postcaption);
         inputaddress = view.findViewById(R.id.inputaddress);
         login_progress=view.findViewById(R.id.login_progress);
         login_form=view.findViewById(R.id.login_form);
@@ -115,10 +141,15 @@ public class PostFrag extends Fragment implements View.OnClickListener{
         inputprevious.setTypeface(font);
         inputnext.setTypeface(font);
         inputsubmit.setTypeface(font);
+        listproperty.setTypeface(font);
+        Typeface fontface = Typeface.createFromAsset(getActivity().getAssets(), "JosefinSans-Light.ttf" );
+        postcaption.setTypeface(fontface);
+
 
         inputnext.setOnClickListener(this);
         inputprevious.setOnClickListener(this);
         inputsubmit.setOnClickListener(this);
+        listproperty.setOnClickListener(this);
 
         return view;
     }
@@ -155,7 +186,14 @@ public class PostFrag extends Fragment implements View.OnClickListener{
     }
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.inputnext)
+
+        if (v.getId() == R.id.listproperty)
+        {
+            card1.setVisibility(View.GONE);
+            card2.setVisibility(View.VISIBLE);
+        }
+
+            if (v.getId() == R.id.inputnext)
         {
             city = (String) inputcity.getSelectedItem();
             address = inputaddress.getText().toString().trim();
