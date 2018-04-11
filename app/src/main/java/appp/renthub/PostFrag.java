@@ -145,6 +145,7 @@ public class PostFrag extends Fragment implements View.OnClickListener{
         inputsubmit.setTypeface(font);
         listproperty.setTypeface(font);
 
+
         inputnext.setOnClickListener(this);
         inputprevious.setOnClickListener(this);
         inputsubmit.setOnClickListener(this);
