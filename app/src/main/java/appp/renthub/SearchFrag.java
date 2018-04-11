@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,7 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
             searchlist.setVisibility(show ? View.GONE : View.VISIBLE);
@@ -142,6 +144,8 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
                 showProgress(false);
                 if (response.toLowerCase().contains("searcherror")) {
                     AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                    builder.setIcon(R.mipmap.ic_launcher_round);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
                     builder.setMessage("Error in connection");
                     builder.show();
                 } else {
@@ -160,7 +164,9 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
                         }
                         else{
                             AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
-                            builder.setMessage("No result found.");
+                            builder.setIcon(R.mipmap.ic_launcher_round);
+                            builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                            builder.setMessage("No results found.");
                             builder.show();
                         }
                     } catch (Exception e) {
@@ -173,9 +179,11 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
             public void onErrorResponse(VolleyError error)
             {
                 showProgress(false);
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                builder.setIcon(R.mipmap.ic_launcher_round);
+                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
                 builder.setMessage("Error in connection");
-                builder.create();
+                builder.show();
             }
         })
         {

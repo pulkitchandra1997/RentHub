@@ -7,11 +7,14 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -85,6 +88,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
             login_form.setVisibility(show ? View.GONE : View.VISIBLE);
@@ -118,6 +122,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.login) {
+            password.clearFocus();
+
             emailid = email.getText().toString().trim();
             pwd = password.getText().toString().trim();
             if (TextUtils.isEmpty(emailid) || TextUtils.isEmpty(pwd)) {
@@ -135,6 +141,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                     email.requestFocus();
                 }
                 else{
+
                     toserver();
 
                 }
@@ -171,28 +178,26 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 if (response.toLowerCase().contains("loginerror")) {
                     showProgress(false);
                     if(response.toLowerCase().contains("loginerror0")){
-                        Snackbar snackbar = Snackbar
-                                .make(getWindow().getDecorView().getRootView(), "Incorrect Email/ID or Password", Snackbar.LENGTH_LONG);
-                        View sbView = snackbar.getView();
-                        TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
-                        textView.setTextColor(Color.RED);
-                        snackbar.show();
+
+                        AlertDialog builder = new AlertDialog.Builder(LoginActivity.this).create();
+                        builder.setIcon(R.mipmap.ic_launcher_round);
+                        builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                        builder.setMessage("Incorrect Email/ID or Password");
+                        builder.show();
                     }
                     if(response.toLowerCase().contains("loginerror1")){
-                        Snackbar snackbar = Snackbar
-                                .make(getWindow().getDecorView().getRootView(), "Server Error", Snackbar.LENGTH_LONG);
-                        View sbView = snackbar.getView();
-                        TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
-                        textView.setTextColor(Color.RED);
-                        snackbar.show();
+                        AlertDialog builder = new AlertDialog.Builder(LoginActivity.this).create();
+                        builder.setIcon(R.mipmap.ic_launcher_round);
+                        builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                        builder.setMessage("Server Error!");
+                        builder.show();
                     }
                     if(response.toLowerCase().contains("loginerror2")){
-                        Snackbar snackbar = Snackbar
-                                .make(getWindow().getDecorView().getRootView(), "Internet Error. check connection", Snackbar.LENGTH_LONG);
-                        View sbView = snackbar.getView();
-                        TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
-                        textView.setTextColor(Color.RED);
-                        snackbar.show();
+                        AlertDialog builder = new AlertDialog.Builder(LoginActivity.this).create();
+                        builder.setIcon(R.mipmap.ic_launcher_round);
+                        builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                        builder.setMessage("InInternet Error.Check Connection!");
+                        builder.show();
                     }
                 } else {
                     try {
@@ -224,12 +229,11 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                Snackbar snackbar = Snackbar
-                        .make(getWindow().getDecorView().getRootView(), "Connection error! Retry", Snackbar.LENGTH_LONG);
-                View sbView = snackbar.getView();
-                TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
-                textView.setTextColor(Color.RED);
-                snackbar.show();
+                AlertDialog builder = new AlertDialog.Builder(LoginActivity.this).create();
+                builder.setIcon(R.mipmap.ic_launcher_round);
+                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                builder.setMessage("Connection error! Retry");
+                builder.show();
             }
         })
         {

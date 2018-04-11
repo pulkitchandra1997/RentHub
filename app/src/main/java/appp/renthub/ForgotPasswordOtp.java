@@ -10,6 +10,7 @@ import android.os.CountDownTimer;
 import android.support.design.widget.Snackbar;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -159,13 +160,13 @@ public class ForgotPasswordOtp extends Activity implements View.OnClickListener 
                 }
                 else{
 
-                    if(response.equalsIgnoreCase("error")){
-                        Snackbar snackbar = Snackbar
-                                .make(getWindow().getDecorView().getRootView(), "Error in sending OTP. Retry!", Snackbar.LENGTH_LONG);
-                        View sbView = snackbar.getView();
-                        TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
-                        textView.setTextColor(Color.RED);
-                        snackbar.show();
+                    if(response.equalsIgnoreCase("error"))
+                    {
+                        AlertDialog builder = new AlertDialog.Builder(ForgotPasswordOtp.this).create();
+                        builder.setIcon(R.mipmap.ic_launcher_round);
+                        builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                        builder.setMessage("Error in sending OTP. Retry!");
+                        builder.show();
                     }
                 }
             }
@@ -173,12 +174,11 @@ public class ForgotPasswordOtp extends Activity implements View.OnClickListener 
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                Snackbar snackbar = Snackbar
-                        .make(getWindow().getDecorView().getRootView(), "Error in sending OTP. Retry!", Snackbar.LENGTH_LONG);
-                View sbView = snackbar.getView();
-                TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
-                textView.setTextColor(Color.RED);
-                snackbar.show();
+                AlertDialog builder = new AlertDialog.Builder(ForgotPasswordOtp.this).create();
+                builder.setIcon(R.mipmap.ic_launcher_round);
+                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                builder.setMessage("Error in sending OTP. Retry!");
+                builder.show();
             }
         })
         {

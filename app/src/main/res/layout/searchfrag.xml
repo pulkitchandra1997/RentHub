@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:background="@mipmap/welcomeback">
     <ProgressBar
         android:foregroundGravity="center"
         android:id="@+id/login_progress"
@@ -9,19 +10,19 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="150dp"
         android:layout_marginBottom="8dp"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:indeterminateTint="@color/colorPrimary"/>
     <SearchView
         android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:background="@color/colorAccent"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:background="@color/bootstrap_brand_secondary_fill"
         android:queryBackground="@color/bootstrap_brand_secondary_fill"
         android:queryHint="Search City Here"
-        android:drawingCacheQuality="high"
-        >
+        android:drawingCacheQuality="high">
         <requestFocus />
     </SearchView>
 

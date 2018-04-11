@@ -1,5 +1,7 @@
 package appp.renthub;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
@@ -9,11 +11,14 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +28,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,6 +68,9 @@ public class PostFrag extends Fragment implements View.OnClickListener{
 
     JSONObject jsonObject;
 OWNER owner;
+    ProgressBar login_progress;
+    ScrollView login_form;
+
 @SuppressLint("ValidFragment")
     public PostFrag(OWNER owner) {
     this.owner=owner;
@@ -70,6 +80,9 @@ OWNER owner;
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.postfrag, container, false);
+
+        login_progress=view.findViewById(R.id.login_progress);
+        login_form=view.findViewById(R.id.login_form);
         inputaddress = view.findViewById(R.id.inputaddress);
         inputpincode = view.findViewById(R.id.inputpincode);
         inputamount = view.findViewById(R.id.inputamount);
@@ -112,6 +125,38 @@ OWNER owner;
         email=owner.getEmail();
         return view;
     }
+
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            login_form.setVisibility(show ? View.GONE : View.VISIBLE);
+            login_form.animate().setDuration(500).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    login_form.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
+            login_progress.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
+            login_form.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
+    }
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.inputnext)
@@ -125,8 +170,7 @@ OWNER owner;
             if (((String) inputcity.getSelectedItem()).equalsIgnoreCase("Select City") || TextUtils.isEmpty(address) || TextUtils.isEmpty(pincode)|| TextUtils.isEmpty(amount) || ((String) roomstatus.getSelectedItem()).equalsIgnoreCase("Select type of room")) {
                 if (((String) roomstatus.getSelectedItem()).equalsIgnoreCase("Select type of room")) {
                     Toast.makeText(getActivity(), "Select Room Status", Toast.LENGTH_SHORT).show();
-                    roomstatus.requestFocus();
-                    roomstatus.performClick();
+
                 }
                 if (TextUtils.isEmpty(pincode)) {
                     inputpincode.setError("Enter Pincode");
@@ -140,8 +184,6 @@ OWNER owner;
                 if (((String) inputcity.getSelectedItem()).equalsIgnoreCase("Select City")) {
 
                     Toast.makeText(getActivity(), "Select City", Toast.LENGTH_SHORT).show();
-                    inputcity.requestFocus();
-                    inputcity.performClick();
                 }
                 if (TextUtils.isEmpty(address)) {
                     inputaddress.setError("Enter Address");
@@ -239,35 +281,35 @@ OWNER owner;
             }
         }
     private void toserver() {
+    showProgress(true);
         StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_RENT_FORM, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)
             {
+                showProgress(false);
                 if(response.equalsIgnoreCase("success"))
                 {
                     tosqlite();
                     clearform();
                 }
                 if(response.equalsIgnoreCase("error")){
-                    Snackbar snackbar = Snackbar
-                            .make(getActivity().getWindow().getDecorView().getRootView(), "Error in connection!", Snackbar.LENGTH_LONG);
-                    View sbView = snackbar.getView();
-                    TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
-                    textView.setTextColor(Color.RED);
-                    snackbar.show();
+                    AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                    builder.setIcon(R.mipmap.ic_launcher_round);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    builder.setMessage("Error in connection");
+                    builder.show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                Snackbar snackbar = Snackbar
-                        .make(getActivity().getWindow().getDecorView().getRootView(), "Connection error! Retry", Snackbar.LENGTH_LONG);
-                View sbView = snackbar.getView();
-                TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
-                textView.setTextColor(Color.RED);
-                snackbar.show();
+                AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                builder.setIcon(R.mipmap.ic_launcher_round);
+                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                builder.setMessage("Connection error! Retry");
+                builder.show();
             }
         })
         {
@@ -320,12 +362,16 @@ OWNER owner;
         SQLiteDatabase sqLiteDatabase=renthubManager.openDB();
         Long l=sqLiteDatabase.insert(RenthubConstant.TABLE_NAME,null,contentValues);
         if(l>0) {
-            Snackbar snackbar = Snackbar
-                    .make(getActivity().getWindow().getDecorView().getRootView(), "Posted", Snackbar.LENGTH_LONG);
-            snackbar.show();
+            AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+            builder.setIcon(R.mipmap.ic_launcher_round);
+            builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+            builder.setMessage("Your form has been submitted.");
+            builder.show();
         }
         else{
-            Snackbar snackbar = Snackbar
-                    .make(getActivity().getWindow().getDecorView().getRootView(), "Error in posting.", Snackbar.LENGTH_LONG);
-        snackbar.show();    }
+            AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+            builder.setIcon(R.mipmap.ic_launcher_round);
+            builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+            builder.setMessage("Error in submtting form.Try Again!");
+            builder.show();    }
 }}

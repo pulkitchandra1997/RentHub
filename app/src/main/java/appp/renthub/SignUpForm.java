@@ -1,4 +1,6 @@
 package appp.renthub;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
@@ -6,9 +8,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -16,8 +21,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,11 +57,17 @@ public class SignUpForm extends Activity implements View.OnClickListener {
     SharedPreferences sp;
     SharedPreferences.Editor se;
     JSONObject jsonObject;
+    ProgressBar login_progress;
+    ScrollView login_form;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_form);
         inputsignup=findViewById(R.id.inputsignup);
+        login_progress=findViewById(R.id.login_progress);
+        login_form=findViewById(R.id.login_form);
         inputsignup.setOnClickListener(this);
         inputemail=findViewById(R.id.inputemail);
         inputaddress=findViewById(R.id.inputaddress);
@@ -127,6 +140,38 @@ public class SignUpForm extends Activity implements View.OnClickListener {
             }
         }, 2000);
     }
+
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            login_form.setVisibility(show ? View.GONE : View.VISIBLE);
+            login_form.animate().setDuration(500).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    login_form.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
+            login_progress.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
+            login_form.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
+    }
     public String getDate(){
         StringBuilder builder=new StringBuilder();
         builder.append(day+"/");
@@ -162,7 +207,7 @@ public class SignUpForm extends Activity implements View.OnClickListener {
             } else {
                 if(!Validation.isValidName(name)||!Validation.isValidPhone(phone)||!Validation.isValidPassword(password)){
                     if(Validation.isValidPassword(password)){
-                        inputpassword.setError("Password must be alphanumeric & 8 characters");
+                        inputpassword.setError("Password must be alphanumeric & 8 more than characters");
                         inputpassword.requestFocus();
                     }
                     if(!Validation.isValidPhone(phone)){
@@ -183,7 +228,6 @@ public class SignUpForm extends Activity implements View.OnClickListener {
         {
             pageone.setVisibility(View.VISIBLE);
             pagetwo.setVisibility(View.GONE);
-
         }
         if (v.getId() == R.id.inputdob)
         {
@@ -221,7 +265,6 @@ public class SignUpForm extends Activity implements View.OnClickListener {
                 if (((String) marrystatus.getSelectedItem()).equalsIgnoreCase("Select Marital Status")) {
                     Toast.makeText(this, "Select Marital Status", Toast.LENGTH_SHORT).show();
                     marrystatus.requestFocus();
-                    marrystatus.performClick();
                 }
                 if(TextUtils.isEmpty(pincode)){
                     inputpincode.setError("Enter Pincode");
@@ -236,7 +279,6 @@ public class SignUpForm extends Activity implements View.OnClickListener {
                 {
                     Toast.makeText(this, "Select City", Toast.LENGTH_SHORT).show();
                     inputcity.requestFocus();
-                    inputcity.performClick();
                 }
                 if (TextUtils.isEmpty(address)) {
                     inputaddress.setError("Enter Address");
@@ -298,32 +340,32 @@ public class SignUpForm extends Activity implements View.OnClickListener {
         }
     }
     private void toserver() {
+        showProgress(true);
         StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_SIGNUP_FORM, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)
             {
+                showProgress(false);
                 if(response.equalsIgnoreCase("success"))
                     loginsuccess();
                 if(response.equalsIgnoreCase("error")){
-                    Snackbar snackbar = Snackbar
-                            .make(getWindow().getDecorView().getRootView(), "Error in connection!", Snackbar.LENGTH_LONG);
-                    View sbView = snackbar.getView();
-                    TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
-                    textView.setTextColor(Color.RED);
-                    snackbar.show();
+                    AlertDialog builder = new AlertDialog.Builder(SignUpForm.this).create();
+                    builder.setIcon(R.mipmap.ic_launcher_round);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    builder.setMessage("Error in connection");
+                    builder.show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                Snackbar snackbar = Snackbar
-                        .make(getWindow().getDecorView().getRootView(), "Connection error! Retry", Snackbar.LENGTH_LONG);
-                View sbView = snackbar.getView();
-                TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
-                textView.setTextColor(Color.RED);
-                snackbar.show();
+                AlertDialog builder = new AlertDialog.Builder(SignUpForm.this).create();
+                builder.setIcon(R.mipmap.ic_launcher_round);
+                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                builder.setMessage("Connection error! Retry");
+                builder.show();
             }
         })
         {

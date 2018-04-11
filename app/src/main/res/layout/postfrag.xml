@@ -10,6 +10,14 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:background="@mipmap/welcomeback"
     android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen">
+    <ProgressBar
+        android:foregroundGravity="center"
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:indeterminateTint="@color/colorPrimary"/>
 
     <ScrollView
         android:id="@+id/login_form"

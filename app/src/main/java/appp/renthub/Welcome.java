@@ -12,6 +12,7 @@
             import android.support.v4.content.ContextCompat;
             import android.support.v7.app.AlertDialog;
             import android.os.Bundle;
+            import android.text.Html;
             import android.view.View;
             import android.widget.Toast;
             import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -111,6 +112,8 @@
                         else {
                             AlertDialog alertDialog = new AlertDialog.Builder(this).create();
                             alertDialog.setMessage("Permission Denied");
+                            alertDialog.setIcon(R.mipmap.ic_launcher_round);
+                            alertDialog.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
                             alertDialog.show();
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                 if (shouldShowRequestPermissionRationale(ACCESS_FINE_LOCATION)) {
@@ -139,6 +142,8 @@
                     .setMessage(message)
                     .setPositiveButton("OK", okListener)
                     .setNegativeButton("Cancel", null)
+                    .setIcon(R.mipmap.ic_launcher_round)
+                    .setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"))
                     .create()
                     .show();
         }
