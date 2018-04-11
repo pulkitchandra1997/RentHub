@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class PROFILE implements Serializable {
     String type;
-    String name;
+    String name; //hello
 
     public PROFILE() {
     }
