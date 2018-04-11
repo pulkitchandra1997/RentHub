@@ -42,7 +42,6 @@ android:orientation="vertical">
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="Pranjal Verma"
         android:id="@+id/name"
         android:textSize="30dp"
         app:bootstrapBrand="secondary"/>
@@ -401,7 +400,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
         app:cardElevation="8dp"
         app:cardUseCompatPadding="true"
         android:id="@+id/editcard"
-        android:visibility="gone"
+        android:visibility="visible"
         >
 
         <LinearLayout
@@ -451,7 +450,6 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                             android:textSize="14dp"
                             android:enabled="false"
                             android:id="@+id/tenantemail2"
-                            android:text="pranjalv206@gmail.com"
                             android:layout_gravity="right"/>
                     </TableRow>
                     <TableRow>
@@ -490,8 +488,8 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                             android:layout_height="wrap_content"
                             android:textSize="13dp"
                             android:inputType="phone"
+                            android:maxLength="10"
                             android:id="@+id/tenantphone2"
-                            android:text="1234567890"
                             android:layout_gravity="right"/>
                     </TableRow>
                     <TableRow>
@@ -530,7 +528,6 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                             android:layout_height="wrap_content"
                             android:textSize="13dp"
                             android:id="@+id/tenantdob2"
-                            android:text="12/01/1998"
                             android:enabled="false"
                             android:layout_gravity="right"/>
                     </TableRow>
@@ -611,7 +608,6 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                             android:layout_height="wrap_content"
                             android:textSize="13dp"
                             android:id="@+id/tenantgender2"
-                            android:text="Male"
                             android:paddingTop="10dp"
                             android:enabled="false"
                             android:layout_gravity="right"/>
@@ -694,7 +690,6 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                                 android:id="@+id/tenantaddress2"
                                 android:layout_width="120dp"
                                 android:layout_height="wrap_content"
-                                android:text="Kantipuram,Lucknow"
                                 android:maxLines="4"
                                 android:textSize="13dp"
                                 android:layout_gravity="right"/>

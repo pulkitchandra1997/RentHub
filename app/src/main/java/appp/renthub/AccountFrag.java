@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     SharedPreferences sp;
     SharedPreferences.Editor se;
     PROFILE profile;
-
+    String editaddress,editstatus,editcity,editphone;
     @SuppressLint("ValidFragment")
     public AccountFrag(PROFILE profile) {
         this.profile = profile;
@@ -167,7 +168,6 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     }
 
     private void fill() {
-        Toast.makeText(getActivity(), profile.getEmail(), Toast.LENGTH_SHORT).show();
     tenantemail.setText(profile.getEmail());
     tenantaddress.setText(profile.getPermanentaddress());
     tenantcity.setText(profile.getCity());
@@ -175,10 +175,46 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     tenantgender.setText(profile.getGender());
     tenantphone.setText(profile.getPhone());
     tenantstatus.setText(profile.getMarriagestatus());
+    name.setText(profile.getName());
+    name.setAllCaps(true);
+    tenantemail2.setText(profile.getEmail());
+    tenantphone2.setText(profile.getPhone());
+    tenantdob2.setText(profile.getDob());
+    tenantgender2.setText(profile.getGender());
+    tenantaddress2.setText(profile.getPermanentaddress());
     }
 
     @Override
     public void onClick(View v) {
+        if(v.getId()==R.id.editbtn){
+            editaddress=tenantaddress2.getText().toString().trim();
+            editcity=tenantcity2.getSelectedItem().toString();
+            editstatus=tenantstatus2.getSelectedItem().toString();
+            editphone=tenantphone2.getText().toString().trim();
+            if(TextUtils.isEmpty(editaddress)||TextUtils.isEmpty(editphone)||editcity.equalsIgnoreCase("select city")||editstatus.equalsIgnoreCase("select marital status")){
+                if(TextUtils.isEmpty(editaddress)){
+                    tenantaddress2.setError("Enter address");
+                    tenantaddress2.requestFocus();
+                }
+                if(TextUtils.isEmpty(editphone)){
+                    tenantphone2.setError("Enter Phone");
+                    tenantphone2.requestFocus();
+                }
+                if(editcity.equalsIgnoreCase("select city"))
+                    Toast.makeText(getActivity(), "Select city", Toast.LENGTH_SHORT).show();
+                if(editstatus.equalsIgnoreCase("select marital status"))
+                    Toast.makeText(getActivity(), "Select Marriage Status", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                if(!Validation.isValidPhone(editphone)){
+                    tenantphone2.setError("Enter Valid Phone no");
+                    tenantphone2.requestFocus();
+                }
+                else{
+                    updateprofile(editphone,editcity,editstatus,editaddress);
+                }
+            }
+        }
         if (v.getId() == R.id.editprofile) {
             editcard.setVisibility(View.VISIBLE);
             viewcard.setVisibility(View.GONE);
@@ -191,7 +227,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
             editlink.setVisibility(View.VISIBLE);
             viewlink.setVisibility(View.GONE);
         }
-        if (v.getId() == R.id.logout);
+        if (v.getId() == R.id.logout)
         {
             se.remove("email");
             se.remove("password");
@@ -215,6 +251,10 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                 startActivity(intent);
             }
         }
+
+    }
+
+    private void updateprofile(String editphone, String editcity, String editstatus, String editaddress) {
 
     }
 }

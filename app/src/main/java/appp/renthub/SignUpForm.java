@@ -264,7 +264,6 @@ public class SignUpForm extends Activity implements View.OnClickListener {
             {
                 if (((String) marrystatus.getSelectedItem()).equalsIgnoreCase("Select Marital Status")) {
                     Toast.makeText(this, "Select Marital Status", Toast.LENGTH_SHORT).show();
-                    marrystatus.requestFocus();
                 }
                 if(TextUtils.isEmpty(pincode)){
                     inputpincode.setError("Enter Pincode");
@@ -276,10 +275,7 @@ public class SignUpForm extends Activity implements View.OnClickListener {
                     inputgender.requestFocus();
                 }
                 if (((String) inputcity.getSelectedItem()).equalsIgnoreCase("Select City"))
-                {
                     Toast.makeText(this, "Select City", Toast.LENGTH_SHORT).show();
-                    inputcity.requestFocus();
-                }
                 if (TextUtils.isEmpty(address)) {
                     inputaddress.setError("Enter Address");
                     inputaddress.requestFocus();
