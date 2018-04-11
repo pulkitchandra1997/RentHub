@@ -88,7 +88,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
             login_form.setVisibility(show ? View.GONE : View.VISIBLE);
-            login_form.animate().setDuration(1000).alpha(
+            login_form.animate().setDuration(500).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {

@@ -1,7 +1,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-
+    <ProgressBar
+        android:foregroundGravity="center"
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="150dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"/>
     <SearchView
         android:id="@+id/search"
         android:layout_width="match_parent"
@@ -16,13 +24,7 @@
         >
         <requestFocus />
     </SearchView>
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/search"
-        android:visibility="gone"
-        android:drawSelectorOnTop="false"/>
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,5 +34,13 @@
         android:layout_marginBottom="50dp">
 
     </ListView>
+    <ListView
+        android:background="#FFF"
+        android:id="@+id/listview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search"
+        android:visibility="gone"
+        android:drawSelectorOnTop="true"/>
 
 </RelativeLayout>

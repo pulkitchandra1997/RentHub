@@ -1,8 +1,13 @@
 package appp.renthub;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +35,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static android.os.Build.VERSION_CODES.JELLY_BEAN;
@@ -46,10 +54,42 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
     ArrayList<CityNames> arraylist = new ArrayList <CityNames>();
     ArrayList<SEARCHRESULT> searchresults=new ArrayList<>();
     RESULTADAPTER resultadapter;
+    ProgressBar login_progress;
+
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            searchlist.setVisibility(show ? View.GONE : View.VISIBLE);
+            searchlist.animate().setDuration(500).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    searchlist.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
+            login_progress.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
+            searchlist.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View v= inflater.inflate(R.layout.searchfrag,container,false);
         cityNameList = new String[]{"Lucknow", "Kanpur",
                 "Delhi", "Gurgaon", "Mumbai", "Pune", "Kolkata", "Chennai", "Bangalore", "Ahmedabad", "Hyderabad",
@@ -76,26 +116,36 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
         editsearch.setOnQueryTextListener(this);
 
         searchlist=v.findViewById(R.id.searchlist);
-
-
+        searchlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(),String.valueOf(position) , Toast.LENGTH_SHORT).show();
+            }
+        });
+        login_progress=v.findViewById(R.id.login_progress);
         return v;
     }
     @Override
     public boolean onQueryTextSubmit(String query) {
+        list.setVisibility(View.INVISIBLE);
         searchcity(query);
         return false;
     }
-
     private void searchcity(final String query) {
+        searchresults.clear();
+        searchlist.setAdapter(null);
+        showProgress(true);
         StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_SEARCH_CITY, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response) {
-                if (response.toLowerCase().contains("error")) {
-
+                showProgress(false);
+                if (response.toLowerCase().contains("searcherror")) {
+                    AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                    builder.setMessage("Error in connection");
+                    builder.show();
                 } else {
                     try {
-                        searchresults.clear();
                         JSONObject jsonObject=new JSONObject(response);
                         int count=Integer.parseInt(jsonObject.getString("count").toString());
                         if(count>0){
@@ -104,16 +154,16 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
                                 String data[]=jsonObject.get(String.valueOf(count)).toString().split("--%--");
                                 searchresults.add(new SEARCHRESULT(data[0],data[1],data[2]));
                             }
-                            Toast.makeText(getActivity(), searchresults.toString(), Toast.LENGTH_SHORT).show();
                             resultadapter=new RESULTADAPTER(getActivity(),searchresults);
                             searchlist.setAdapter(resultadapter);
                             searchlist.setVisibility(View.VISIBLE);
                         }
                         else{
-
+                            AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                            builder.setMessage("No result found.");
+                            builder.show();
                         }
                     } catch (Exception e) {
-                        Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
                 }
@@ -122,12 +172,10 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                Snackbar snackbar = Snackbar
-                        .make(getView(), "Connection error! Retry", Snackbar.LENGTH_LONG);
-                View sbView = snackbar.getView();
-                TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
-                textView.setTextColor(Color.RED);
-                snackbar.show();
+                showProgress(false);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Error in connection");
+                builder.create();
             }
         })
         {
