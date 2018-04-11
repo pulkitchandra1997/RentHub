@@ -1,15 +1,20 @@
 package appp.renthub;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +22,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -28,17 +45,20 @@ import static android.content.Context.MODE_PRIVATE;
  */
 
 public class AccountFrag extends Fragment implements View.OnClickListener {
-    TextView editprofileicon,viewprofileicon,viewprofile,editprofile,name,email,bday,address,mobile,gender,city,marrystatus,emailicon,phoneicon,bdayicon,statusicon,cityicon,gendericon,addressicon,tenantemail,tenantphone,tenantdob,tenantaddress,tenantgender,tenantcity,tenantstatus;
-    TextView email2,bday2,address2,mobile2,gender2,city2,marrystatus2,emailicon2,phoneicon2,bdayicon2,statusicon2,cityicon2,gendericon2,addressicon2,logout,changepassword;
-    EditText tenantemail2,tenantphone2,tenantdob2,tenantaddress2,tenantgender2;
-    CardView viewcard,editcard;
-    Spinner tenantcity2,tenantstatus2;
-    LinearLayout viewlink,editlink;
+    TextView editprofileicon, viewprofileicon, viewprofile, editprofile, name, email, bday, address, mobile, gender, city, marrystatus, emailicon, phoneicon, bdayicon, statusicon, cityicon, gendericon, addressicon, tenantemail, tenantphone, tenantdob, tenantaddress, tenantgender, tenantcity, tenantstatus;
+    TextView pincode2,email2, bday2, address2, mobile2, gender2, city2, marrystatus2, emailicon2, phoneicon2, bdayicon2, statusicon2, cityicon2, gendericon2, addressicon2, logout, changepassword,pincodeicon2;
+    EditText tenantemail2, tenantphone2, tenantdob2, tenantaddress2, tenantgender2,tenantpincode2;
+    CardView viewcard, editcard;
+    Spinner tenantcity2, tenantstatus2;
+    LinearLayout viewlink, editlink;
     Button editbtn;
     SharedPreferences sp;
     SharedPreferences.Editor se;
     PROFILE profile;
-    String editaddress,editstatus,editcity,editphone;
+    String editaddress, editstatus, editcity, editphone,editpincode;
+    JSONObject jsonObject;
+    ProgressBar progressBar;
+
     @SuppressLint("ValidFragment")
     public AccountFrag(PROFILE profile) {
         this.profile = profile;
@@ -50,64 +70,68 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v= inflater.inflate(R.layout.accountfrag,container,false);
+        View v = inflater.inflate(R.layout.accountfrag, container, false);
 
-        editbtn=v.findViewById(R.id.editbtn);
-        editlink=v.findViewById(R.id.editlink);
-        viewlink=v.findViewById(R.id.viewlink);
-        viewcard=v.findViewById(R.id.viewcard);
-        editcard=v.findViewById(R.id.editcard);
-        tenantcity2=v.findViewById(R.id.tenantcity2);
-        tenantstatus2=v.findViewById(R.id.tenantstatus2);
-        name=v.findViewById(R.id.name);
-        editprofile=v.findViewById(R.id.editprofile);
-        viewprofile=v.findViewById(R.id.viewprofile);
-        editprofileicon=v.findViewById(R.id.editprofileicon);
-        tenantemail=v.findViewById(R.id.tenantemail);
-        tenantaddress=v.findViewById(R.id.tenantaddress);
-        tenantphone=v.findViewById(R.id.tenantphone);
-        tenantdob=v.findViewById(R.id.tenantdob);
-        tenantgender=v.findViewById(R.id.tenantgender);
-        tenantstatus=v.findViewById(R.id.tenantstatus);
-        tenantcity=v.findViewById(R.id.tenantcity);
-        tenantemail2=v.findViewById(R.id.tenantemail2);
-        tenantaddress2=v.findViewById(R.id.tenantaddress2);
-        tenantphone2=v.findViewById(R.id.tenantphone2);
-        tenantdob2=v.findViewById(R.id.tenantdob2);
-        tenantgender2=v.findViewById(R.id.tenantgender2);
-        email=v.findViewById(R.id.email);
-        address=v.findViewById(R.id.address);
-        mobile=v.findViewById(R.id.mobile);
-        bday=v.findViewById(R.id.bday);
-        gender=v.findViewById(R.id.gender);
-        marrystatus=v.findViewById(R.id.marrystatus);
-        city=v.findViewById(R.id.city);
-        viewprofileicon=v.findViewById(R.id.viewprofileicon);
-        emailicon=v.findViewById(R.id.emailicon);
-        phoneicon=v.findViewById(R.id.phoneicon);
-        bdayicon=v.findViewById(R.id.bdayicon);
-        cityicon=v.findViewById(R.id.cityicon);
-        gendericon=v.findViewById(R.id.gendericon);
-        statusicon=v.findViewById(R.id.statusicon);
-        addressicon=v.findViewById(R.id.addressicon);
-        email2=v.findViewById(R.id.email2);
-        address2=v.findViewById(R.id.address2);
-        mobile2=v.findViewById(R.id.mobile2);
-        bday2=v.findViewById(R.id.bday2);
-        gender2=v.findViewById(R.id.gender2);
-        marrystatus2=v.findViewById(R.id.marrystatus2);
-        city2=v.findViewById(R.id.city2);
-        emailicon2=v.findViewById(R.id.emailicon2);
-        phoneicon2=v.findViewById(R.id.phoneicon2);
-        bdayicon2=v.findViewById(R.id.bdayicon2);
-        cityicon2=v.findViewById(R.id.cityicon2);
-        gendericon2=v.findViewById(R.id.gendericon2);
-        statusicon2=v.findViewById(R.id.statusicon2);
-        addressicon2=v.findViewById(R.id.addressicon2);
-        logout=v.findViewById(R.id.logout);
-        changepassword=v.findViewById(R.id.changepassword);
+        editbtn = v.findViewById(R.id.editbtn);
+        editlink = v.findViewById(R.id.editlink);
+        viewlink = v.findViewById(R.id.viewlink);
+        viewcard = v.findViewById(R.id.viewcard);
+        editcard = v.findViewById(R.id.editcard);
+        tenantcity2 = v.findViewById(R.id.tenantcity2);
+        pincodeicon2=v.findViewById(R.id.pincodeicon2);
+        tenantstatus2 = v.findViewById(R.id.tenantstatus2);
+        name = v.findViewById(R.id.name);
+        pincode2=v.findViewById(R.id.pincode2);
+        editprofile = v.findViewById(R.id.editprofile);
+        viewprofile = v.findViewById(R.id.viewprofile);
+        tenantpincode2=v.findViewById(R.id.tenantpincode2);
+        editprofileicon = v.findViewById(R.id.editprofileicon);
+        tenantemail = v.findViewById(R.id.tenantemail);
+        tenantaddress = v.findViewById(R.id.tenantaddress);
+        tenantphone = v.findViewById(R.id.tenantphone);
+        tenantdob = v.findViewById(R.id.tenantdob);
+        tenantgender = v.findViewById(R.id.tenantgender);
+        tenantstatus = v.findViewById(R.id.tenantstatus);
+        tenantcity = v.findViewById(R.id.tenantcity);
+        tenantemail2 = v.findViewById(R.id.tenantemail2);
+        tenantaddress2 = v.findViewById(R.id.tenantaddress2);
+        tenantphone2 = v.findViewById(R.id.tenantphone2);
+        tenantdob2 = v.findViewById(R.id.tenantdob2);
+        tenantgender2 = v.findViewById(R.id.tenantgender2);
+        email = v.findViewById(R.id.email);
+        address = v.findViewById(R.id.address);
+        mobile = v.findViewById(R.id.mobile);
+        bday = v.findViewById(R.id.bday);
+        gender = v.findViewById(R.id.gender);
+        marrystatus = v.findViewById(R.id.marrystatus);
+        city = v.findViewById(R.id.city);
+        viewprofileicon = v.findViewById(R.id.viewprofileicon);
+        emailicon = v.findViewById(R.id.emailicon);
+        phoneicon = v.findViewById(R.id.phoneicon);
+        bdayicon = v.findViewById(R.id.bdayicon);
+        cityicon = v.findViewById(R.id.cityicon);
+        gendericon = v.findViewById(R.id.gendericon);
+        statusicon = v.findViewById(R.id.statusicon);
+        addressicon = v.findViewById(R.id.addressicon);
+        email2 = v.findViewById(R.id.email2);
+        address2 = v.findViewById(R.id.address2);
+        mobile2 = v.findViewById(R.id.mobile2);
+        bday2 = v.findViewById(R.id.bday2);
+        gender2 = v.findViewById(R.id.gender2);
+        marrystatus2 = v.findViewById(R.id.marrystatus2);
+        city2 = v.findViewById(R.id.city2);
+        emailicon2 = v.findViewById(R.id.emailicon2);
+        phoneicon2 = v.findViewById(R.id.phoneicon2);
+        bdayicon2 = v.findViewById(R.id.bdayicon2);
+        cityicon2 = v.findViewById(R.id.cityicon2);
+        gendericon2 = v.findViewById(R.id.gendericon2);
+        statusicon2 = v.findViewById(R.id.statusicon2);
+        addressicon2 = v.findViewById(R.id.addressicon2);
+        logout = v.findViewById(R.id.logout);
+        changepassword = v.findViewById(R.id.changepassword);
+        progressBar=v.findViewById(R.id.login_progress);
 
-        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Font Awesome 5 Free-Solid-900.otf" );
+        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Font Awesome 5 Free-Solid-900.otf");
         emailicon.setTypeface(font);
         phoneicon.setTypeface(font);
         bdayicon.setTypeface(font);
@@ -121,12 +145,14 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         cityicon2.setTypeface(font);
         gendericon2.setTypeface(font);
         statusicon2.setTypeface(font);
+        pincodeicon2.setTypeface(font);
+        pincode2.setTypeface(font);
         addressicon2.setTypeface(font);
         editprofileicon.setTypeface(font);
         viewprofileicon.setTypeface(font);
-        Typeface fontstyle = Typeface.createFromAsset(getActivity().getAssets(), "Oregon LDO Medium.ttf" );
+        Typeface fontstyle = Typeface.createFromAsset(getActivity().getAssets(), "Oregon LDO Medium.ttf");
         name.setTypeface(fontstyle);
-        Typeface fontface = Typeface.createFromAsset(getActivity().getAssets(), "JosefinSans-Light.ttf" );
+        Typeface fontface = Typeface.createFromAsset(getActivity().getAssets(), "JosefinSans-Light.ttf");
         tenantaddress.setTypeface(fontface);
         tenantemail.setTypeface(fontface);
         tenantstatus.setTypeface(fontface);
@@ -161,57 +187,66 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         logout.setOnClickListener(this);
         changepassword.setOnClickListener(this);
 
-        sp=getActivity().getSharedPreferences("RentHub_data",MODE_PRIVATE);
-        se=sp.edit();
+        sp = getActivity().getSharedPreferences("RentHub_data", MODE_PRIVATE);
+        se = sp.edit();
         fill();
         return v;
     }
 
     private void fill() {
-    tenantemail.setText(profile.getEmail());
-    tenantaddress.setText(profile.getPermanentaddress());
-    tenantcity.setText(profile.getCity());
-    tenantdob.setText(profile.getDob());
-    tenantgender.setText(profile.getGender());
-    tenantphone.setText(profile.getPhone());
-    tenantstatus.setText(profile.getMarriagestatus());
-    name.setText(profile.getName());
-    name.setAllCaps(true);
-    tenantemail2.setText(profile.getEmail());
-    tenantphone2.setText(profile.getPhone());
-    tenantdob2.setText(profile.getDob());
-    tenantgender2.setText(profile.getGender());
-    tenantaddress2.setText(profile.getPermanentaddress());
+        tenantemail.setText(profile.getEmail());
+        tenantaddress.setText(profile.getPermanentaddress());
+        tenantcity.setText(profile.getCity());
+        tenantdob.setText(profile.getDob());
+        tenantgender.setText(profile.getGender());
+        tenantphone.setText(profile.getPhone());
+        tenantstatus.setText(profile.getMarriagestatus());
+        name.setText(profile.getName());
+        name.setAllCaps(true);
+        tenantemail2.setText(profile.getEmail());
+        tenantphone2.setText(profile.getPhone());
+        tenantdob2.setText(profile.getDob());
+        tenantgender2.setText(profile.getGender());
+        tenantaddress2.setText(profile.getPermanentaddress());
+        tenantpincode2.setText(profile.getPincode());
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.editbtn){
-            editaddress=tenantaddress2.getText().toString().trim();
-            editcity=tenantcity2.getSelectedItem().toString();
-            editstatus=tenantstatus2.getSelectedItem().toString();
-            editphone=tenantphone2.getText().toString().trim();
-            if(TextUtils.isEmpty(editaddress)||TextUtils.isEmpty(editphone)||editcity.equalsIgnoreCase("select city")||editstatus.equalsIgnoreCase("select marital status")){
-                if(TextUtils.isEmpty(editaddress)){
+        if (v.getId() == R.id.editbtn) {
+            editaddress = tenantaddress2.getText().toString().trim();
+            editcity = tenantcity2.getSelectedItem().toString();
+            editstatus = tenantstatus2.getSelectedItem().toString();
+            editphone = tenantphone2.getText().toString().trim();
+            editpincode=tenantpincode2.getText().toString().trim();
+            if (TextUtils.isEmpty(editaddress) || TextUtils.isEmpty(editphone) || editcity.equalsIgnoreCase("select city") || editstatus.equalsIgnoreCase("select marital status")||TextUtils.isEmpty(editpincode)) {
+                if (TextUtils.isEmpty(editaddress)) {
                     tenantaddress2.setError("Enter address");
                     tenantaddress2.requestFocus();
                 }
-                if(TextUtils.isEmpty(editphone)){
+                if (TextUtils.isEmpty(editphone)) {
                     tenantphone2.setError("Enter Phone");
                     tenantphone2.requestFocus();
                 }
-                if(editcity.equalsIgnoreCase("select city"))
+                if (TextUtils.isEmpty(editpincode)) {
+                    tenantpincode2.setError("Enter Pincode");
+                    tenantpincode2.requestFocus();
+                }
+                if (editcity.equalsIgnoreCase("select city"))
                     Toast.makeText(getActivity(), "Select city", Toast.LENGTH_SHORT).show();
-                if(editstatus.equalsIgnoreCase("select marital status"))
+                if (editstatus.equalsIgnoreCase("select marital status"))
                     Toast.makeText(getActivity(), "Select Marriage Status", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                if(!Validation.isValidPhone(editphone)){
+            } else {
+                if (!Validation.isValidPhone(editphone)) {
                     tenantphone2.setError("Enter Valid Phone no");
                     tenantphone2.requestFocus();
-                }
-                else{
-                    updateprofile(editphone,editcity,editstatus,editaddress);
+                } else {
+                    if(editpincode.length()==6)
+                    updateprofile(editphone, editcity, editstatus, editaddress,editpincode);
+                    else {
+                        tenantpincode2.setError("Enter Valid pincode");
+                        tenantpincode2.requestFocus();
+                    }
                 }
             }
         }
@@ -227,8 +262,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
             editlink.setVisibility(View.VISIBLE);
             viewlink.setVisibility(View.GONE);
         }
-        if (v.getId() == R.id.logout)
-        {
+        if (v.getId() == R.id.logout) {
             se.remove("email");
             se.remove("password");
             se.remove("name");
@@ -242,19 +276,103 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
             se.remove("gender");
             se.remove("verified");
             se.commit();
-            Intent intent=new Intent(getActivity(),LoginActivity.class);
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
                 ActivityOptions options = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.fade_in, R.anim.fade_out);
                 startActivity(intent, options.toBundle());
-            }
-            else{
+            } else {
                 startActivity(intent);
             }
         }
 
     }
 
-    private void updateprofile(String editphone, String editcity, String editstatus, String editaddress) {
+    private void updateprofile(final String editphone, final String editcity, final String editstatus, final String editaddress,final String editpincode) {
+        showProgress(true);
+        jsonObject= new JSONObject();
+        try {
+            jsonObject.put("phone", editphone);
+            jsonObject.put("email", profile.getEmail());
+            jsonObject.put("city", editcity);
+            jsonObject.put("marriagestatus", editstatus);
+            jsonObject.put("permanentaddress", editaddress);
+            jsonObject.put("pincode",editpincode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_SIGNUP_FORM, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+                showProgress(false);
+                if(response.equalsIgnoreCase("success")){
+                    AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                    builder.setIcon(R.mipmap.ic_launcher_round);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    builder.setMessage("Profile Updated");
+                    builder.show();
+                    se.putString("phone",editphone);
+                    se.putString("marriagestatus",editstatus);
+                    se.putString("city",editcity);
+                    se.putString("permanentaddress",editaddress);
+                    se.putString("pincode",editpincode);
+                    profile.setCity(editcity);
+                    profile.setMarriagestatus(editstatus);
+                    profile.setPermanentaddress(editaddress);
+                    profile.setPincode(editpincode);
+                    profile.setPhone(editphone);
+                    fill();
+                    }
+                if(response.equalsIgnoreCase("error")){
+                    AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                    builder.setIcon(R.mipmap.ic_launcher_round);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    builder.setMessage("Error in connection");
+                    builder.show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                builder.setIcon(R.mipmap.ic_launcher_round);
+                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                builder.setMessage("Connection error! Retry");
+                builder.show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put("data",jsonObject.toString());
+                return params;
+            }
+        };
+        MySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
 
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+            progressBar.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        }
     }
 }

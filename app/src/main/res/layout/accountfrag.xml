@@ -4,6 +4,16 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 android:orientation="vertical"
 android:layout_width="match_parent"
 android:layout_height="match_parent">
+    <ProgressBar
+        android:foregroundGravity="center"
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="150dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        android:indeterminateTint="@color/colorPrimary"/>
 
 <ScrollView
     android:layout_width="match_parent"
@@ -692,6 +702,43 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                                 android:layout_height="wrap_content"
                                 android:maxLines="4"
                                 android:textSize="13dp"
+                                android:layout_gravity="right"/>
+                        </android.support.design.widget.TextInputLayout>
+
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="&#xf2bb;"
+                            android:paddingTop="15dp"
+                            android:id="@+id/pincodeicon2"
+                            android:textSize="13dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_gravity="left"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pincode"
+                            android:paddingTop="15dp"
+                            android:id="@+id/pincode2"
+                            android:textSize="13dp"
+                            android:layout_gravity="left"
+                            />
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:id="@+id/tenantpincode2"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:maxLines="4"
+                                android:textSize="13dp"
+                                android:inputType="number"
+                                android:maxLength="6"
                                 android:layout_gravity="right"/>
                         </android.support.design.widget.TextInputLayout>
 
