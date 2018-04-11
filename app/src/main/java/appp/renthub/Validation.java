@@ -18,10 +18,10 @@ public class Validation {
 
     }
     public static boolean isValidPassword(String password){
-        String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-zA-Z]).{8,20})";
-
-        return PASSWORD_PATTERN.matches(password);
-
+        String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=\\S+$)$";
+        Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
     }
     public static boolean isValidEmail(String mail) {
         return Patterns.EMAIL_ADDRESS.matcher(mail).matches();

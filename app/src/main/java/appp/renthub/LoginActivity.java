@@ -205,8 +205,11 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                         tosharedpreference(jsonObject);
                         Intent intent;
                             PROFILE profile=new PROFILE(jsonObject.getString("email"),jsonObject.getString("name"),jsonObject.getString("phone"),jsonObject.getString("dob"),jsonObject.getString("marriagestatus"),jsonObject.getString("city"),jsonObject.getString("permanentaddress"),jsonObject.getString("pincode"),jsonObject.getString("gender"),jsonObject.getString("password"),jsonObject.getString("verified"),jsonObject.getString("type"));
+                            if(jsonObject.getString("type").equalsIgnoreCase("owner"))
                             intent = new Intent(LoginActivity.this, OwnerProfile.class);
-                            intent.putExtra("profile", profile);
+                            else
+                                intent = new Intent(LoginActivity.this, UserProfile.class);
+                        intent.putExtra("profile", profile);
                         if (android.os.Build.VERSION.SDK_INT >= JELLY_BEAN) {
                             ActivityOptions options = ActivityOptions.makeCustomAnimation(LoginActivity.this, R.anim.fade_in, R.anim.fade_out);
                             startActivity(intent, options.toBundle());

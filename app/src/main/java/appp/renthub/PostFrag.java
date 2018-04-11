@@ -56,7 +56,6 @@ import static android.widget.Toast.LENGTH_SHORT;
  * Created by pranj on 05-04-2018.
  */
 
-@SuppressLint("ValidFragment")
 public class PostFrag extends Fragment implements View.OnClickListener{
     TextView addressicon,pincodeicon,cityicon,roomsicon,facilitesicon,amounticon,postcaption;
     EditText inputaddress,inputpincode,inputamount;
@@ -76,10 +75,13 @@ public class PostFrag extends Fragment implements View.OnClickListener{
     CardView card1,card2;
     Button listproperty;
     @SuppressLint("ValidFragment")
-    public PostFrag(PROFILE profile)
-    {
-
+    public PostFrag(PROFILE profile) {
+        this.profile = profile;
     }
+
+    public PostFrag() {
+    }
+
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.postfrag, container, false);
