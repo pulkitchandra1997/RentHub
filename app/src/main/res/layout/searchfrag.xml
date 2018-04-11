@@ -21,13 +21,15 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/search"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:drawSelectorOnTop="false"/>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:id="@+id/searchlist"
-        android:layout_below="@+id/listview">
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="50dp">
 
     </ListView>
 
