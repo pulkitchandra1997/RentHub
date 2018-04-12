@@ -41,10 +41,11 @@ package appp.renthub;
 
 public class PlaceDetailsFrag extends Fragment {
 
-    TextView homeicon, homeadd, moneyicon, rent, permonth, facilities, acicon, wifiicon, bedicon, sofaicon, fridgeicon, powericon, parkingicon, messicon, tvicon, houseowner, ownername;
+    TextView homeicon, homeadd, moneyicon, rent, permonth, facilities, acicon, wifiicon, bedicon, sofaicon, fridgeicon, powericon, parkingicon, messicon, tvicon, houseowner, ownname;
+    TextView homecity, homepin, statusicon, housetype, statusvalue;
     ImageView homeimg, ownerpic;
     LinearLayout ac, bed, wifi, sofa, fridge, power, tv, parking, mess;
-    Button book;
+    Button booknow, alreadybooked;
     ProgressBar progressBar;
 
     String address = "D1/43 Priyadarshini Yojna, Sitapur Road";
@@ -58,13 +59,19 @@ public class PlaceDetailsFrag extends Fragment {
         homeimg = v.findViewById(R.id.homeimg);
         ownerpic = v.findViewById(R.id.ownerpic);
         homeadd = v.findViewById(R.id.homeadd);
+        homecity= v.findViewById(R.id.homecity);
+        homepin=v.findViewById(R.id.homepin);
+        housetype= v.findViewById(R.id.housetype);
+        statusvalue= v.findViewById(R.id.statusvalue);
         moneyicon = v.findViewById(R.id.moneyicon);
+        statusicon= v.findViewById(R.id.statusicon);
         rent = v.findViewById(R.id.rent);
         permonth = v.findViewById(R.id.permonth);
         facilities = v.findViewById(R.id.facilities);
         houseowner = v.findViewById(R.id.houseowner);
-        ownername = v.findViewById(R.id.ownername);
-        book = v.findViewById(R.id.book);
+        ownname = v.findViewById(R.id.ownname);
+        booknow = v.findViewById(R.id.booknow);
+        alreadybooked= v.findViewById(R.id.alreadybooked);
 
         acicon = v.findViewById(R.id.acicon);
         wifiicon = v.findViewById(R.id.wifiicon);
@@ -96,7 +103,9 @@ public class PlaceDetailsFrag extends Fragment {
 
 
         homeicon.setTypeface(f1);
-        moneyicon.setTypeface(f2);
+        moneyicon.setTypeface(f1);
+        statusicon.setTypeface(f1);
+
         acicon.setTypeface(f1);
         fridgeicon.setTypeface(f1);
         powericon.setTypeface(f1);
@@ -108,11 +117,19 @@ public class PlaceDetailsFrag extends Fragment {
         wifiicon.setTypeface(f1);
 
         homeadd.setTypeface(f4);
+        homecity.setTypeface(f4);
+        homepin.setTypeface(f4);
         rent.setTypeface(f4);
         facilities.setTypeface(f4);
         permonth.setTypeface(f4);
         houseowner.setTypeface(f4);
-        ownername.setTypeface(f4);
+        ownname.setTypeface(f4);
+        housetype.setTypeface(f4);
+        statusvalue.setTypeface(f4);
+
+
+        fromserver();
+
         return v;
 
     }
@@ -125,6 +142,7 @@ public class PlaceDetailsFrag extends Fragment {
         {
             @Override
             public void onResponse(String response) {
+                showProgress(false);
                 if (response.equalsIgnoreCase("error")){
                     AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
                     builder.setIcon(R.mipmap.ic_launcher_round);
@@ -147,10 +165,22 @@ public class PlaceDetailsFrag extends Fragment {
                         String isbed=jsonObject.get("bedid").toString();
                         String isparking=jsonObject.get("parkingid").toString();
                         String isac=jsonObject.get("acid").toString();
-                        String owner=jsonObject.get("").toString();
+                        String isrented=jsonObject.get("rented").toString();
+                        String ownername=jsonObject.get("ownername").toString();
+                        String ownermail=jsonObject.get("ownermail").toString();
 
+                        ownname.setText(ownername);
                         homeadd.setText(address);
                         rent.setText(amount);
+
+                        if(isrented=="1") {
+                            booknow.setVisibility(View.GONE);
+                        }
+                        else
+                        {
+                            alreadybooked.setVisibility(View.GONE);
+                        }
+
 
                         if(istv=="0")
                         {
@@ -196,6 +226,8 @@ public class PlaceDetailsFrag extends Fragment {
                         {
                             ac.setVisibility(View.GONE);
                         }
+
+
 
 
                     } catch (JSONException e) {

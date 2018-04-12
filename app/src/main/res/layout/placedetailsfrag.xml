@@ -53,6 +53,7 @@ android:orientation="vertical">
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -67,14 +68,100 @@ android:orientation="vertical">
                         android:textStyle="bold"
                         android:layout_marginTop="3dp"/>
 
-                    <TextView
-                        android:id="@+id/homeadd"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:text="D1/43, Priyadarshini Yojna, Sitapur Road, Lucknow, Uttar Pardesh, 226020"
+                        android:orientation="vertical"
+                        android:layout_marginRight="5dp">
+
+                        <TextView
+                        android:id="@+id/homeadd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="D1/43, Priyadarshini Yojna, Sitapur Road"
                         android:textColor="@color/black_overlay"
                         android:textSize="20dp"
+                        android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/homecity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Lucknow"
+                            android:textColor="@color/black_overlay"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="10dp"/>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="#fff"
+            android:padding="20dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp">
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <TextView
+                        android:id="@+id/statusicon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="15dp"
+                        android:text="&#xf1ad;"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="17dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/housetype"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:text="Type"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="20dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3 BHK"
+                        android:textColor="@color/black_overlay"
+                        android:textSize="20dp"
+                        android:id="@+id/statusvalue"
                         android:textStyle="bold"/>
 
                 </LinearLayout>
@@ -92,7 +179,6 @@ android:orientation="vertical">
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="20dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp">
 
@@ -102,13 +188,23 @@ android:orientation="vertical">
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="15dp"
-                        android:text="&#xf3d1;"
+                        android:text="&#xf156;"
                         android:textColor="@color/colorPrimary"
                         android:textSize="17dp"
                         android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/rent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:text="Rent"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="20dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/rentvalue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
@@ -128,9 +224,13 @@ android:orientation="vertical">
 
                 </LinearLayout>
 
+
+
             </LinearLayout>
 
+
         </android.support.v7.widget.CardView>
+
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -142,11 +242,16 @@ android:orientation="vertical">
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true">
 
+
+
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginBottom="15dp">
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -155,7 +260,6 @@ android:orientation="vertical">
                     android:layout_marginBottom="25dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="15dp"
                     android:text="Facilities"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorPrimary"
@@ -170,7 +274,8 @@ android:orientation="vertical">
                     android:layout_marginBottom="15dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:clickable="true">
 
                     <HorizontalScrollView
                         android:layout_width="match_parent"
@@ -445,7 +550,7 @@ android:orientation="vertical">
                             android:text="Ayushi Daksh"
                             android:layout_marginTop="20dp"
                             android:gravity="center"
-                            android:id="@+id/ownername"/>
+                            android:id="@+id/ownname"/>
 
                         <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
                             android:layout_width="50dp"
@@ -471,7 +576,7 @@ android:orientation="vertical">
                     android:background="@color/black_overlay" />
 
                 <Button
-                    android:id="@+id/book"
+                    android:id="@+id/booknow"
                     style="?android:textAppearanceMedium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -481,9 +586,38 @@ android:orientation="vertical">
                     android:background="@color/colorPrimary"
                     android:text="BOOK HOME NOW"
                     android:textColor="#fff"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:clickable="true"/>
+
+                <Button
+                    android:id="@+id/alreadybooked"
+                    style="?android:textAppearanceMedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/colorPrimary"
+                    android:text="HOUSE NOT AVAILABLE"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:clickable="false"/>
+
+
+
+
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/homepin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="226020"
+                android:textColor="@color/black_overlay"
+                android:textSize="20dp"
+                android:textStyle="bold" />
         </android.support.v7.widget.CardView>
 
 
