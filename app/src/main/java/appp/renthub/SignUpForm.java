@@ -195,10 +195,10 @@ public class SignUpForm extends Activity implements View.OnClickListener {
                     inputdob.setError("Select DOB");
                     inputdob.requestFocus();
                 }
-            } else {
-                if(!Validation.isValidName(name)||!Validation.isValidPhone(phone)||!Validation.isValidPassword(password)){
-                    if(!Validation.isValidPassword(password)){
-                        inputpassword.setError("Password must be alphanumeric & more than 8 characters");
+            } else
+                if(!Validation.isValidName(name)||!Validation.isValidPhone(phone)||password.length()<8){
+                    if(password.length()<8){
+                        inputpassword.setError("Password must be more than 8 characters");
                         inputpassword.requestFocus();
                     }
                     if(!Validation.isValidPhone(phone)){
@@ -213,7 +213,6 @@ public class SignUpForm extends Activity implements View.OnClickListener {
                     pagetwo.setVisibility(View.VISIBLE);
                     pageone.setVisibility(View.GONE);
                 }
-            }
         }
         if (v.getId() == R.id.inputprevious)
         {
