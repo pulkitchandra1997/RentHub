@@ -286,11 +286,11 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
             confirmpwd = confirmnewpwd.getText().toString().trim();
             if (TextUtils.isEmpty(oldpwd) || TextUtils.isEmpty(newpwd) || TextUtils.isEmpty(confirmpwd)) {
                 if (TextUtils.isEmpty(oldpwd)) {
-                    oldpassword.setError("Enter Your Password");
+                    oldpassword.setError("Enter Old Password");
                     oldpassword.requestFocus();
                 }
                 if (TextUtils.isEmpty(newpwd)) {
-                    newpassword.setError("Confirm Your Password");
+                    newpassword.setError("Enter New Password");
                     newpassword.requestFocus();
 
                 }
@@ -298,8 +298,31 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                     confirmnewpwd.setError("Confirm Your  New password");
                     confirmnewpwd.requestFocus();
                 }
-            }
+            }else
+            if(oldpwd.length()<8||newpwd.length()<8||confirmpwd.length()<8)
+            {
+                if (oldpwd.length()<8)
+                {
+                    oldpassword.setError("Password must be more than 8 characters");
+                    oldpassword.requestFocus();
+                }
+                if (newpwd.length()<8)
+                {
+                    newpassword.setError("Password must be more than 8 characters");
+                    newpassword.requestFocus();
+                }
+                if (confirmpwd.length()<8)
+                {
+                    confirmnewpwd.setError("Password must be more than 8 characters");
+                    confirmnewpwd.requestFocus();
+                }
+            }else {
+                if (oldpwd.equals(newpwd))
+                {
 
+                }
+            }
+        }
             if (v.getId() == R.id.logout) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -341,8 +364,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                 builder.show();
             }
 
-        }}
-
+        }
     private void updateprofile(final String editphone, final String editcity, final String editstatus, final String editaddress,final String editpincode) {
         showProgress(true);
         jsonObject= new JSONObject();
