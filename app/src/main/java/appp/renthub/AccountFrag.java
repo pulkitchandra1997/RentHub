@@ -295,8 +295,8 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
 
                 }
                 if (TextUtils.isEmpty(confirmpwd)) {
-                    newpassword.setError("Confirm Your  New password");
-                    newpassword.requestFocus();
+                    confirmnewpwd.setError("Confirm Your  New password");
+                    confirmnewpwd.requestFocus();
                 }
             }
 
