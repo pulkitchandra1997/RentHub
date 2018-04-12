@@ -96,7 +96,7 @@ public class ConfirmPassword extends Activity implements View.OnClickListener{
 
     private void updatepassword() {
         showProgress(true);
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_SEND_OTP, new Response.Listener<String>()
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_CHANGE_PASSWORD, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response) {
@@ -119,7 +119,7 @@ public class ConfirmPassword extends Activity implements View.OnClickListener{
                                 startActivity(intent);
                             }
                         }
-                    }, 1500);
+                    }, 2500);
             }
                 else {
                     if(response.equalsIgnoreCase("error")){

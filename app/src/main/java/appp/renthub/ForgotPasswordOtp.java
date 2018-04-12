@@ -32,7 +32,7 @@ import java.util.Map;
 public class ForgotPasswordOtp extends Activity implements View.OnClickListener {
     String type=null,emailtext=null,otptext=null;
     int num;
-    TextView usericon,otpicon,login,resendotp1,resendotp2;
+    TextView usericon,otpicon,resendotp1,resendotp2;
     Button otp,signup;
     EditText emailinput;
     com.beardedhen.androidbootstrap.AwesomeTextView signuptype;
@@ -51,8 +51,6 @@ public class ForgotPasswordOtp extends Activity implements View.OnClickListener 
         resendotp2=findViewById(R.id.resendotp2);
         resendotp2.setOnClickListener(this);
         emailinput=findViewById(R.id.emailinput);
-        login=findViewById(R.id.login);
-        login.setOnClickListener(this);
         Typeface font = Typeface.createFromAsset(getAssets(), "Font Awesome 5 Free-Solid-900.otf" );
         usericon.setTypeface(font);
         otpicon.setTypeface(font);
@@ -155,6 +153,13 @@ public class ForgotPasswordOtp extends Activity implements View.OnClickListener 
                     }
                 }
                 else{
+                    if(response.equalsIgnoreCase("0")){
+                        AlertDialog builder = new AlertDialog.Builder(ForgotPasswordOtp.this).create();
+                        builder.setIcon(R.mipmap.ic_launcher_round);
+                        builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                        builder.setMessage("Email is not registerd");
+                        builder.show();
+                    }
                     if(response.equalsIgnoreCase("error"))
                     {
                         AlertDialog builder = new AlertDialog.Builder(ForgotPasswordOtp.this).create();
