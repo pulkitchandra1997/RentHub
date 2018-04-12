@@ -23,3 +23,4 @@ public class MessageFrag extends Fragment {
         return view;
     }
 }
+

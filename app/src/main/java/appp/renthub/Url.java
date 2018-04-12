@@ -10,4 +10,6 @@ public class Url {
     public static final String URL_RENT_FORM=URL+"rentform.php";
     public static final String URL_SEARCH_CITY=URL+"searchcity.php";
     public static final String URL_UPDATE_PROFILE=URL+"updateprofile.php";
+    public static final String URL_VIEW_ADDRESS=URL+"viewaddress.php";
+
 }
