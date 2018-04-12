@@ -73,6 +73,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.accountfrag, container, false);
 
+        editcard=v.findViewById(R.id.editcard);
         editbtn = v.findViewById(R.id.editbtn);
         editlink = v.findViewById(R.id.editlink);
         viewlink = v.findViewById(R.id.viewlink);
