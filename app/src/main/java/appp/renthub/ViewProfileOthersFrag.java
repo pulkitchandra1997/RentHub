@@ -19,10 +19,10 @@ import android.widget.TextView;
 
 public class ViewProfileOthersFrag extends Fragment {
 
-    TextView username, otherdetails, dobicon, dob, userdob, cityicon, city, usercity, gendericon, gender, usergender, marryicon, marry, usermarry, addicon, add, useradd;
+    TextView username, otherdetails, dobicon, dob, userdob, cityicon, city, usercity, gendericon, gender, usergender, marryicon, marry, usermarry, addicon, add, useradd, placecount, rentedplaces;
     ImageView userpic;
     LinearLayout layoutoptional;
-    Button callicon, msgicon, mailicon, showplaces;
+    Button callicon, msgicon, mailicon;
 
     @Nullable
     @Override
@@ -37,6 +37,8 @@ public class ViewProfileOthersFrag extends Fragment {
         gender=v.findViewById(R.id.gender);
         marry=v.findViewById(R.id.marry);
         add=v.findViewById(R.id.add);
+        rentedplaces=v.findViewById(R.id.rentedplaces);
+        placecount=v.findViewById(R.id.placecount);
 
 
         dobicon=v.findViewById(R.id.dobicon);
@@ -56,7 +58,7 @@ public class ViewProfileOthersFrag extends Fragment {
         callicon=v.findViewById(R.id.callicon);
         msgicon=v.findViewById(R.id.msgicon);
         mailicon=v.findViewById(R.id.mailicon);
-        showplaces=v.findViewById(R.id.showplaces);
+        placecount=v.findViewById(R.id.placecount);
 
 
         Typeface f1 = Typeface.createFromAsset(getActivity().getAssets(), "Font Awesome 5 Free-Solid-900.otf" );
@@ -73,6 +75,8 @@ public class ViewProfileOthersFrag extends Fragment {
         gender.setTypeface(f2);
         marry.setTypeface(f2);
         add.setTypeface(f2);
+        rentedplaces.setTypeface(f2);
+        placecount.setTypeface(f2);
 
         dobicon.setTypeface(f1);
         cityicon.setTypeface(f1);
@@ -82,7 +86,6 @@ public class ViewProfileOthersFrag extends Fragment {
         mailicon.setTypeface(f1);
         msgicon.setTypeface(f1);
         callicon.setTypeface(f1);
-        otherdetails.setTypeface(f1);
 
 
         useradd.setTypeface(f3);
@@ -95,3 +98,7 @@ public class ViewProfileOthersFrag extends Fragment {
         return v;
     }
 }
+
+
+
+
