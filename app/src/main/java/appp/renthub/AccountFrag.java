@@ -227,6 +227,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
         if (v.getId() == R.id.editbtn) {
             editaddress = tenantaddress2.getText().toString().trim();
             editcity = tenantcity2.getSelectedItem().toString();
@@ -280,6 +281,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
             passwordcard.setVisibility(View.VISIBLE);
 
         }
+        /*Change Password*/
         if(v.getId() == R.id.change) {
             oldpwd = oldpassword.getText().toString().trim();
             newpwd = newpassword.getText().toString().trim();
@@ -319,12 +321,16 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                 }
                 oldpassword.requestFocus();
             }else {
-                if (oldpwd.equals(newpwd))
+                if (newpwd.equals(confirmpwd))
                 {
-
+                    updatepassword();
+                }else {
+                    confirmnewpwd.setError("Both passwords should be same");
+                    confirmnewpwd.requestFocus();
                 }
             }
         }
+        /*Change Password ends*/
             if (v.getId() == R.id.logout) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -367,6 +373,64 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
             }
 
         }
+
+    private void updatepassword() {
+        showProgress(true);
+        jsonObject= new JSONObject();
+        try {
+            jsonObject.put("email", profile.getEmail());
+            jsonObject.put("password", newpwd);
+
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_UPDATE_PASSWORD, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+                showProgress(false);
+                /*Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();*/
+                if(response.equalsIgnoreCase("success")){
+                    AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                    builder.setIcon(R.mipmap.ic_launcher_round);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    builder.setMessage("Password Updated Successfully!");
+                    builder.show();
+
+                }
+                if(response.equalsIgnoreCase("error")){
+                    AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                    builder.setIcon(R.mipmap.ic_launcher_round);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    builder.setMessage("Error in connection");
+                    builder.show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                builder.setIcon(R.mipmap.ic_launcher_round);
+                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                builder.setMessage("Connection error! Retry");
+                builder.show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put("data",jsonObject.toString());
+                return params;
+            }
+        };
+        MySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
+
     private void updateprofile(final String editphone, final String editcity, final String editstatus, final String editaddress,final String editpincode) {
         showProgress(true);
         jsonObject= new JSONObject();
