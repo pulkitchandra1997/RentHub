@@ -3,7 +3,8 @@
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 xmlns:app="http://schemas.android.com/apk/res-auto"
-android:orientation="vertical">
+android:orientation="vertical"
+    android:id="@+id/outer">
 
 <ScrollView
     android:layout_width="match_parent"
@@ -524,9 +525,9 @@ android:orientation="vertical">
                 <TableLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:stretchColumns="*">
-                    <!--android:clickable="true"
-                    android:onClick=""-->>
+                    android:stretchColumns="*"
+                    android:clickable="true"
+                    android:id="@+id/viewprof">
 
                     <TableRow>
 

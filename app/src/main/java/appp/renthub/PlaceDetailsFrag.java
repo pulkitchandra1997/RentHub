@@ -11,6 +11,7 @@ package appp.renthub;
         import android.support.annotation.NonNull;
         import android.support.annotation.Nullable;
         import android.support.v7.app.AlertDialog;
+        import android.support.v7.app.AppCompatActivity;
         import android.text.Html;
         import android.view.LayoutInflater;
         import android.view.View;
@@ -19,6 +20,7 @@ package appp.renthub;
         import android.widget.ImageView;
         import android.widget.LinearLayout;
         import android.widget.ProgressBar;
+        import android.widget.TableLayout;
         import android.widget.TextView;
 
         import com.android.volley.AuthFailureError;
@@ -39,14 +41,18 @@ package appp.renthub;
  * Created by Ayushi on 4/9/2018.
  */
 
-public class PlaceDetailsFrag extends Fragment {
+public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
+
+    android.app.Fragment fragment = null;
+    android.app.FragmentTransaction ft;
 
     TextView homeicon, homeadd, moneyicon, rent, permonth, facilities, acicon, wifiicon, bedicon, sofaicon, fridgeicon, powericon, parkingicon, messicon, tvicon, houseowner, ownname;
     TextView homecity, homepin, statusicon, housetype, statusvalue;
     ImageView homeimg, ownerpic;
-    LinearLayout ac, bed, wifi, sofa, fridge, power, tv, parking, mess;
+    LinearLayout ac, bed, wifi, sofa, fridge, power, tv, parking, mess,outer;
     Button booknow, alreadybooked;
     ProgressBar progressBar;
+    TableLayout viewprof;
 
     String address = "D1/43 Priyadarshini Yojna, Sitapur Road";
 
@@ -72,6 +78,7 @@ public class PlaceDetailsFrag extends Fragment {
         ownname = v.findViewById(R.id.ownname);
         booknow = v.findViewById(R.id.booknow);
         alreadybooked= v.findViewById(R.id.alreadybooked);
+        viewprof=v.findViewById(R.id.viewprof);
 
         acicon = v.findViewById(R.id.acicon);
         wifiicon = v.findViewById(R.id.wifiicon);
@@ -93,6 +100,7 @@ public class PlaceDetailsFrag extends Fragment {
         mess = v.findViewById(R.id.mess);
         power = v.findViewById(R.id.power);
         parking = v.findViewById(R.id.parking);
+        outer= v.findViewById(R.id.outer);
 
 
         Typeface f1 = Typeface.createFromAsset(getActivity().getAssets(), "Font Awesome 5 Free-Solid-900.otf");
@@ -129,6 +137,10 @@ public class PlaceDetailsFrag extends Fragment {
 
 
         fromserver();
+        booknow.setOnClickListener(this);
+        viewprof.setOnClickListener(this);
+
+
 
         return v;
 
@@ -284,5 +296,23 @@ public class PlaceDetailsFrag extends Fragment {
     }
 
 
+    @Override
+    public void onClick(View v) {
+
+        if(v.getId()==R.id.booknow) {
+            ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.outer, new PlaceDetailsFrag());
+            ft.commit();
+        }
+
+
+        if(v.getId()==R.id.viewprof)
+        {
+            ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.outer, new ViewProfileOthersFrag());
+            ft.commit();
+        }
+
+    }
 }
 
