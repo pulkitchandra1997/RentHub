@@ -116,7 +116,7 @@ public class PlaceDetailsFrag extends Fragment {
 
 
 /*    private void toserver() {
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_LOGIN, new Response.Listener<String>()
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_VIEW_ADDRESS, new Response.Listener<String>()
         {
             public void onResponse(String response) {
 
