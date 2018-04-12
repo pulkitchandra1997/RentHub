@@ -135,6 +135,7 @@ public class ConfirmPassword extends Activity implements View.OnClickListener{
             @Override
             public void onErrorResponse(VolleyError error)
             {
+                showProgress(false);
                 boolean haveConnectedWifi = false;
                 boolean haveConnectedMobile = false;
                 ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
