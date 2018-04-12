@@ -949,7 +949,8 @@ android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:text="Change Password"
             android:id="@+id/changepassword"
-            android:textSize="13dp"
+            android:textSize="15dp"
+
             />
         <View
             android:layout_width="match_parent"
@@ -965,7 +966,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:text="Logout"
             android:id="@+id/logout"
-            android:textSize="13dp"
+            android:textSize="15dp"
             />
         <View
             android:layout_width="match_parent"
