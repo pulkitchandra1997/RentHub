@@ -91,14 +91,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            login_form.setVisibility(show ? View.GONE : View.VISIBLE);
-            login_form.animate().setDuration(500).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    login_form.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
 
             login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
             login_progress.animate().setDuration(shortAnimTime).alpha(
@@ -112,7 +104,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
             login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
-            login_form.setVisibility(show ? View.GONE : View.VISIBLE);
+
         }
     }
 
