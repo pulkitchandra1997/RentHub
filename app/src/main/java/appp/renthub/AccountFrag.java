@@ -307,7 +307,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     }
 
     private void updateprofile(final String editphone, final String editcity, final String editstatus, final String editaddress,final String editpincode) {
-        //showProgress(true);
+        showProgress(true);
         jsonObject= new JSONObject();
         try {
             jsonObject.put("phone", editphone);
@@ -320,14 +320,14 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
             Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_SIGNUP_FORM, new Response.Listener<String>()
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_UPDATE_PROFILE, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)
             {
-                //showProgress(false);
-                Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();
-                /*if(response.equalsIgnoreCase("success")){
+                showProgress(false);
+                /*Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();*/
+                if(response.equalsIgnoreCase("success")){
                     AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
                     builder.setIcon(R.mipmap.ic_launcher_round);
                     builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
@@ -351,7 +351,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                     builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
                     builder.setMessage("Error in connection");
                     builder.show();
-                }*/
+                }
             }
         }, new Response.ErrorListener() {
             @Override
