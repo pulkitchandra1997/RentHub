@@ -307,7 +307,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     }
 
     private void updateprofile(final String editphone, final String editcity, final String editstatus, final String editaddress,final String editpincode) {
-        showProgress(true);
+        //showProgress(true);
         jsonObject= new JSONObject();
         try {
             jsonObject.put("phone", editphone);
@@ -325,8 +325,8 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(String response)
             {
-                showProgress(false);
-                Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
+                //showProgress(false);
+                Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();
                 /*if(response.equalsIgnoreCase("success")){
                     AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
                     builder.setIcon(R.mipmap.ic_launcher_round);
