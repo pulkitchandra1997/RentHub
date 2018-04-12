@@ -11,5 +11,6 @@ public class Url {
     public static final String URL_SEARCH_CITY=URL+"searchcity.php";
     public static final String URL_UPDATE_PROFILE=URL+"updateprofile.php";
     public static final String URL_VIEW_ADDRESS=URL+"viewaddress.php";
-
+    public static final String URL_UPDATE_PASSWORD=URL+"updatepassword.php";
+    public static final String URL_FORGOT_PASSWORD_OTP=URL+"forgotpasswordotp.php";
 }

@@ -2,11 +2,14 @@ package appp.renthub;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.CountDownTimer;
 import android.support.design.widget.Snackbar;
 import android.os.Bundle;
@@ -142,7 +145,6 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
     }
     private void sendotp() {
         num=OTP_GENERATION.generateRandomNumber();
-        Toast.makeText(this, String.valueOf(num), Toast.LENGTH_SHORT).show();
         se.putInt("otp_sent", num);
         se.commit();
         StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_SEND_OTP, new Response.Listener<String>()
@@ -165,7 +167,6 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
                                 resendotp1.setText("Resend Otp in " + millisUntilFinished / 1000 + " sec");
                             }
                         }
-
                         public void onFinish() {
                             resendotp1.setVisibility(View.GONE);
                             resendotp2.setVisibility(View.VISIBLE);
@@ -196,28 +197,6 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
                         });
                         builder.create();
                         builder.show();
-
-
-
-                        /*Snackbar snackbar = Snackbar
-                                .make(getWindow().getDecorView().getRootView(), "Email already Registered.", Snackbar.LENGTH_LONG);
-                        View sbView = snackbar.getView();
-                        TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
-                        textView.setTextColor(Color.RED);
-                        snackbar.setAction("Login",new View.OnClickListener(){
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(SignUpVerify.this, LoginActivity.class);
-                                intent.putExtra("email",emailtext);
-                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                                    ActivityOptions options = ActivityOptions.makeCustomAnimation(SignUpVerify.this, R.anim.fade_in, R.anim.fade_out);
-                                    startActivity(intent, options.toBundle());
-                                } else {
-                                    startActivity(intent);
-                                }
-                            }
-                        });
-                        snackbar.show();*/
                     }
                     if(response.equalsIgnoreCase("error")){
                         AlertDialog builder = new AlertDialog.Builder(SignUpVerify.this).create();
@@ -232,11 +211,33 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                AlertDialog builder = new AlertDialog.Builder(SignUpVerify.this).create();
-                builder.setIcon(R.mipmap.ic_launcher_round);
-                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
-                builder.setMessage("Error in sending OTP. Retry!");
-                builder.show();
+                boolean haveConnectedWifi = false;
+                boolean haveConnectedMobile = false;
+                ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+                for (NetworkInfo ni : netInfo) {
+                    if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                        if (ni.isConnected())
+                            haveConnectedWifi = true;
+                    if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                        if (ni.isConnected())
+                            haveConnectedMobile = true;
+                }
+                if( !haveConnectedWifi && !haveConnectedMobile)
+                {
+                    AlertDialog alertDialog = new AlertDialog.Builder(SignUpVerify.this).create();
+                    alertDialog.setMessage("No Internet Connection");
+                    alertDialog.setIcon(R.mipmap.ic_launcher_round);
+                    alertDialog.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    alertDialog.show();
+                }
+                else {
+                    AlertDialog builder = new AlertDialog.Builder(SignUpVerify.this).create();
+                    builder.setIcon(R.mipmap.ic_launcher_round);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    builder.setMessage("Connection error! Retry");
+                    builder.show();
+                }
             }
         })
         {

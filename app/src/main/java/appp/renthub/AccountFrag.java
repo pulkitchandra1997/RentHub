@@ -47,16 +47,16 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class AccountFrag extends Fragment implements View.OnClickListener {
     TextView editprofileicon, viewprofileicon, viewprofile, editprofile, name, email, bday, address, mobile, gender, city, marrystatus, emailicon, phoneicon, bdayicon, statusicon, cityicon, gendericon, addressicon, tenantemail, tenantphone, tenantdob, tenantaddress, tenantgender, tenantcity, tenantstatus;
-    TextView pincode2,email2, bday2, address2, mobile2, gender2, city2, marrystatus2, emailicon2, phoneicon2, bdayicon2, statusicon2, cityicon2, gendericon2, addressicon2, logout, changepassword,pincodeicon2;
-    EditText tenantemail2, tenantphone2, tenantdob2, tenantaddress2, tenantgender2,tenantpincode2;
-    CardView viewcard, editcard;
+    TextView pincode2,email2, bday2, address2, mobile2, gender2, city2, marrystatus2, emailicon2, phoneicon2, bdayicon2, statusicon2, cityicon2, gendericon2, addressicon2, logout, changepassword,pincodeicon2,pwdicon,pwdicon1,pwdicon2;
+    EditText tenantemail2, tenantphone2, tenantdob2, tenantaddress2, tenantgender2,tenantpincode2,oldpassword,newpassword,confirmnewpwd;
+    CardView viewcard, editcard,passwordcard;
     Spinner tenantcity2, tenantstatus2;
     LinearLayout viewlink, editlink;
-    Button editbtn;
+    Button editbtn,change;
     SharedPreferences sp;
     SharedPreferences.Editor se;
     PROFILE profile;
-    String editaddress, editstatus, editcity, editphone,editpincode;
+    String editaddress, editstatus, editcity, editphone,editpincode,oldpwd,newpwd,confirmpwd;
     JSONObject jsonObject;
     ProgressBar progressBar;
 
@@ -73,11 +73,13 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.accountfrag, container, false);
 
+        editcard=v.findViewById(R.id.editcard);
         editbtn = v.findViewById(R.id.editbtn);
         editlink = v.findViewById(R.id.editlink);
         viewlink = v.findViewById(R.id.viewlink);
         viewcard = v.findViewById(R.id.viewcard);
-        editcard = v.findViewById(R.id.editcard);
+        viewcard = v.findViewById(R.id.viewcard);
+        passwordcard = v.findViewById(R.id.passwordcard);
         tenantcity2 = v.findViewById(R.id.tenantcity2);
         pincodeicon2=v.findViewById(R.id.pincodeicon2);
         tenantstatus2 = v.findViewById(R.id.tenantstatus2);
@@ -128,11 +130,21 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         gendericon2 = v.findViewById(R.id.gendericon2);
         statusicon2 = v.findViewById(R.id.statusicon2);
         addressicon2 = v.findViewById(R.id.addressicon2);
+        pwdicon=v.findViewById(R.id.pwdicon);
+        pwdicon1=v.findViewById(R.id.pwdicon1);
+        pwdicon2=v.findViewById(R.id.pwdicon2);
+        oldpassword=v.findViewById(R.id.oldpassword);
+        newpassword=v.findViewById(R.id.newpassword);
+        confirmnewpwd=v.findViewById(R.id.confirmnewpwd);
+        change=v.findViewById(R.id.change);
         logout = v.findViewById(R.id.logout);
         changepassword = v.findViewById(R.id.changepassword);
         progressBar=v.findViewById(R.id.login_progress);
 
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Font Awesome 5 Free-Solid-900.otf");
+        pwdicon.setTypeface(font);
+        pwdicon1.setTypeface(font);
+        pwdicon2.setTypeface(font);
         emailicon.setTypeface(font);
         phoneicon.setTypeface(font);
         bdayicon.setTypeface(font);
@@ -181,12 +193,14 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         bday2.setTypeface(fontstyle);
         mobile2.setTypeface(fontstyle);
         gender2.setTypeface(fontstyle);
+        change.setTypeface(font);
 
         editprofile.setOnClickListener(this);
         editbtn.setOnClickListener(this);
         viewprofile.setOnClickListener(this);
         logout.setOnClickListener(this);
         changepassword.setOnClickListener(this);
+        change.setOnClickListener(this);
 
         sp = getActivity().getSharedPreferences("RentHub_data", MODE_PRIVATE);
         se = sp.edit();
@@ -214,6 +228,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
         if (v.getId() == R.id.editbtn) {
             editaddress = tenantaddress2.getText().toString().trim();
             editcity = tenantcity2.getSelectedItem().toString();
@@ -263,47 +278,158 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
             editlink.setVisibility(View.VISIBLE);
             viewlink.setVisibility(View.GONE);
         }
-        if (v.getId() == R.id.logout) {
+        if (v.getId() == R.id.changepassword){
+            passwordcard.setVisibility(View.VISIBLE);
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setIcon(R.mipmap.ic_launcher_round);
-            builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
-            builder.setMessage("Are you sure you want to logout?");
-            builder.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    se.remove("email");
-                    se.remove("password");
-                    se.remove("name");
-                    se.remove("type");
-                    se.remove("phone");
-                    se.remove("dob");
-                    se.remove("marriagestatus");
-                    se.remove("city");
-                    se.remove("permanentaddress");
-                    se.remove("pincode");
-                    se.remove("gender");
-                    se.remove("verified");
-                    se.commit();
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                        ActivityOptions options = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.fade_in, R.anim.fade_out);
-                        startActivity(intent, options.toBundle());
-                    } else {
-                        startActivity(intent);
+        }
+        /*Change Password*/
+        if(v.getId() == R.id.change) {
+            oldpwd = oldpassword.getText().toString().trim();
+            newpwd = newpassword.getText().toString().trim();
+            confirmpwd = confirmnewpwd.getText().toString().trim();
+            if (TextUtils.isEmpty(oldpwd) || TextUtils.isEmpty(newpwd) || TextUtils.isEmpty(confirmpwd)) {
+                if (TextUtils.isEmpty(oldpwd)) {
+                    oldpassword.setError("Enter Old Password");
+                    oldpassword.requestFocus();
+                }
+                if (TextUtils.isEmpty(newpwd)) {
+                    newpassword.setError("Enter New Password");
+                    newpassword.requestFocus();
+
+                }
+                if (TextUtils.isEmpty(confirmpwd)) {
+                    confirmnewpwd.setError("Confirm Your  New password");
+                    confirmnewpwd.requestFocus();
+                }
+                oldpassword.requestFocus();
+            }else
+            if(oldpwd.length()<8||newpwd.length()<8||confirmpwd.length()<8)
+            {
+                if (oldpwd.length()<8)
+                {
+                    oldpassword.setError("Password must be more than 8 characters");
+                    oldpassword.requestFocus();
+                }
+                if (newpwd.length()<8)
+                {
+                    newpassword.setError("Password must be more than 8 characters");
+                    newpassword.requestFocus();
+                }
+                if (confirmpwd.length()<8)
+                {
+                    confirmnewpwd.setError("Password must be more than 8 characters");
+                    confirmnewpwd.requestFocus();
+                }
+                oldpassword.requestFocus();
+            }else {
+                if (newpwd.equals(confirmpwd))
+                {
+                    updatepassword();
+                }else {
+                    confirmnewpwd.setError("Both passwords should be same");
+                    confirmnewpwd.requestFocus();
+                }
+            }
+        }
+        /*Change Password ends*/
+            if (v.getId() == R.id.logout) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setIcon(R.mipmap.ic_launcher_round);
+                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                builder.setMessage("Are you sure you want to logout?");
+                builder.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        se.remove("email");
+                        se.remove("password");
+                        se.remove("name");
+                        se.remove("type");
+                        se.remove("phone");
+                        se.remove("dob");
+                        se.remove("marriagestatus");
+                        se.remove("city");
+                        se.remove("permanentaddress");
+                        se.remove("pincode");
+                        se.remove("gender");
+                        se.remove("verified");
+                        se.commit();
+                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                            ActivityOptions options = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.fade_in, R.anim.fade_out);
+                            startActivity(intent, options.toBundle());
+                        } else {
+                            startActivity(intent);
+                        }
                     }
-                }
-            });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                   dialog.cancel();
-                }
-            });
-            builder.create();
-            builder.show();
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.create();
+                builder.show();
+            }
+
         }
 
+    private void updatepassword() {
+        showProgress(true);
+        jsonObject= new JSONObject();
+        try {
+            jsonObject.put("email", profile.getEmail());
+            jsonObject.put("password", newpwd);
+
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_UPDATE_PASSWORD, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+                showProgress(false);
+                /*Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();*/
+                if(response.equalsIgnoreCase("success")){
+                    AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                    builder.setIcon(R.mipmap.ic_launcher_round);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    builder.setMessage("Password Updated Successfully!");
+                    builder.show();
+
+                }
+                if(response.equalsIgnoreCase("error")){
+                    AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                    builder.setIcon(R.mipmap.ic_launcher_round);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    builder.setMessage("Error in connection");
+                    builder.show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                builder.setIcon(R.mipmap.ic_launcher_round);
+                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                builder.setMessage("Connection error! Retry");
+                builder.show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put("data",jsonObject.toString());
+                return params;
+            }
+        };
+        MySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
 
     private void updateprofile(final String editphone, final String editcity, final String editstatus, final String editaddress,final String editpincode) {

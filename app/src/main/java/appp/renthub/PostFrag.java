@@ -186,7 +186,6 @@ public class PostFrag extends Fragment implements View.OnClickListener{
                 if (((String) roomstatus.getSelectedItem()).equalsIgnoreCase("Select type of room")) {
                     Toast.makeText(getActivity(), "Select Room Status", Toast.LENGTH_SHORT).show();
                     roomstatus.requestFocus();
-                    roomstatus.performClick();
                 }
                 if (TextUtils.isEmpty(pincode)) {
                     inputpincode.setError("Enter Pincode");
@@ -201,7 +200,6 @@ public class PostFrag extends Fragment implements View.OnClickListener{
 
                     Toast.makeText(getActivity(), "Select City", Toast.LENGTH_SHORT).show();
                     inputcity.requestFocus();
-                    inputcity.performClick();
                 }
                 if (TextUtils.isEmpty(address)) {
                     inputaddress.setError("Enter Address");
