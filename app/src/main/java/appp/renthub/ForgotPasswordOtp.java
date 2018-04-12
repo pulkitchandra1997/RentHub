@@ -2,10 +2,13 @@ package appp.renthub;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.CountDownTimer;
 import android.support.design.widget.Snackbar;
 import android.os.Bundle;
@@ -39,7 +42,7 @@ public class ForgotPasswordOtp extends Activity implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up_verify);
+        setContentView(R.layout.activity_forgot_password_otp);
         signuptype=findViewById(R.id.signuptype);
         usericon=findViewById(R.id.usericon);
         otpicon=findViewById(R.id.otpicon);
@@ -60,11 +63,6 @@ public class ForgotPasswordOtp extends Activity implements View.OnClickListener 
         pinView=findViewById(R.id.pinView);
         pinView.setEnabled(false);
         otp.setOnClickListener(this);
-        Intent intent=getIntent();
-        if(intent!=null){
-            type=intent.getStringExtra("type");
-            signuptype.setText("as "+type);
-        }
         sp=getSharedPreferences("RentHub_data",MODE_PRIVATE);
         se=sp.edit();
     }
@@ -125,10 +123,9 @@ public class ForgotPasswordOtp extends Activity implements View.OnClickListener 
     }
     private void sendotp() {
         num=OTP_GENERATION.generateRandomNumber();
-        Toast.makeText(this, String.valueOf(num), Toast.LENGTH_SHORT).show();
         se.putInt("otp_sent", num);
         se.commit();
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_SEND_OTP, new Response.Listener<String>()
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_FORGOT_PASSWORD_OTP, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response) {
@@ -148,7 +145,6 @@ public class ForgotPasswordOtp extends Activity implements View.OnClickListener 
                                     resendotp1.setText("Resend Otp in " + millisUntilFinished / 1000 + " sec");
                                 }
                             }
-
                             public void onFinish() {
                                 resendotp1.setVisibility(View.GONE);
                                 resendotp2.setVisibility(View.VISIBLE);
@@ -159,7 +155,6 @@ public class ForgotPasswordOtp extends Activity implements View.OnClickListener 
                     }
                 }
                 else{
-
                     if(response.equalsIgnoreCase("error"))
                     {
                         AlertDialog builder = new AlertDialog.Builder(ForgotPasswordOtp.this).create();
@@ -174,11 +169,33 @@ public class ForgotPasswordOtp extends Activity implements View.OnClickListener 
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                AlertDialog builder = new AlertDialog.Builder(ForgotPasswordOtp.this).create();
-                builder.setIcon(R.mipmap.ic_launcher_round);
-                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
-                builder.setMessage("Error in sending OTP. Retry!");
-                builder.show();
+                boolean haveConnectedWifi = false;
+                boolean haveConnectedMobile = false;
+                ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+                for (NetworkInfo ni : netInfo) {
+                    if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                        if (ni.isConnected())
+                            haveConnectedWifi = true;
+                    if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                        if (ni.isConnected())
+                            haveConnectedMobile = true;
+                }
+                if( !haveConnectedWifi && !haveConnectedMobile)
+                {
+                    AlertDialog alertDialog = new AlertDialog.Builder(ForgotPasswordOtp.this).create();
+                    alertDialog.setMessage("No Internet Connection");
+                    alertDialog.setIcon(R.mipmap.ic_launcher_round);
+                    alertDialog.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    alertDialog.show();
+                }
+                else {
+                    AlertDialog builder = new AlertDialog.Builder(ForgotPasswordOtp.this).create();
+                    builder.setIcon(R.mipmap.ic_launcher_round);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    builder.setMessage("Connection error! Retry");
+                    builder.show();
+                }
             }
         })
         {

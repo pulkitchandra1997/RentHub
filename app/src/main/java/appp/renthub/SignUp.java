@@ -29,6 +29,7 @@ public class SignUp extends Activity implements View.OnClickListener{
     public void onBackPressed()
     {
         this.startActivity(new Intent(SignUp.this,Welcome.class));
+        this.finish();
         return;
     }
 

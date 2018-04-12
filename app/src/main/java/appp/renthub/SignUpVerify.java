@@ -2,11 +2,14 @@ package appp.renthub;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.CountDownTimer;
 import android.support.design.widget.Snackbar;
 import android.os.Bundle;
@@ -208,11 +211,33 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                AlertDialog builder = new AlertDialog.Builder(SignUpVerify.this).create();
-                builder.setIcon(R.mipmap.ic_launcher_round);
-                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
-                builder.setMessage("Error in sending OTP. Retry!");
-                builder.show();
+                boolean haveConnectedWifi = false;
+                boolean haveConnectedMobile = false;
+                ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+                for (NetworkInfo ni : netInfo) {
+                    if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                        if (ni.isConnected())
+                            haveConnectedWifi = true;
+                    if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                        if (ni.isConnected())
+                            haveConnectedMobile = true;
+                }
+                if( !haveConnectedWifi && !haveConnectedMobile)
+                {
+                    AlertDialog alertDialog = new AlertDialog.Builder(SignUpVerify.this).create();
+                    alertDialog.setMessage("No Internet Connection");
+                    alertDialog.setIcon(R.mipmap.ic_launcher_round);
+                    alertDialog.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    alertDialog.show();
+                }
+                else {
+                    AlertDialog builder = new AlertDialog.Builder(SignUpVerify.this).create();
+                    builder.setIcon(R.mipmap.ic_launcher_round);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    builder.setMessage("Connection error! Retry");
+                    builder.show();
+                }
             }
         })
         {
