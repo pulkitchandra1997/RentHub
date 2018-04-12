@@ -28,6 +28,7 @@
     <!-- Strings related to confrimpassword-->
     <string name="prompt_oldpassword">New Password</string>
     <string name="prompt_newpassword">Re-type Password</string>
+    <string name="prompt_confirmnewpassword">Confirm New Password</string>
 
     <!-- Strings related to signup -->
 
