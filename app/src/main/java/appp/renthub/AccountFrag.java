@@ -333,6 +333,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                     builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
                     builder.setMessage("Profile Updated");
                     builder.show();
+
                     se.putString("phone",editphone);
                     se.putString("marriagestatus",editstatus);
                     se.putString("city",editcity);

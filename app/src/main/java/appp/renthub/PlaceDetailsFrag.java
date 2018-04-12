@@ -1,9 +1,12 @@
 package appp.renthub;
 
+        import android.animation.Animator;
+        import android.animation.AnimatorListenerAdapter;
         import android.app.ActivityOptions;
         import android.app.Fragment;
         import android.content.Intent;
         import android.graphics.Typeface;
+        import android.os.Build;
         import android.os.Bundle;
         import android.support.annotation.NonNull;
         import android.support.annotation.Nullable;
@@ -15,6 +18,7 @@ package appp.renthub;
         import android.widget.Button;
         import android.widget.ImageView;
         import android.widget.LinearLayout;
+        import android.widget.ProgressBar;
         import android.widget.TextView;
 
         import com.android.volley.AuthFailureError;
@@ -41,8 +45,9 @@ public class PlaceDetailsFrag extends Fragment {
     ImageView homeimg, ownerpic;
     LinearLayout ac, bed, wifi, sofa, fridge, power, tv, parking, mess;
     Button book;
+    ProgressBar progressBar;
 
-    String email = "aayusheedaksh@gmail.com";
+    String email = "D1/43 Priyadarshini Yojna, Sitapur Road";
 
     @Nullable
     @Override
@@ -108,43 +113,143 @@ public class PlaceDetailsFrag extends Fragment {
         permonth.setTypeface(f4);
         houseowner.setTypeface(f4);
         ownername.setTypeface(f4);
-
-
         return v;
+
     }
 
 
 
-/*    private void toserver() {
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_VIEW_ADDRESS, new Response.Listener<String>()
+    private void fromserver() {
+        showProgress(true);
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_LOGIN, new Response.Listener<String>()
         {
+            @Override
             public void onResponse(String response) {
+                if (response.equalsIgnoreCase("error")){
+                    AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                    builder.setIcon(R.mipmap.ic_launcher_round);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    builder.setMessage("Error in connection");
+                    builder.show();
+                    }
+                else {
 
-                JSONObject jsonObject = new JSONObject(response);
+                    try {
+                        JSONObject jsonObject=new JSONObject(response);
+                        String address=jsonObject.get("address").toString();
+                        String amount=jsonObject.get("amount").toString();
+                        String istv=jsonObject.get("tvid").toString();
+                        String iswifi=jsonObject.get("wifiid").toString();
+                        String ismess=jsonObject.get("messid").toString();
+                        String isfridge=jsonObject.get("refrigeratorid").toString();
+                        String ispower=jsonObject.get("invertorid").toString();
+                        String issofa=jsonObject.get("sofaid").toString();
+                        String isbed=jsonObject.get("bedid").toString();
+                        String isparking=jsonObject.get("parkingid").toString();
+                        String isac=jsonObject.get("acid").toString();
+                        String owner=jsonObject.get("").toString();
 
-                homeadd=jsonObject.get("permanentaddress");
-                String amount=jsonObject.get("amount");
-                String name=jsonObject.get("name");
+                        homeadd.setText(address);
+                        rent.setText(amount);
+
+                        if(istv=="0")
+                        {
+                            tv.setVisibility(View.GONE);
+                        }
+
+                        if(iswifi=="0")
+                        {
+                            wifi.setVisibility(View.GONE);
+                        }
+
+                        if(ismess=="0")
+                        {
+                            mess.setVisibility(View.GONE);
+                        }
+
+                        if(isfridge=="0")
+                        {
+                            fridge.setVisibility(View.GONE);
+                        }
+
+                        if(ispower=="0")
+                        {
+                            power.setVisibility(View.GONE);
+                        }
+
+                        if(isparking=="0")
+                        {
+                            parking.setVisibility(View.GONE);
+                        }
+
+                        if(issofa=="0")
+                        {
+                            sofa.setVisibility(View.GONE);
+                        }
+
+                        if(isbed=="0")
+                        {
+                            bed.setVisibility(View.GONE);
+                        }
+
+                        if(isac=="0")
+                        {
+                            ac.setVisibility(View.GONE);
+                        }
 
 
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
 
+                }
             }
-
-
-        },new Response.ErrorListener() {
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                AlertDialog builder = new AlertDialog.Builder(PlaceDetailsFrag.this).create();
+                AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
                 builder.setIcon(R.mipmap.ic_launcher_round);
                 builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
                 builder.setMessage("Connection error! Retry");
                 builder.show();
             }
         })
-    }*/
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put("email",email);
+                return params;
+            }
+        };
+        MySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
 
+
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+            progressBar.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        }
+    }
 
 
 }
