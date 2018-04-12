@@ -317,6 +317,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
             jsonObject.put("permanentaddress", editaddress);
             jsonObject.put("pincode",editpincode);
         } catch (Exception e) {
+            Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
         StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_SIGNUP_FORM, new Response.Listener<String>()
@@ -325,7 +326,8 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
             public void onResponse(String response)
             {
                 showProgress(false);
-                if(response.equalsIgnoreCase("success")){
+                Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
+                /*if(response.equalsIgnoreCase("success")){
                     AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
                     builder.setIcon(R.mipmap.ic_launcher_round);
                     builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
@@ -349,7 +351,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                     builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
                     builder.setMessage("Error in connection");
                     builder.show();
-                }
+                }*/
             }
         }, new Response.ErrorListener() {
             @Override
