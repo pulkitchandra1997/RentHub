@@ -47,7 +47,7 @@ public class PlaceDetailsFrag extends Fragment {
     Button book;
     ProgressBar progressBar;
 
-    String email = "D1/43 Priyadarshini Yojna, Sitapur Road";
+    String address = "D1/43 Priyadarshini Yojna, Sitapur Road";
 
     @Nullable
     @Override
@@ -221,7 +221,7 @@ public class PlaceDetailsFrag extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError
             {
                 Map<String, String> params = new HashMap<>();
-                params.put("email",email);
+                params.put("address",address);
                 return params;
             }
         };
