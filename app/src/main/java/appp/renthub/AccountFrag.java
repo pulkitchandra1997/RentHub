@@ -298,6 +298,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                     confirmnewpwd.setError("Confirm Your  New password");
                     confirmnewpwd.requestFocus();
                 }
+                oldpassword.requestFocus();
             }else
             if(oldpwd.length()<8||newpwd.length()<8||confirmpwd.length()<8)
             {
