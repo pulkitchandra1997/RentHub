@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:padding="@dimen/activity_horizontal_margin"
+    android:gravity="center_horizontal"
     android:layout_height="match_parent"
     android:background="@mipmap/welcomeback"
     android:layout_gravity="center_horizontal"
@@ -12,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:padding="32dp"
+        android:padding="16dp"
         app:cardBackgroundColor="#fff"
         app:cardCornerRadius="6dp"
         app:cardElevation="8dp"
@@ -26,13 +27,14 @@
             android:layout_marginTop="-130dp"
             android:text="Messaging Service Under Construction"
             android:textColor="@color/colorPrimary"
-            android:textSize="35dp" />
+            android:textSize="30dp" />
 
         <pl.droidsonroids.gif.GifImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/imgview"
             android:layout_marginTop="60dp"
+            android:layout_marginBottom="-80dp"
             android:src="@drawable/posthome"/>
 
     </android.support.v7.widget.CardView>
