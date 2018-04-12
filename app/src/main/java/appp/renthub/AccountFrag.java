@@ -317,6 +317,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                     confirmnewpwd.setError("Password must be more than 8 characters");
                     confirmnewpwd.requestFocus();
                 }
+                oldpassword.requestFocus();
             }else {
                 if (oldpwd.equals(newpwd))
                 {
