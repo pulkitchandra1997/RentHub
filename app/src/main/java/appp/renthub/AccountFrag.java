@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -146,7 +147,6 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         gendericon2.setTypeface(font);
         statusicon2.setTypeface(font);
         pincodeicon2.setTypeface(font);
-        pincode2.setTypeface(font);
         addressicon2.setTypeface(font);
         editprofileicon.setTypeface(font);
         viewprofileicon.setTypeface(font);
@@ -175,6 +175,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         gender.setTypeface(fontstyle);
         address2.setTypeface(fontstyle);
         email2.setTypeface(fontstyle);
+        pincode2.setTypeface(fontstyle);
         marrystatus2.setTypeface(fontstyle);
         city2.setTypeface(fontstyle);
         bday2.setTypeface(fontstyle);
@@ -263,26 +264,44 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
             viewlink.setVisibility(View.GONE);
         }
         if (v.getId() == R.id.logout) {
-            se.remove("email");
-            se.remove("password");
-            se.remove("name");
-            se.remove("type");
-            se.remove("phone");
-            se.remove("dob");
-            se.remove("marriagestatus");
-            se.remove("city");
-            se.remove("permanentaddress");
-            se.remove("pincode");
-            se.remove("gender");
-            se.remove("verified");
-            se.commit();
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                ActivityOptions options = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.fade_in, R.anim.fade_out);
-                startActivity(intent, options.toBundle());
-            } else {
-                startActivity(intent);
-            }
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setIcon(R.mipmap.ic_launcher_round);
+            builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+            builder.setMessage("Are you sure you want to logout?");
+            builder.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    se.remove("email");
+                    se.remove("password");
+                    se.remove("name");
+                    se.remove("type");
+                    se.remove("phone");
+                    se.remove("dob");
+                    se.remove("marriagestatus");
+                    se.remove("city");
+                    se.remove("permanentaddress");
+                    se.remove("pincode");
+                    se.remove("gender");
+                    se.remove("verified");
+                    se.commit();
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                        ActivityOptions options = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.fade_in, R.anim.fade_out);
+                        startActivity(intent, options.toBundle());
+                    } else {
+                        startActivity(intent);
+                    }
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                   dialog.cancel();
+                }
+            });
+            builder.create();
+            builder.show();
         }
 
     }

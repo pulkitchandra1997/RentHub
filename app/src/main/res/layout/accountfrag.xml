@@ -706,11 +706,19 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                         </android.support.design.widget.TextInputLayout>
 
                     </TableRow>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="#949393"
+                        android:layout_span="3"
+                        />
                     <TableRow>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="&#xf2bb;"
+                            android:text="&#xf2b9;"
                             android:paddingTop="15dp"
                             android:id="@+id/pincodeicon2"
                             android:textSize="13dp"
