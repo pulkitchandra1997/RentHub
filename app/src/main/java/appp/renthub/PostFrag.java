@@ -64,7 +64,7 @@ public class PostFrag extends Fragment implements View.OnClickListener{
     LinearLayout pageone,pagetwo;
     CheckBox sofa,bed,refrigerator,ac,wifi,invertor,parking,tv,mess;
     String sofaid,bedid,refigratorid,acid,wifiid,invertorid,parkingid,tvid,messid;
-    WebView webview;
+
 
     String city,address,amount,pincode,status,email;
 
@@ -86,19 +86,7 @@ public class PostFrag extends Fragment implements View.OnClickListener{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.postfrag, container, false);
 
-        webview=view.findViewById(R.id.webview);
-        webview.loadUrl("file:///android_asset/posthome.gif");
-        webview.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        webview.getSettings().setLoadsImagesAutomatically(true);
-        webview.getSettings().setJavaScriptEnabled(true);
-        webview.getSettings().setLoadWithOverviewMode(true);
-        webview.getSettings().setUseWideViewPort(true);
-        webview.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return (event.getAction() == MotionEvent.ACTION_MOVE);
-            }
-        });
+
 
         card1=view.findViewById(R.id.card1);
         card2=view.findViewById(R.id.card2);

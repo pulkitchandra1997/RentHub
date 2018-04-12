@@ -1,7 +1,101 @@
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:id="@+id/searchcard">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        app:cardBackgroundColor="#efeded"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="8dp"
+        app:cardUseCompatPadding="true"
+        android:id="@+id/card1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="16dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Welcome To RentZHub"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="25dp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/searchcaption"
+                    android:id="@+id/searchcaption"
+                    android:textColor="@color/bootstrap_gray_light"
+                    android:textSize="15dp"
+                    android:fontFamily="serif-monospace"/>
+
+            </LinearLayout>
+
+            <pl.droidsonroids.gif.GifImageView
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:id="@+id/imgview"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/indexapp1"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="20dp">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bootstrap_brand_secondary_fill"
+                    android:text="Search Property  &#xf061;"
+                    android:id="@+id/searchproperty"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
+
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@mipmap/welcomeback">
+    android:background="@mipmap/welcomeback"
+    android:id="@+id/searchcontent"
+    android:visibility="gone">
     <ProgressBar
         android:foregroundGravity="center"
         android:id="@+id/login_progress"
@@ -45,3 +139,4 @@
         android:drawSelectorOnTop="true"/>
 
 </RelativeLayout>
+</LinearLayout>

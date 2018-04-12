@@ -7,6 +7,7 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,8 +20,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +51,7 @@ import static android.os.Build.VERSION_CODES.JELLY_BEAN;
  * Created by pranj on 01-04-2018.
  */
 
-public class SearchFrag extends Fragment implements AdapterView.OnItemClickListener,SearchView.OnQueryTextListener{
+public class SearchFrag extends Fragment implements AdapterView.OnItemClickListener,SearchView.OnQueryTextListener,View.OnClickListener{
     ListView list,searchlist;
     ListViewAdapter adapter;
     SearchView editsearch;
@@ -56,6 +60,9 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
     ArrayList<SEARCHRESULT> searchresults=new ArrayList<>();
     RESULTADAPTER resultadapter;
     ProgressBar login_progress;
+    Button searchproperty;
+    LinearLayout searchcard;
+    RelativeLayout searchcontent;
 
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -93,6 +100,17 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v= inflater.inflate(R.layout.searchfrag,container,false);
+        searchproperty=v.findViewById(R.id.searchproperty);
+        searchcard=v.findViewById(R.id.searchcard);
+        searchcontent=v.findViewById(R.id.searchcontent);
+
+        searchproperty.setOnClickListener(this);
+
+        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Font Awesome 5 Free-Solid-900.otf");
+
+        searchproperty.setTypeface(font);
+
+
         cityNameList = new String[]{"Lucknow", "Kanpur",
                 "Delhi", "Gurgaon", "Mumbai", "Pune", "Kolkata", "Chennai", "Bangalore", "Ahmedabad", "Hyderabad",
                 "Jaipur", "Ghaziabad", "Noida", "Patna", "Chandigarh", "Allahabad"};
@@ -221,4 +239,12 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
     }
 
 
+    @Override
+    public void onClick(View v) {
+        if (v.getId()==R.id.searchproperty)
+        {
+            searchcontent.setVisibility(View.VISIBLE);
+            searchcard.setVisibility(View.GONE);
+        }
+    }
 }

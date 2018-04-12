@@ -10,21 +10,28 @@
     android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
     >
 
-    <ImageView
+    <pl.droidsonroids.gif.GifImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher_round"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
-        android:scaleX="2"
-        android:scaleY="2"
-        android:id="@+id/icon"/>
+        android:id="@+id/icon"
+        android:foregroundGravity="center_horizontal"
+        android:src="@drawable/logo"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="26sp"
+        android:layout_marginTop="-150dp"
+        android:gravity="center"
+        android:layout_below="@+id/icon"
+        android:textColor="@color/colorPrimaryDark"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_caption"
         android:textSize="16sp"
+        android:layout_marginTop="-110dp"
         android:gravity="center"
         android:layout_below="@+id/icon"
         android:textColor="@color/colorPrimaryDark"/>
