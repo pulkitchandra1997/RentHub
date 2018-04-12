@@ -4,11 +4,14 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
@@ -74,15 +77,22 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
         login_progress=findViewById(R.id.login_progress);
         login_form=findViewById(R.id.login_form);
+        Intent intent=getIntent();
+        if(intent!=null){
+            email.setText(intent.getStringExtra("email"));
+        }
 
     }
 
+        //ON BACK PRESS
         @Override
         public void onBackPressed()
         {
             this.startActivity(new Intent(LoginActivity.this,Welcome.class));
             return;
         }
+
+        //PROGRESS BAR CODE
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
@@ -90,8 +100,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
 
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-
             login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
             login_progress.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
@@ -108,24 +116,22 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         }
     }
 
-
-
-
+    //ONCLICK METHOD
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.login) {
             password.clearFocus();
-
+            email.clearFocus();
             emailid = email.getText().toString().trim();
             pwd = password.getText().toString().trim();
             if (TextUtils.isEmpty(emailid) || TextUtils.isEmpty(pwd)) {
-                if (TextUtils.isEmpty(emailid)) {
-                    email.setError("Enter email id");
-                    email.requestFocus();
-                }
                 if (TextUtils.isEmpty(pwd)) {
                     password.setError("Enter password");
                     password.requestFocus();
+                }
+                if (TextUtils.isEmpty(emailid)) {
+                    email.setError("Enter email id");
+                    email.requestFocus();
                 }
             } else{
                 if(!Validation.isValidEmail(emailid)&&!Validation.isValidPhone(emailid)){
@@ -133,9 +139,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                     email.requestFocus();
                 }
                 else{
-
                     toserver();
-
                 }
             }
         }
@@ -150,7 +154,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         }
         if(v.getId()==R.id.forgotpwd)
         {
-
             Intent intent = new Intent(LoginActivity.this, ForgotPasswordOtp.class);
             if (android.os.Build.VERSION.SDK_INT >= JELLY_BEAN) {
                 ActivityOptions options = ActivityOptions.makeCustomAnimation(LoginActivity.this, R.anim.fade_in, R.anim.fade_out);
@@ -161,6 +164,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         }
     }
 
+
+    //SERVER LOGIN CHECK
     private void toserver() {
         showProgress(true);
         StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_LOGIN, new Response.Listener<String>()
@@ -170,7 +175,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 if (response.toLowerCase().contains("loginerror")) {
                     showProgress(false);
                     if(response.toLowerCase().contains("loginerror0")){
-
                         AlertDialog builder = new AlertDialog.Builder(LoginActivity.this).create();
                         builder.setIcon(R.mipmap.ic_launcher_round);
                         builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
@@ -188,7 +192,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                         AlertDialog builder = new AlertDialog.Builder(LoginActivity.this).create();
                         builder.setIcon(R.mipmap.ic_launcher_round);
                         builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
-                        builder.setMessage("InInternet Error.Check Connection!");
+                        builder.setMessage("Internet Error.Check Connection!");
                         builder.show();
                     }
                 } else {
@@ -217,11 +221,33 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                AlertDialog builder = new AlertDialog.Builder(LoginActivity.this).create();
-                builder.setIcon(R.mipmap.ic_launcher_round);
-                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
-                builder.setMessage("Connection error! Retry");
-                builder.show();
+                boolean haveConnectedWifi = false;
+                boolean haveConnectedMobile = false;
+                ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+                for (NetworkInfo ni : netInfo) {
+                    if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                        if (ni.isConnected())
+                            haveConnectedWifi = true;
+                    if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                        if (ni.isConnected())
+                            haveConnectedMobile = true;
+                }
+                if( !haveConnectedWifi && !haveConnectedMobile)
+                {
+                    AlertDialog alertDialog = new AlertDialog.Builder(LoginActivity.this).create();
+                    alertDialog.setMessage("No Internet Connection");
+                    alertDialog.setIcon(R.mipmap.ic_launcher_round);
+                    alertDialog.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    alertDialog.show();
+                }
+                else {
+                    AlertDialog builder = new AlertDialog.Builder(LoginActivity.this).create();
+                    builder.setIcon(R.mipmap.ic_launcher_round);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    builder.setMessage("Connection error! Retry");
+                    builder.show();
+                }
             }
         })
         {

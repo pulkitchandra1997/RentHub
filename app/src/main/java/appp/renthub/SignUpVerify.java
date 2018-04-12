@@ -142,7 +142,6 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
     }
     private void sendotp() {
         num=OTP_GENERATION.generateRandomNumber();
-        Toast.makeText(this, String.valueOf(num), Toast.LENGTH_SHORT).show();
         se.putInt("otp_sent", num);
         se.commit();
         StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_SEND_OTP, new Response.Listener<String>()
@@ -165,7 +164,6 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
                                 resendotp1.setText("Resend Otp in " + millisUntilFinished / 1000 + " sec");
                             }
                         }
-
                         public void onFinish() {
                             resendotp1.setVisibility(View.GONE);
                             resendotp2.setVisibility(View.VISIBLE);
@@ -196,28 +194,6 @@ public class SignUpVerify extends Activity implements View.OnClickListener {
                         });
                         builder.create();
                         builder.show();
-
-
-
-                        /*Snackbar snackbar = Snackbar
-                                .make(getWindow().getDecorView().getRootView(), "Email already Registered.", Snackbar.LENGTH_LONG);
-                        View sbView = snackbar.getView();
-                        TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
-                        textView.setTextColor(Color.RED);
-                        snackbar.setAction("Login",new View.OnClickListener(){
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(SignUpVerify.this, LoginActivity.class);
-                                intent.putExtra("email",emailtext);
-                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                                    ActivityOptions options = ActivityOptions.makeCustomAnimation(SignUpVerify.this, R.anim.fade_in, R.anim.fade_out);
-                                    startActivity(intent, options.toBundle());
-                                } else {
-                                    startActivity(intent);
-                                }
-                            }
-                        });
-                        snackbar.show();*/
                     }
                     if(response.equalsIgnoreCase("error")){
                         AlertDialog builder = new AlertDialog.Builder(SignUpVerify.this).create();
