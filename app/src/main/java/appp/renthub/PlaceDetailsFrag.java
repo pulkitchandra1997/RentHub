@@ -51,7 +51,7 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
     ImageView homeimg, ownerpic;
     LinearLayout ac, bed, wifi, sofa, fridge, power, tv, parking, mess,outer;
     Button booknow, alreadybooked;
-    ProgressBar progressBar;
+    ProgressBar login_progress;
     TableLayout viewprof;
 
     String address;
@@ -102,6 +102,8 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
         parkingicon = v.findViewById(R.id.parkingicon);
         messicon = v.findViewById(R.id.messicon);
         tvicon = v.findViewById(R.id.tvicon);
+        
+        login_progress=v.findViewById(R.id.login_progress);
 
 
         ac = v.findViewById(R.id.ac);
@@ -164,12 +166,12 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
 
 
     private void fromserver() {
-  //      showProgress(true);
+       showProgress(true);
         StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_VIEW_ADDRESS, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response) {
- //               showProgress(false);
+                showProgress(false);
                 if (response.equalsIgnoreCase("error")){
                     AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
                     builder.setIcon(R.mipmap.ic_launcher_round);
@@ -285,27 +287,27 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
     }
 
 
-    /*private void showProgress(final boolean show) {
+    private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
 
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-   //         progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-            progressBar.animate().setDuration(shortAnimTime).alpha(
+            login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
+            login_progress.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+                    login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
                 }
             });
         } else {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
-            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+            login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
         }
-    }*/
+    }
 
 
     @Override
