@@ -17,7 +17,9 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -148,8 +150,6 @@ public class PostFrag extends Fragment implements View.OnClickListener{
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-
-
             login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
             login_progress.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
@@ -185,13 +185,11 @@ public class PostFrag extends Fragment implements View.OnClickListener{
             if (((String) inputcity.getSelectedItem()).equalsIgnoreCase("Select City") || TextUtils.isEmpty(address) || TextUtils.isEmpty(pincode)|| TextUtils.isEmpty(amount) || ((String) roomstatus.getSelectedItem()).equalsIgnoreCase("Select type of room")) {
                 if (((String) roomstatus.getSelectedItem()).equalsIgnoreCase("Select type of room")) {
                     Toast.makeText(getActivity(), "Select Room Status", Toast.LENGTH_SHORT).show();
-                    roomstatus.requestFocus();
                 }
                 if (TextUtils.isEmpty(pincode)) {
                     inputpincode.setError("Enter Pincode");
                     inputpincode.requestFocus();
                 }
-
                 if (TextUtils.isEmpty(amount)) {
                     inputamount.setError("Enter Amount");
                     inputamount.requestFocus();
@@ -199,13 +197,11 @@ public class PostFrag extends Fragment implements View.OnClickListener{
                 if (((String) inputcity.getSelectedItem()).equalsIgnoreCase("Select City")) {
 
                     Toast.makeText(getActivity(), "Select City", Toast.LENGTH_SHORT).show();
-                    inputcity.requestFocus();
                 }
                 if (TextUtils.isEmpty(address)) {
                     inputaddress.setError("Enter Address");
                     inputaddress.requestFocus();
                 }
-                inputaddress.requestFocus();
             }
             else if (pincode.length() < 6 || pincode.length()>6)
                  {
@@ -306,28 +302,31 @@ public class PostFrag extends Fragment implements View.OnClickListener{
                 showProgress(false);
                 if(response.equalsIgnoreCase("success"))
                 {
-                    tosqlite();
                     clearform();
+                    AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                    builder.setIcon(R.mipmap.ic_launcher_round);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    builder.setMessage("Place added successfully!");
+                    builder.show();
                 }
                 if(response.equalsIgnoreCase("error")){
-                    Snackbar snackbar = Snackbar
-                            .make(getActivity().getWindow().getDecorView().getRootView(), "Error in connection!", Snackbar.LENGTH_LONG);
-                    View sbView = snackbar.getView();
-                    TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
-                    textView.setTextColor(Color.RED);
-                    snackbar.show();
+                    AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                    builder.setIcon(R.mipmap.ic_launcher_round);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    builder.setMessage("Error! Retry.");
+                    builder.show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                Snackbar snackbar = Snackbar
-                        .make(getActivity().getWindow().getDecorView().getRootView(), "Connection error! Retry", Snackbar.LENGTH_LONG);
-                View sbView = snackbar.getView();
-                TextView textView =sbView.findViewById(android.support.design.R.id.snackbar_text);
-                textView.setTextColor(Color.RED);
-                snackbar.show();
+                showProgress(false);
+                AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                builder.setIcon(R.mipmap.ic_launcher_round);
+                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                builder.setMessage("Password Updated Successfully!");
+                builder.show();
             }
         })
         {
@@ -358,34 +357,4 @@ public class PostFrag extends Fragment implements View.OnClickListener{
         tv.setChecked(false);
         invertor.setChecked(false);
     }
-
-    private void tosqlite() {
-        ContentValues contentValues=new ContentValues();
-        contentValues.put(RenthubConstant.COL_ADDRESS,address);
-        contentValues.put(RenthubConstant.COL_CITY,city);
-        contentValues.put(RenthubConstant.COL_STATUS,status);
-        contentValues.put(RenthubConstant.COL_PINCODE,pincode);
-        contentValues.put(RenthubConstant.COL_AMOUNT,amount);
-        contentValues.put(RenthubConstant.COL_TVID,tvid);
-        contentValues.put(RenthubConstant.COL_ACID,acid);
-        contentValues.put(RenthubConstant.COL_BEDID,bedid);
-        contentValues.put(RenthubConstant.COL_MESSID,messid);
-        contentValues.put(RenthubConstant.COL_REFRIGERATORID,refigratorid);
-        contentValues.put(RenthubConstant.COL_INVERTORID,invertorid);
-        contentValues.put(RenthubConstant.COL_WIFI,wifiid);
-        contentValues.put(RenthubConstant.COL_SOFAID,sofaid);
-        contentValues.put(RenthubConstant.COL_PARKINGID,parkingid);
-        contentValues.put(RenthubConstant.COL_RENTED,"0");
-        RenthubManager renthubManager=new RenthubManager(getActivity());
-        SQLiteDatabase sqLiteDatabase=renthubManager.openDB();
-        Long l=sqLiteDatabase.insert(RenthubConstant.TABLE_NAME,null,contentValues);
-        if(l>0) {
-            Snackbar snackbar = Snackbar
-                    .make(getActivity().getWindow().getDecorView().getRootView(), "Posted", Snackbar.LENGTH_LONG);
-            snackbar.show();
-        }
-        else{
-            Snackbar snackbar = Snackbar
-                    .make(getActivity().getWindow().getDecorView().getRootView(), "Error in posting.", Snackbar.LENGTH_LONG);
-        snackbar.show();    }
-}}
+}
