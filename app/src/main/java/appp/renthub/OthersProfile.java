@@ -221,7 +221,7 @@ public class OthersProfile extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == R.id.msgicon)
+        if (v.getId() == R.id.msgicon) //disabled
         {
             Intent i=new Intent(this,OthersProfile.class);
             startActivity(i);
