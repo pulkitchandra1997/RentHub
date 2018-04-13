@@ -5,10 +5,11 @@ package appp.renthub;
  */
 
 public class SEARCHRESULT {
-    public SEARCHRESULT(String address, String amount, String picname) {
+    public SEARCHRESULT(String address, String amount, String picname, String status) {
         this.address = address;
         this.amount = amount;
         this.picname = picname;
+        this.status=status;
     }
 
     public String getAddress() {
@@ -35,6 +36,18 @@ public class SEARCHRESULT {
         this.picname = picname;
     }
 
-    String address,amount,picname;
+    String address;
+    String amount;
+    String picname;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    String status;
 
 }

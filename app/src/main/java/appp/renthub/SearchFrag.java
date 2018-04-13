@@ -174,7 +174,7 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
                             while (count>0){
                                 count--;
                                 String data[]=jsonObject.get(String.valueOf(count)).toString().split("--%--");
-                                searchresults.add(new SEARCHRESULT(data[0],data[1],data[2]));
+                                searchresults.add(new SEARCHRESULT(data[0],data[1],data[2],data[3]));
                             }
                             resultadapter=new RESULTADAPTER(getActivity(),searchresults);
                             searchlist.setAdapter(resultadapter);

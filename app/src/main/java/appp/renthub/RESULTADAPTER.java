@@ -34,11 +34,13 @@ public class RESULTADAPTER extends ArrayAdapter<SEARCHRESULT> {
         ImageView imageView=convertView.findViewById(R.id.image);
         TextView textView=convertView.findViewById(R.id.address);
         TextView textView1=convertView.findViewById(R.id.amount);
+        TextView textView3=convertView.findViewById(R.id.status);
         TextView textView2=convertView.findViewById(R.id.amounticon);
         SEARCHRESULT searchresult=searchresults.get(position);
         Picasso.with(getContext()).load(searchresult.getPicname()).fit().centerCrop().into(imageView);
         textView.setText(searchresult.getAddress());
         textView1.setText(searchresult.getAmount());
+        textView3.setText(searchresult.getStatus());
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Font Awesome 5 Free-Solid-900.otf" );
         textView2.setTypeface(font);
         return convertView;

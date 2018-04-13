@@ -56,7 +56,7 @@ public class OwnerProfile extends Activity {
                     switchFragment();
                     return true;
                 case R.id.navigation_manage:
-                    fragment=new ManageFrag();
+                    fragment=new ManageFrag(profile);
                     switchFragment();
                     return true;
                 case R.id.navigation_messages:
@@ -90,5 +90,6 @@ public class OwnerProfile extends Activity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.ownernavigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
     }
 }
