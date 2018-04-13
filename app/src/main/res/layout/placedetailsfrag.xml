@@ -546,7 +546,9 @@ android:id="@+id/outer">
                     android:clickable="true"
                     android:id="@+id/viewprof">
 
-                    <TableRow>
+                    <TableRow
+                        android:id="@+id/userprofile"
+                        >
 
                         <TextView
                             android:layout_height="wrap_content"

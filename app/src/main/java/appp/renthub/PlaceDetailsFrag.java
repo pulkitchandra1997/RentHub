@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -29,6 +30,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,8 +55,8 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
     Button booknow, alreadybooked;
     ProgressBar login_progress;
     TableLayout viewprof;
-
-    String address;
+    TableRow userprofile;
+    String address,owneremail;
 
     @SuppressLint("ValidFragment")
     public PlaceDetailsFrag(String address)
@@ -157,8 +159,16 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
         viewprof.setOnClickListener(this);
         fromserver();
 
-
-
+        userprofile=v.findViewById(R.id.userprofile);
+        userprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment=new ViewProfileOthersFrag(owneremail);
+                ft = getActivity().getFragmentManager().beginTransaction();
+                ft.replace(R.id.content, fragment);
+                ft.commit();
+            }
+        });
         return v;
 
     }
@@ -211,7 +221,11 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
                         String isac=jsonObject.get("acid").toString();
                         String isrented=jsonObject.get("rented").toString();
                         String ownername=jsonObject.get("ownername").toString();
-                        String owneremail=jsonObject.get("owneremail").toString();
+                        owneremail=jsonObject.get("owneremail").toString();
+                        homecity.setText(jsonObject.get("city").toString());
+                        homepin.setText(jsonObject.get("pincode").toString());
+                        statusvalue.setText(jsonObject.get("status").toString());
+                        Picasso.with(getContext()).load(jsonObject.get("picname").toString()).fit().centerCrop().into(homeimg);
                         ownname.setText(ownername);
                         homeadd.setText(address);
                         rent.setText(amount);

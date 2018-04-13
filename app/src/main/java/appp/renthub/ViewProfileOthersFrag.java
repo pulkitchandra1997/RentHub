@@ -2,6 +2,7 @@ package appp.renthub;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -53,6 +54,12 @@ public class ViewProfileOthersFrag extends Fragment implements View.OnClickListe
     TableLayout showrented;
     String email="aayusheedaksh@gmail.com",phone;
 
+
+    @SuppressLint("ValidFragment")
+    public ViewProfileOthersFrag(String email){
+        this.email=email;
+    }
+    public ViewProfileOthersFrag(){}
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
