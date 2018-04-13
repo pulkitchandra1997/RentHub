@@ -375,6 +375,8 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
 
         }
 
+
+
     private void updatepassword() {
         showProgress(true);
         jsonObject= new JSONObject();
@@ -392,7 +394,6 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
             public void onResponse(String response)
             {
                 showProgress(false);
-                /*Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();*/
                 if(response.equalsIgnoreCase("success")){
                     AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
                     builder.setIcon(R.mipmap.ic_launcher_round);
@@ -452,7 +453,6 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
             public void onResponse(String response)
             {
                 showProgress(false);
-                /*Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();*/
                 if(response.equalsIgnoreCase("success")){
                     AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
                     builder.setIcon(R.mipmap.ic_launcher_round);

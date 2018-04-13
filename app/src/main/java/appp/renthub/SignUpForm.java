@@ -123,22 +123,11 @@ public class SignUpForm extends Activity implements View.OnClickListener {
         sp=getSharedPreferences("RentHub_data",MODE_PRIVATE);
         se=sp.edit();
     }
-    boolean doubleBackToExitPressedOnce = false;
     @Override
-    public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
-        }
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce=false;
-            }
-        }, 2000);
+    public void onBackPressed()
+    {
+        this.startActivity(new Intent(SignUpForm.this,Welcome.class));
+        return;
     }
 
     private void showProgress(final boolean show) {
@@ -309,7 +298,10 @@ public class SignUpForm extends Activity implements View.OnClickListener {
         se.commit();
         Intent intent=null;
             PROFILE profile = new PROFILE(email,name, phone, dob, status, city, address, pincode, gender, password, "0",type);
-            intent = new Intent(SignUpForm.this, UserProfile.class);
+            if(type.equalsIgnoreCase("owner"))
+                intent = new Intent(SignUpForm.this, OwnerProfile.class);
+else
+        intent = new Intent(SignUpForm.this, UserProfile.class);
             intent.putExtra("profile", profile);
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {

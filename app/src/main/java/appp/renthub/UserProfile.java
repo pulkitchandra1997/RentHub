@@ -3,10 +3,12 @@ package appp.renthub;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.io.Serializable;
 
@@ -53,11 +55,33 @@ public class UserProfile extends Activity {
         ft.replace(R.id.content, fragment);
         ft.commit();
     }
+
+
+    //ONBACKPRESS-CLOSE APP
+    boolean doubleBackToExitPressedOnce = false;
     @Override
-    public void onBackPressed()
-    {
-        this.startActivity(new Intent(UserProfile.this,LoginActivity.class));
-        return;
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            Intent a = new Intent(Intent.ACTION_MAIN);
+            a.addCategory(Intent.CATEGORY_HOME);
+            a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(a);
+            return;
+        }
+        if (!doubleBackToExitPressedOnce) {
+            fragment=new SearchFrag();
+            switchFragment();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
