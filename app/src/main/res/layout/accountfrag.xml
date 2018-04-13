@@ -367,7 +367,8 @@ android:paddingRight="@dimen/activity_horizontal_margin"
         android:layout_span="3"
         /></TableRow>
 
-        <TableRow>
+        <TableRow
+            android:layout_width="match_parent">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -388,11 +389,12 @@ android:paddingRight="@dimen/activity_horizontal_margin"
                 android:layout_gravity="left"
                 />
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
                 android:id="@+id/tenantaddress"
                 android:text=""
+                android:fitsSystemWindows="true"
                 android:layout_gravity="right"/>
         </TableRow>
         </TableLayout>
@@ -950,6 +952,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
             android:text="Change Password"
             android:id="@+id/changepassword"
             android:textSize="15dp"
+            android:clickable="true"
 
             />
         <View
@@ -967,6 +970,7 @@ android:paddingRight="@dimen/activity_horizontal_margin"
             android:text="Logout"
             android:id="@+id/logout"
             android:textSize="15dp"
+            android:clickable="true"
             />
         <View
             android:layout_width="match_parent"
