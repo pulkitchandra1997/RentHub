@@ -100,4 +100,8 @@
     </array>
     <string name="prompt_amount">Rent amount per month</string>
     <string name="Room">Select Room Status</string>
+
+    <string name="title_activity_image_upload">ImageUpload</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

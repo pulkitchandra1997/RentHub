@@ -4,9 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -23,46 +23,42 @@
         <activity android:name=".Welcome" />
         <activity
             android:name=".LoginActivity"
-            android:windowSoftInputMode="adjustNothing" >
-
-        </activity>
+            android:windowSoftInputMode="adjustNothing"></activity>
         <activity android:name=".SignUp" />
-        <activity android:name=".SignUpForm"
-            android:windowSoftInputMode="adjustNothing"/>
-        <activity android:name=".UserProfile"
-            android:windowSoftInputMode="adjustNothing">
-
-
-
-        </activity>
-        <activity android:name=".SignUpVerify"
-            android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".SignUpForm"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".UserProfile"
+            android:windowSoftInputMode="adjustNothing"></activity>
+        <activity
+            android:name=".SignUpVerify"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".WelcomeScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="adjustResize">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".OwnerProfile"
-            android:windowSoftInputMode="adjustNothing">
-
-        </activity>
-        <activity android:name=".ConfirmPassword"
-            android:windowSoftInputMode="adjustNothing">
-
-
-        </activity>
-        <activity android:name=".ForgotPasswordOtp"
-            android:windowSoftInputMode="adjustNothing">
-
-        </activity>
+        <activity
+            android:name=".OwnerProfile"
+            android:windowSoftInputMode="adjustNothing"></activity>
+        <activity
+            android:name=".ConfirmPassword"
+            android:windowSoftInputMode="adjustNothing"></activity>
+        <activity
+            android:name=".ForgotPasswordOtp"
+            android:windowSoftInputMode="adjustNothing"></activity>
+        <activity
+            android:name=".imageUpload.ImageUpload"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_image_upload"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>

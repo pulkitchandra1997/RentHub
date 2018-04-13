@@ -333,6 +333,7 @@ else
             @Override
             public void onErrorResponse(VolleyError error)
             {
+                showProgress(false);
                 AlertDialog builder = new AlertDialog.Builder(SignUpForm.this).create();
                 builder.setIcon(R.mipmap.ic_launcher_round);
                 builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
