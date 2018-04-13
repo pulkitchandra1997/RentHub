@@ -3,7 +3,9 @@ package appp.renthub;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +51,7 @@ public class ViewProfileOthersFrag extends Fragment implements View.OnClickListe
     LinearLayout layoutoptional;
     Button callicon, msgicon, mailicon;
     TableLayout showrented;
-    String email="aayusheedaksh@gmail.com";
+    String email="aayusheedaksh@gmail.com",phone;
 
     @Nullable
     @Override
@@ -151,8 +154,6 @@ public class ViewProfileOthersFrag extends Fragment implements View.OnClickListe
                         JSONObject jsonObject=new JSONObject(response);
                         String name=jsonObject.get("name").toString();
                         String type=jsonObject.get("type").toString();
-                        String email=jsonObject.get("email").toString();
-                        String phone=jsonObject.get("phone").toString();
                         String dob=jsonObject.get("dob").toString();
                         String marriage=jsonObject.get("marriagestatus").toString();
                         String city=jsonObject.get("city").toString();
@@ -160,6 +161,9 @@ public class ViewProfileOthersFrag extends Fragment implements View.OnClickListe
                         String gender=jsonObject.get("gender").toString();
                         String pin=jsonObject.get("pincode").toString();
                         String count=jsonObject.get("noofplaces").toString();
+
+                        /*email=jsonObject.get("email").toString();*/
+                        phone=jsonObject.get("phone").toString().trim();
 
 
                         username.setText(name);
@@ -235,9 +239,14 @@ public class ViewProfileOthersFrag extends Fragment implements View.OnClickListe
     public void onClick(View v) {
 
         if(v.getId()==R.id.mailicon) {
-            ft = getFragmentManager().beginTransaction();
-            ft.replace(R.id.outer, new ViewProfileOthersFrag());
-            ft.commit();
+            Intent intent=new Intent(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_EMAIL, email);
+        /*intent.putExtra(Intent.EXTRA_SUBJECT,"Subject text here...");
+        intent.putExtra(Intent.EXTRA_TEXT,"Body of the content here...");
+        intent.putExtra(Intent.EXTRA_CC,"mailcc@gmail.com");*/
+            intent.setType("text/html");
+            intent.setPackage("com.google.android.gm");
+            startActivity(Intent.createChooser(intent, "Send mail"));
         }
 
 
@@ -250,9 +259,12 @@ public class ViewProfileOthersFrag extends Fragment implements View.OnClickListe
 
         if(v.getId()==R.id.phoneicon)
         {
-            ft = getFragmentManager().beginTransaction();
-            ft.replace(R.id.outer, new ViewProfileOthersFrag());
-            ft.commit();
+            if (!(TextUtils.isEmpty(phone))) {
+                Intent i = new Intent(Intent.ACTION_CALL);
+                Uri u = Uri.parse("tel:" + phone);
+                i.setData(u);
+                startActivity(i);
+            }
         }
 
     }
