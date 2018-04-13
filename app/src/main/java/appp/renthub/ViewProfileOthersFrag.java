@@ -1,28 +1,54 @@
 package appp.renthub;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Fragment;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TableLayout;
 import android.widget.TextView;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Ayushi on 4/10/2018.
  */
 
-public class ViewProfileOthersFrag extends Fragment {
+public class ViewProfileOthersFrag extends Fragment implements View.OnClickListener {
+
+    android.app.Fragment fragment = null;
+    android.app.FragmentTransaction ft;
+    ProgressBar progressBar;
 
     TextView username, otherdetails, dobicon, dob, userdob, cityicon, city, usercity, gendericon, gender, usergender, marryicon, marry, usermarry, addicon, add, useradd, placecount, rentedplaces;
     ImageView userpic;
     LinearLayout layoutoptional;
     Button callicon, msgicon, mailicon;
+    TableLayout showrented;
+    String email="aayusheedaksh@gmail.com";
 
     @Nullable
     @Override
@@ -39,6 +65,7 @@ public class ViewProfileOthersFrag extends Fragment {
         add=v.findViewById(R.id.add);
         rentedplaces=v.findViewById(R.id.rentedplaces);
         placecount=v.findViewById(R.id.placecount);
+        showrented=v.findViewById(R.id.showrented);
 
 
         dobicon=v.findViewById(R.id.dobicon);
@@ -94,8 +121,140 @@ public class ViewProfileOthersFrag extends Fragment {
         userdob.setTypeface(f3);
         usercity.setTypeface(f3);
 
+        callicon.setOnClickListener(this);
+        msgicon.setOnClickListener(this);
+        mailicon.setOnClickListener(this);
+        fromserver();
+
 
         return v;
+    }
+
+
+    private void fromserver() {
+        showProgress(true);
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_VIEW_OTHERS_PROFILE, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response) {
+                showProgress(false);
+                if (response.equalsIgnoreCase("error")){
+                    AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                    builder.setIcon(R.mipmap.ic_launcher_round);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    builder.setMessage("Error in connection");
+                    builder.show();
+                }
+                else {
+
+                    try {
+                        JSONObject jsonObject=new JSONObject(response);
+                        String name=jsonObject.get("name").toString();
+                        String type=jsonObject.get("type").toString();
+                        String email=jsonObject.get("email").toString();
+                        String phone=jsonObject.get("phone").toString();
+                        String dob=jsonObject.get("dob").toString();
+                        String marriage=jsonObject.get("marriagestatus").toString();
+                        String city=jsonObject.get("city").toString();
+                        String address=jsonObject.get("permanentaddress").toString();
+                        String gender=jsonObject.get("gender").toString();
+                        String pin=jsonObject.get("pincode").toString();
+                        String count=jsonObject.get("noofplaces").toString();
+
+
+                        username.setText(name);
+                        userdob.setText(dob);
+                        usercity.setText(city);
+                        usergender.setText(gender);
+                        usermarry.setText(marriage);
+                        useradd.setText(address);
+
+                        if(type=="tenant") {
+                            showrented.setVisibility(View.GONE);
+                        }
+
+                        placecount.setText(count);
+
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                builder.setIcon(R.mipmap.ic_launcher_round);
+                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                builder.setMessage("Connection error! Retry");
+                builder.show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put("email",email);
+                return params;
+            }
+        };
+        MySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
+
+
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+            progressBar.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        }
+    }
+
+
+    @Override
+    public void onClick(View v) {
+
+        if(v.getId()==R.id.mailicon) {
+            ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.outer, new ViewProfileOthersFrag());
+            ft.commit();
+        }
+
+
+        if(v.getId()==R.id.msgicon)
+        {
+            ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.outer, new ViewProfileOthersFrag());
+            ft.commit();
+        }
+
+        if(v.getId()==R.id.phoneicon)
+        {
+            ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.outer, new ViewProfileOthersFrag());
+            ft.commit();
+        }
+
     }
 }
 

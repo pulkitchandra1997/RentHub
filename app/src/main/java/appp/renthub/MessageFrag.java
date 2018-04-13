@@ -8,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * Created by pranj on 01-04-2018.
- */
+/*
+*
+        * Created by pranj on 01-04-2018.
+*/
+
 
 public class MessageFrag extends Fragment {
     @Nullable
@@ -23,4 +25,5 @@ public class MessageFrag extends Fragment {
         return view;
     }
 }
+
 

@@ -4,7 +4,7 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 android:orientation="vertical"
-    android:id="@+id/outer">
+android:id="@+id/outer">
 
 <ScrollView
     android:layout_width="match_parent"
@@ -76,13 +76,13 @@ android:orientation="vertical"
                         android:layout_marginRight="5dp">
 
                         <TextView
-                        android:id="@+id/homeadd"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="D1/43, Priyadarshini Yojna, Sitapur Road"
-                        android:textColor="@color/black_overlay"
-                        android:textSize="20dp"
-                        android:textStyle="bold"/>
+                            android:id="@+id/homeadd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="D1/43, Priyadarshini Yojna, Sitapur Road"
+                            android:textColor="@color/black_overlay"
+                            android:textSize="20dp"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/homecity"
@@ -93,6 +93,17 @@ android:orientation="vertical"
                             android:textSize="20dp"
                             android:textStyle="bold"
                             android:layout_marginTop="10dp"/>
+
+                        <TextView
+                            android:id="@+id/homepin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="226020"
+                            android:textColor="@color/black_overlay"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
 
 
                     </LinearLayout>
@@ -150,11 +161,10 @@ android:orientation="vertical"
                         android:id="@+id/housetype"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp"
+                        android:layout_marginRight="30dp"
                         android:text="Type"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="20dp"
-                        android:textStyle="bold"/>
+                        android:textSize="20dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -189,7 +199,7 @@ android:orientation="vertical"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="15dp"
-                        android:text="&#xf156;"
+                        android:text=" &#xf156;"
                         android:textColor="@color/colorPrimary"
                         android:textSize="17dp"
                         android:textStyle="bold"/>
@@ -198,11 +208,10 @@ android:orientation="vertical"
                         android:id="@+id/rent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp"
+                        android:layout_marginRight="30dp"
                         android:text="Rent"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="20dp"
-                        android:textStyle="bold"/>
+                        android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/rentvalue"
@@ -211,8 +220,7 @@ android:orientation="vertical"
                         android:layout_marginRight="10dp"
                         android:text="20000"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="20dp"
-                        android:textStyle="bold"/>
+                        android:textSize="20dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -220,8 +228,7 @@ android:orientation="vertical"
                         android:text="per month"
                         android:textColor="@color/black_overlay"
                         android:textSize="20dp"
-                        android:id="@+id/permonth"
-                        android:textStyle="bold"/>
+                        android:id="@+id/permonth"/>
 
                 </LinearLayout>
 
@@ -550,7 +557,7 @@ android:orientation="vertical"
                             android:textColor="@color/colorPrimary"
                             android:text="Ayushi Daksh"
                             android:layout_marginTop="20dp"
-                            android:gravity="center"
+                            android:gravity="left"
                             android:id="@+id/ownname"/>
 
                         <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
@@ -610,15 +617,6 @@ android:orientation="vertical"
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/homepin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="226020"
-                android:textColor="@color/black_overlay"
-                android:textSize="20dp"
-                android:textStyle="bold" />
         </android.support.v7.widget.CardView>
 
 
