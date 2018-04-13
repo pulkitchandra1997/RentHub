@@ -407,6 +407,13 @@ public void hidekeyboard()
             }
 
             if(v.getId() == R.id.webviewbtn) {
+                Intent intent = new Intent(getActivity(), AboutUs.class);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    ActivityOptions options = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.fade_in, R.anim.fade_out);
+                    startActivity(intent, options.toBundle());
+                } else {
+                    startActivity(intent);
+                }
 
             }
 

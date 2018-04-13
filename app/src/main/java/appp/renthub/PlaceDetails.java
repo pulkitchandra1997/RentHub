@@ -3,6 +3,7 @@ package appp.renthub;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -142,10 +143,14 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
         userprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment=new ViewProfileOthers(owneremail);
-                ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.content, fragment);
-                ft.commit();
+                Intent intent = new Intent(PlaceDetails.this, OthersProfile.class);
+                intent.putExtra("owneraddress",address);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    ActivityOptions options = ActivityOptions.makeCustomAnimation(PlaceDetails.this, R.anim.fade_in, R.anim.fade_out);
+                    startActivity(intent, options.toBundle());
+                } else {
+                    startActivity(intent);
+                }
             }
         });
     }

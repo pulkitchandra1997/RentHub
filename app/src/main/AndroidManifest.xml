@@ -62,6 +62,7 @@
 
         <activity android:name=".OthersProfile"></activity>
         <activity android:name=".PlaceDetails"></activity>
+        <activity android:name=".AboutUs"></activity>
 
     </application>
 
