@@ -250,7 +250,7 @@ public class ViewProfileOthersFrag extends Fragment implements View.OnClickListe
         }
 
 
-        if(v.getId()==R.id.msgicon)
+        if(v.getId()==R.id.msgicon) //disabled
         {
             ft = getFragmentManager().beginTransaction();
             ft.replace(R.id.outer, new ViewProfileOthersFrag());
