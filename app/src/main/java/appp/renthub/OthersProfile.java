@@ -221,6 +221,12 @@ public class OthersProfile extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
 
+        if (v.getId() == R.id.msgicon)
+        {
+            Intent i=new Intent(this,OthersProfile.class);
+            startActivity(i);
+        }
+
         if (v.getId() == R.id.mailicon) {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.putExtra(Intent.EXTRA_EMAIL, email);
