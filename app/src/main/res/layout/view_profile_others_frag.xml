@@ -52,7 +52,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="Ayushi Daksh"
+                            android:text=""
                             android:id="@+id/username"
                             android:textSize="30dp"
                             app:bootstrapBrand="secondary"/>
@@ -214,7 +214,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="13dp"
-                                android:text="Lucknow"
+                                android:text=""
                                 android:id="@+id/usercity"
                                 android:layout_gravity="right"/>
                         </TableRow>

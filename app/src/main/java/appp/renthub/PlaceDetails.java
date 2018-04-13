@@ -3,6 +3,7 @@ package appp.renthub;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
@@ -17,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -49,35 +51,38 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_details);
 
-        homeicon =  findViewById(R.id.homeicon);
-        homeimg =  findViewById(R.id.homeimg);
-        ownerpic =  findViewById(R.id.ownerpic);
-        homeadd =  findViewById(R.id.homeadd);
-        homecity=  findViewById(R.id.homecity);
-        homepin= findViewById(R.id.homepin);
-        housetype=  findViewById(R.id.housetype);
-        statusvalue=  findViewById(R.id.statusvalue);
-        moneyicon =  findViewById(R.id.moneyicon);
-        statusicon=  findViewById(R.id.statusicon);
-        rent =  findViewById(R.id.rent);
-        permonth =  findViewById(R.id.permonth);
-        facilities =  findViewById(R.id.facilities);
-        houseowner =  findViewById(R.id.houseowner);
-        ownname =  findViewById(R.id.ownname);
-        booknow =  findViewById(R.id.booknow);
-        alreadybooked=  findViewById(R.id.alreadybooked);
-        viewprof= findViewById(R.id.viewprof);
-        rentvalue= findViewById(R.id.rentvalue);
+        Intent intent=getIntent();
+        address=intent.getStringExtra("owneraddress");
 
-        acicon =  findViewById(R.id.acicon);
-        wifiicon =  findViewById(R.id.wifiicon);
-        bedicon =  findViewById(R.id.bedicon);
-        sofaicon =  findViewById(R.id.sofaicon);
-        fridgeicon =  findViewById(R.id.fridgeicon);
-        powericon =  findViewById(R.id.powericon);
-        parkingicon =  findViewById(R.id.parkingicon);
-        messicon =  findViewById(R.id.messicon);
-        tvicon =  findViewById(R.id.tvicon);
+        homeicon =findViewById(R.id.homeicon);
+        homeimg =findViewById(R.id.homeimg);
+        ownerpic =findViewById(R.id.ownerpic);
+        homeadd =findViewById(R.id.homeadd);
+        homecity=findViewById(R.id.homecity);
+        homepin=findViewById(R.id.homepin);
+        housetype=findViewById(R.id.housetype);
+        statusvalue=findViewById(R.id.statusvalue);
+        moneyicon =findViewById(R.id.moneyicon);
+        statusicon=findViewById(R.id.statusicon);
+        rent =findViewById(R.id.rent);
+        permonth =findViewById(R.id.permonth);
+        facilities =findViewById(R.id.facilities);
+        houseowner = findViewById(R.id.houseowner);
+        ownname =findViewById(R.id.ownname);
+        booknow =findViewById(R.id.booknow);
+        alreadybooked=findViewById(R.id.alreadybooked);
+        viewprof=findViewById(R.id.viewprof);
+        rentvalue=findViewById(R.id.rentvalue);
+
+        acicon =findViewById(R.id.acicon);
+        wifiicon =findViewById(R.id.wifiicon);
+        bedicon =findViewById(R.id.bedicon);
+        sofaicon =findViewById(R.id.sofaicon);
+        fridgeicon =findViewById(R.id.fridgeicon);
+        powericon =findViewById(R.id.powericon);
+        parkingicon =findViewById(R.id.parkingicon);
+        messicon =findViewById(R.id.messicon);
+        tvicon =findViewById(R.id.tvicon);
 
         login_progress= findViewById(R.id.login_progress);
 
@@ -182,6 +187,7 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
                 else {
                     try {
                         JSONObject jsonObject=new JSONObject(response);
+                        Toast.makeText(PlaceDetails.this, ""+jsonObject.toString(), Toast.LENGTH_SHORT).show();
                         String address=jsonObject.get("address").toString();
                         String amount=jsonObject.get("amount").toString();
                         String istv=jsonObject.get("tvid").toString();
@@ -202,7 +208,7 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
                         Picasso.with(PlaceDetails.this).load(jsonObject.get("picname").toString()).fit().centerCrop().into(homeimg);
                         ownname.setText(ownername);
                         homeadd.setText(address);
-                        rent.setText(amount);
+                        rentvalue.setText(amount);
                         if(isrented=="1") {
                             booknow.setVisibility(View.GONE);
                         }
