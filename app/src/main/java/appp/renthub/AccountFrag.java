@@ -54,7 +54,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     CardView viewcard, editcard,passwordcard;
     Spinner tenantcity2, tenantstatus2;
     LinearLayout viewlink, editlink,pwdlayout;
-    Button editbtn,change;
+    Button editbtn,change, webviewbtn;
     SharedPreferences sp;
     SharedPreferences.Editor se;
     PROFILE profile;
@@ -155,6 +155,7 @@ public void hidekeyboard()
         logout = v.findViewById(R.id.logout);
         changepassword = v.findViewById(R.id.changepassword);
         progressBar=v.findViewById(R.id.login_progress);
+        webviewbtn=v.findViewById(R.id.webviewbtn);
 
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Font Awesome 5 Free-Solid-900.otf");
         pwdicon.setTypeface(font);
@@ -217,6 +218,7 @@ public void hidekeyboard()
         changepassword.setOnClickListener(this);
         change.setOnClickListener(this);
         crossbtn.setOnClickListener(this);
+        webviewbtn.setOnClickListener(this);
 
         sp = getActivity().getSharedPreferences("RentHub_data", MODE_PRIVATE);
         se = sp.edit();
@@ -403,6 +405,11 @@ public void hidekeyboard()
                 builder.create();
                 builder.show();
             }
+
+            if(v.getId() == R.id.webviewbtn) {
+
+            }
+
 
         }
 

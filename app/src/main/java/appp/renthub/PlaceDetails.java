@@ -137,7 +137,7 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
         userprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment=new ViewProfileOthersFrag(owneremail);
+                fragment=new ViewProfileOthers(owneremail);
                 ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.content, fragment);
                 ft.commit();
