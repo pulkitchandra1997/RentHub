@@ -322,12 +322,18 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                 }
                 oldpassword.requestFocus();
             }else {
-                if (newpwd.equals(confirmpwd))
+                if (!newpwd.equals(confirmpwd) || !profile.getPassword().equals(oldpwd))
                 {
-                    updatepassword();
+                    if (!profile.getPassword().equals(oldpwd)) {
+                        oldpassword.setError("Incorrect Password");
+                        oldpassword.requestFocus();
+                    }if (!newpwd.equals(confirmpwd))
+                    {
+                        confirmnewpwd.setError("Both passwords should be same");
+                        confirmnewpwd.requestFocus();
+                    }
                 }else {
-                    confirmnewpwd.setError("Both passwords should be same");
-                    confirmnewpwd.requestFocus();
+                    updatepassword();
                 }
             }
         }
@@ -382,8 +388,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         jsonObject= new JSONObject();
         try {
             jsonObject.put("email", profile.getEmail());
-            jsonObject.put("newpassword", newpwd);
-            jsonObject.put("oldpassword",oldpwd);
+            jsonObject.put("password", newpwd);
 
         } catch (Exception e) {
             Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
@@ -402,13 +407,6 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                     builder.setMessage("Password Updated Successfully!");
                     builder.show();
 
-                }
-                if(response.equalsIgnoreCase("wrong")){
-                    AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
-                    builder.setIcon(R.mipmap.ic_launcher_round);
-                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
-                    builder.setMessage("Incorrect Password. Enter correct password and try again.");
-                    builder.show();
                 }
                 if(response.equalsIgnoreCase("error")){
                     AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
