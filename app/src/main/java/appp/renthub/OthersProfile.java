@@ -177,7 +177,7 @@ public class OthersProfile extends AppCompatActivity implements View.OnClickList
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                AlertDialog builder = new AlertDialog.Builder(OthersProfile.this).create();
                 builder.setIcon(R.mipmap.ic_launcher_round);
                 builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
                 builder.setMessage("Connection error! Retry");
@@ -191,7 +191,7 @@ public class OthersProfile extends AppCompatActivity implements View.OnClickList
                 return params;
             }
         };
-        MySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+        MySingleton.getInstance(OthersProfile.this).addToRequestQueue(stringRequest);
     }
 
 

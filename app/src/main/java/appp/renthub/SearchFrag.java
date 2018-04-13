@@ -144,10 +144,14 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 address=searchresults.get(position).getAddress();
-                fragment=new PlaceDetailsFrag(address);
-                ft = getActivity().getFragmentManager().beginTransaction();
-                ft.replace(R.id.content, fragment);
-                ft.commit();
+                Intent intent = new Intent(getActivity(), PlaceDetails.class);
+                intent.putExtra("owneraddress",address);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    ActivityOptions options = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.fade_in, R.anim.fade_out);
+                    startActivity(intent, options.toBundle());
+                } else {
+                    startActivity(intent);
+                }
             }
         });
         login_progress=v.findViewById(R.id.login_progress);
