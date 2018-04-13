@@ -14,5 +14,6 @@ public class Url {
     public static final String URL_UPDATE_PASSWORD=URL+"updatepassword.php";
     public static final String URL_FORGOT_PASSWORD_OTP=URL+"forgotpasswordotp.php";
     public static final String URL_CHANGE_PASSWORD=URL+"changepassword.php";
+    public static final String URL_VIEW_OTHERS_PROFILE=URL+"viewothersprofile.php";
 
 }

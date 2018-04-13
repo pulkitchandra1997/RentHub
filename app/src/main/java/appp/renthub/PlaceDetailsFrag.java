@@ -1,41 +1,40 @@
 package appp.renthub;
 
-        import android.animation.Animator;
-        import android.animation.AnimatorListenerAdapter;
-        import android.app.ActivityOptions;
-        import android.app.Fragment;
-        import android.content.Intent;
-        import android.graphics.Typeface;
-        import android.os.Build;
-        import android.os.Bundle;
-        import android.support.annotation.NonNull;
-        import android.support.annotation.Nullable;
-        import android.support.v7.app.AlertDialog;
-        import android.support.v7.app.AppCompatActivity;
-        import android.text.Html;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.Button;
-        import android.widget.ImageView;
-        import android.widget.LinearLayout;
-        import android.widget.ProgressBar;
-        import android.widget.TableLayout;
-        import android.widget.TextView;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.app.ActivityOptions;
+import android.app.Fragment;
+import android.content.Intent;
+import android.graphics.Typeface;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TableLayout;
+import android.widget.TextView;
 
-        import com.android.volley.AuthFailureError;
-        import com.android.volley.Request;
-        import com.android.volley.Response;
-        import com.android.volley.VolleyError;
-        import com.android.volley.toolbox.StringRequest;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 
-        import org.json.JSONException;
-        import org.json.JSONObject;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-        import java.util.HashMap;
-        import java.util.Map;
-
-        import static android.os.Build.VERSION_CODES.JELLY_BEAN;
+import java.util.HashMap;
+import java.util.Map;
+import static android.os.Build.VERSION_CODES.JELLY_BEAN;
 
 /**
  * Created by Ayushi on 4/9/2018.
@@ -47,14 +46,14 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
     android.app.FragmentTransaction ft;
 
     TextView homeicon, homeadd, moneyicon, rent, permonth, facilities, acicon, wifiicon, bedicon, sofaicon, fridgeicon, powericon, parkingicon, messicon, tvicon, houseowner, ownname;
-    TextView homecity, homepin, statusicon, housetype, statusvalue;
+    TextView homecity, homepin, statusicon, housetype, statusvalue,rentvalue;
     ImageView homeimg, ownerpic;
     LinearLayout ac, bed, wifi, sofa, fridge, power, tv, parking, mess,outer;
     Button booknow, alreadybooked;
     ProgressBar progressBar;
     TableLayout viewprof;
 
-    String address = "D1/43 Priyadarshini Yojna, Sitapur Road";
+    String address = "D1/43 Priyadarshini";
 
     @Nullable
     @Override
@@ -79,6 +78,7 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
         booknow = v.findViewById(R.id.booknow);
         alreadybooked= v.findViewById(R.id.alreadybooked);
         viewprof=v.findViewById(R.id.viewprof);
+        rentvalue=v.findViewById(R.id.rentvalue);
 
         acicon = v.findViewById(R.id.acicon);
         wifiicon = v.findViewById(R.id.wifiicon);
@@ -129,16 +129,18 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
         homepin.setTypeface(f4);
         rent.setTypeface(f4);
         facilities.setTypeface(f4);
-        permonth.setTypeface(f4);
+        rentvalue.setTypeface(f4);
         houseowner.setTypeface(f4);
         ownname.setTypeface(f4);
         housetype.setTypeface(f4);
         statusvalue.setTypeface(f4);
+        rentvalue.setTypeface(f4);
 
 
-        fromserver();
+
         booknow.setOnClickListener(this);
         viewprof.setOnClickListener(this);
+        fromserver();
 
 
 
@@ -150,7 +152,7 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
 
     private void fromserver() {
         showProgress(true);
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_LOGIN, new Response.Listener<String>()
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_VIEW_ADDRESS, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response) {
@@ -161,7 +163,7 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
                     builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
                     builder.setMessage("Error in connection");
                     builder.show();
-                    }
+                }
                 else {
 
                     try {
@@ -315,4 +317,6 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
 
     }
 }
+
+
 
