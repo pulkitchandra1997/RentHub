@@ -143,13 +143,11 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
         searchlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(),String.valueOf(position) , Toast.LENGTH_SHORT).show();
                 address=searchresults.get(position).getAddress();
-                fragment=new PlaceDetailsFrag();
+                fragment=new PlaceDetailsFrag(address);
                 ft = getActivity().getFragmentManager().beginTransaction();
                 ft.replace(R.id.content, fragment);
                 ft.commit();
-
             }
         });
         login_progress=v.findViewById(R.id.login_progress);

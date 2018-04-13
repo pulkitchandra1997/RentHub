@@ -172,15 +172,30 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(String response) {
                 showProgress(false);
-                if (response.equalsIgnoreCase("error")){
-                    AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
-                    builder.setIcon(R.mipmap.ic_launcher_round);
-                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
-                    builder.setMessage("Error in connection");
-                    builder.show();
+                if (response.toLowerCase().contains("placeerror")) {
+                    if(response.toLowerCase().contains("placeerror0")){
+                        AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                        builder.setIcon(R.mipmap.ic_launcher_round);
+                        builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                        builder.setMessage("No such place found");
+                        builder.show();
+                    }
+                    if(response.toLowerCase().contains("placeerror1")){
+                        AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                        builder.setIcon(R.mipmap.ic_launcher_round);
+                        builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                        builder.setMessage("Server Error!");
+                        builder.show();
+                    }
+                    if(response.toLowerCase().contains("placeerror2")){
+                        AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                        builder.setIcon(R.mipmap.ic_launcher_round);
+                        builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                        builder.setMessage("Internet Error.Check Connection!");
+                        builder.show();
+                    }
                 }
                 else {
-
                     try {
                         JSONObject jsonObject=new JSONObject(response);
                         String address=jsonObject.get("address").toString();
@@ -196,12 +211,10 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
                         String isac=jsonObject.get("acid").toString();
                         String isrented=jsonObject.get("rented").toString();
                         String ownername=jsonObject.get("ownername").toString();
-                        String ownermail=jsonObject.get("ownermail").toString();
-
+                        String owneremail=jsonObject.get("owneremail").toString();
                         ownname.setText(ownername);
                         homeadd.setText(address);
                         rent.setText(amount);
-
                         if(isrented=="1") {
                             booknow.setVisibility(View.GONE);
                         }
@@ -209,64 +222,52 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
                         {
                             alreadybooked.setVisibility(View.GONE);
                         }
-
-
                         if(istv=="0")
                         {
                             tv.setVisibility(View.GONE);
                         }
-
                         if(iswifi=="0")
                         {
                             wifi.setVisibility(View.GONE);
                         }
-
                         if(ismess=="0")
                         {
                             mess.setVisibility(View.GONE);
                         }
-
                         if(isfridge=="0")
                         {
                             fridge.setVisibility(View.GONE);
                         }
-
                         if(ispower=="0")
                         {
                             power.setVisibility(View.GONE);
                         }
-
                         if(isparking=="0")
                         {
                             parking.setVisibility(View.GONE);
                         }
-
                         if(issofa=="0")
                         {
                             sofa.setVisibility(View.GONE);
                         }
-
                         if(isbed=="0")
                         {
                             bed.setVisibility(View.GONE);
                         }
-
                         if(isac=="0")
                         {
                             ac.setVisibility(View.GONE);
                         }
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error)
             {
+                showProgress(false);
                 AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
                 builder.setIcon(R.mipmap.ic_launcher_round);
                 builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
