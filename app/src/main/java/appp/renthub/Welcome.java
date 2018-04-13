@@ -21,6 +21,7 @@
             import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
             import static android.Manifest.permission.ACCESS_FINE_LOCATION;
             import static android.Manifest.permission.ACCESS_NETWORK_STATE;
+            import static android.Manifest.permission.CALL_PHONE;
             import static android.Manifest.permission.CAMERA;
             import static android.Manifest.permission.INTERNET;
             import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
@@ -105,9 +106,10 @@
         private void checkPermission() {
             int result1 = ContextCompat.checkSelfPermission(getApplicationContext(), CAMERA);
             int result2 = ContextCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE);
-            if (result1 == PackageManager.PERMISSION_GRANTED && result2 == PackageManager.PERMISSION_GRANTED) {
+            int result3 = ContextCompat.checkSelfPermission(getApplicationContext(), CALL_PHONE);
+            if (result1 == PackageManager.PERMISSION_GRANTED && result2 == PackageManager.PERMISSION_GRANTED && result3 == PackageManager.PERMISSION_GRANTED) {
             } else {
-                ActivityCompat.requestPermissions(this, new String[]{CAMERA,READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+                ActivityCompat.requestPermissions(this, new String[]{CAMERA,READ_EXTERNAL_STORAGE,CALL_PHONE}, PERMISSION_REQUEST_CODE);
             }
         }
         @Override
@@ -116,8 +118,9 @@
                 case PERMISSION_REQUEST_CODE:
                     if (grantResults.length > 0) {
                         boolean externalstorage = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                        boolean call = grantResults[2] == PackageManager.PERMISSION_GRANTED;
                         boolean camera = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                        if (camera && externalstorage)
+                        if (camera && externalstorage && call)
                         {}
                         else {
                             AlertDialog alertDialog = new AlertDialog.Builder(this).create();
@@ -132,7 +135,7 @@
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                                        requestPermissions(new String[]{CAMERA,READ_EXTERNAL_STORAGE},
+                                                        requestPermissions(new String[]{CAMERA,READ_EXTERNAL_STORAGE,CALL_PHONE},
                                                                 PERMISSION_REQUEST_CODE);
                                                     }
                                                 }
