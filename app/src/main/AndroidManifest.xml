@@ -23,14 +23,14 @@
         <activity android:name=".Welcome" />
         <activity
             android:name=".LoginActivity"
-            android:windowSoftInputMode="adjustNothing"></activity>
+            android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".SignUp" />
         <activity
             android:name=".SignUpForm"
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".UserProfile"
-            android:windowSoftInputMode="adjustNothing"></activity>
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".SignUpVerify"
             android:windowSoftInputMode="adjustNothing" />
@@ -47,18 +47,20 @@
         </activity>
         <activity
             android:name=".OwnerProfile"
-            android:windowSoftInputMode="adjustNothing"></activity>
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".ConfirmPassword"
-            android:windowSoftInputMode="adjustNothing"></activity>
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".ForgotPasswordOtp"
-            android:windowSoftInputMode="adjustNothing"></activity>
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".imageUpload.ImageUpload"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_image_upload"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
+        <activity android:name=".AboutUs" />
+        <activity android:name=".OthersProfile"></activity>
     </application>
 
 </manifest>
