@@ -68,6 +68,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     public AccountFrag() {
     }
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
