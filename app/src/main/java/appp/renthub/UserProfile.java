@@ -39,7 +39,7 @@ public class UserProfile extends Activity {
                     switchFragment();
                     return true;
                 case R.id.navigation_manage:
-                    fragment=new ManageFrag(profile);
+                    fragment=new UserManageFrag();
                     flag=2;
                     switchFragment();
                     return true;
