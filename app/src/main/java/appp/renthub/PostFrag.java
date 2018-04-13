@@ -276,7 +276,7 @@ public class PostFrag extends Fragment implements View.OnClickListener{
                     jsonObject.put("address",address);
                     jsonObject.put("pincode",pincode);
                     jsonObject.put("amount",amount);
-                    jsonObject.put("email",email);
+                    jsonObject.put("email",profile.getEmail());
                     jsonObject.put("acid",acid);
                     jsonObject.put("wifiid",wifiid);
                     jsonObject.put("tvid",tvid);
@@ -309,12 +309,28 @@ public class PostFrag extends Fragment implements View.OnClickListener{
                     builder.setMessage("Place added successfully!");
                     builder.show();
                 }
-                if(response.equalsIgnoreCase("error")){
-                    AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
-                    builder.setIcon(R.mipmap.ic_launcher_round);
-                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
-                    builder.setMessage("Error! Retry.");
-                    builder.show();
+                else{
+                    if(response.toLowerCase().contains("formerror0")){
+                        AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                        builder.setIcon(R.mipmap.ic_launcher_round);
+                        builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                        builder.setMessage("Address already registered.");
+                        builder.show();
+                    }
+                    if(response.toLowerCase().contains("formerror1")){
+                        AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                        builder.setIcon(R.mipmap.ic_launcher_round);
+                        builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                        builder.setMessage("Server Error!");
+                        builder.show();
+                    }
+                    if(response.toLowerCase().contains("formerror2")){
+                        AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                        builder.setIcon(R.mipmap.ic_launcher_round);
+                        builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                        builder.setMessage("Internet Error.Check Connection!");
+                        builder.show();
+                    }
                 }
             }
         }, new Response.ErrorListener() {
@@ -325,7 +341,7 @@ public class PostFrag extends Fragment implements View.OnClickListener{
                 AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
                 builder.setIcon(R.mipmap.ic_launcher_round);
                 builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
-                builder.setMessage("Password Updated Successfully!");
+                builder.setMessage("Connection error!");
                 builder.show();
             }
         })
