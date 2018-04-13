@@ -476,12 +476,12 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                     builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
                     builder.setMessage("Profile Updated");
                     builder.show();
-
                     se.putString("phone",editphone);
                     se.putString("marriagestatus",editstatus);
                     se.putString("city",editcity);
                     se.putString("permanentaddress",editaddress);
                     se.putString("pincode",editpincode);
+                    se.commit();
                     profile.setCity(editcity);
                     profile.setMarriagestatus(editstatus);
                     profile.setPermanentaddress(editaddress);
@@ -501,6 +501,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
             @Override
             public void onErrorResponse(VolleyError error)
             {
+                showProgress(false);
                 AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
                 builder.setIcon(R.mipmap.ic_launcher_round);
                 builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
