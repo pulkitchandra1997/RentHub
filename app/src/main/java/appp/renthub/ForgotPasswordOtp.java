@@ -123,6 +123,7 @@ public class ForgotPasswordOtp extends Activity implements View.OnClickListener 
         num=OTP_GENERATION.generateRandomNumber();
         se.putInt("otp_sent", num);
         se.commit();
+        Toast.makeText(this, ""+num, Toast.LENGTH_SHORT).show();
         StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_FORGOT_PASSWORD_OTP, new Response.Listener<String>()
         {
             @Override

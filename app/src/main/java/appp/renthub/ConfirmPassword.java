@@ -31,6 +31,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +42,7 @@ public class ConfirmPassword extends Activity implements View.OnClickListener{
     Button change;
     String newpwd,oldpwd,email;
     ProgressBar progress;
+    JSONObject jsonObject;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,12 +99,21 @@ public class ConfirmPassword extends Activity implements View.OnClickListener{
 
     private void updatepassword() {
         showProgress(true);
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_CHANGE_PASSWORD, new Response.Listener<String>()
+         jsonObject= new JSONObject();
+        try {
+            jsonObject.put("email", email);
+            jsonObject.put("password", newpwd);
+
+        } catch (Exception e) {
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_UPDATE_PASSWORD, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response) {
                 showProgress(false);
-                if(response.equalsIgnoreCase("1")){
+                if(response.equalsIgnoreCase("success")){
                     AlertDialog alertDialog = new AlertDialog.Builder(ConfirmPassword.this).create();
                     alertDialog.setMessage("Password changed. Opening Login activity");
                     alertDialog.setIcon(R.mipmap.ic_launcher_round);
@@ -170,8 +182,7 @@ public class ConfirmPassword extends Activity implements View.OnClickListener{
             protected Map<String, String> getParams() throws AuthFailureError
             {
                 Map<String, String> params = new HashMap<>();
-                params.put("email", email);
-                params.put("password", newpwd);
+                params.put("data",jsonObject.toString());
                 return params;
             }
         };

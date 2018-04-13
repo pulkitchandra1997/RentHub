@@ -47,11 +47,11 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class AccountFrag extends Fragment implements View.OnClickListener {
     TextView editprofileicon, viewprofileicon, viewprofile, editprofile, name, email, bday, address, mobile, gender, city, marrystatus, emailicon, phoneicon, bdayicon, statusicon, cityicon, gendericon, addressicon, tenantemail, tenantphone, tenantdob, tenantaddress, tenantgender, tenantcity, tenantstatus;
-    TextView pincode2,email2, bday2, address2, mobile2, gender2, city2, marrystatus2, emailicon2, phoneicon2, bdayicon2, statusicon2, cityicon2, gendericon2, addressicon2, logout, changepassword,pincodeicon2,pwdicon,pwdicon1,pwdicon2;
+    TextView pincode2,email2, bday2, address2, mobile2, gender2, city2, marrystatus2, emailicon2, phoneicon2, bdayicon2, statusicon2, cityicon2, gendericon2, addressicon2, logout, changepassword,pincodeicon2,pwdicon,pwdicon1,pwdicon2,crossbtn;
     EditText tenantemail2, tenantphone2, tenantdob2, tenantaddress2, tenantgender2,tenantpincode2,oldpassword,newpassword,confirmnewpwd;
     CardView viewcard, editcard,passwordcard;
     Spinner tenantcity2, tenantstatus2;
-    LinearLayout viewlink, editlink;
+    LinearLayout viewlink, editlink,pwdlayout;
     Button editbtn,change;
     SharedPreferences sp;
     SharedPreferences.Editor se;
@@ -72,6 +72,10 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.accountfrag, container, false);
+
+        pwdlayout=v.findViewById(R.id.pwdlayout);
+
+        crossbtn=v.findViewById(R.id.crossbtn);
 
         editcard=v.findViewById(R.id.editcard);
         editbtn = v.findViewById(R.id.editbtn);
@@ -201,6 +205,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         logout.setOnClickListener(this);
         changepassword.setOnClickListener(this);
         change.setOnClickListener(this);
+        crossbtn.setOnClickListener(this);
 
         sp = getActivity().getSharedPreferences("RentHub_data", MODE_PRIVATE);
         se = sp.edit();
@@ -280,7 +285,13 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         }
         if (v.getId() == R.id.changepassword){
             passwordcard.setVisibility(View.VISIBLE);
+            pwdlayout.setVisibility(View.GONE);
 
+        }
+        if (v.getId()==R.id.crossbtn)
+        {
+            passwordcard.setVisibility(View.GONE);
+            pwdlayout.setVisibility(View.VISIBLE);
         }
         /*Change Password*/
         if(v.getId() == R.id.change) {
