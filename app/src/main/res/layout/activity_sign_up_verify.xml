@@ -99,7 +99,8 @@
                             android:hint="@string/prompt_only_email"
                             android:inputType="textEmailAddress"
                             android:maxLines="1"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:imeOptions="actionGo"/>
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -154,7 +155,7 @@
                     android:layout_marginTop="20dp"
                     android:visibility="gone"
                     android:background="@color/bootstrap_brand_primary"
-                    android:text="&#xf2f6;  SignUp"
+                    android:text="&#xf2f6;  Proceed"
                     android:textColor="#fff"
                     android:textStyle="bold" />
                 <TextView

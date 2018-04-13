@@ -11,6 +11,7 @@
     android:background="@mipmap/welcomeback"
     android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen"
     tools:context="appp.renthub.LoginActivity"
+    android:id="@+id/mainlayout"
     >
 
     <!-- Login progress -->

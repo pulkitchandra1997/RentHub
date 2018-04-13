@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,6 +21,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -59,7 +61,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     String editaddress, editstatus, editcity, editphone,editpincode,oldpwd,newpwd,confirmpwd;
     JSONObject jsonObject;
     ProgressBar progressBar;
-
+    LinearLayout mainLayout;
     @SuppressLint("ValidFragment")
     public AccountFrag(PROFILE profile) {
         this.profile = profile;
@@ -67,7 +69,11 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
 
     public AccountFrag() {
     }
-
+public void hidekeyboard()
+{
+    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.hideSoftInputFromWindow(mainLayout.getWindowToken(), 0);
+}
 
     @Nullable
     @Override
@@ -75,6 +81,10 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         View v = inflater.inflate(R.layout.accountfrag, container, false);
 
         pwdlayout=v.findViewById(R.id.pwdlayout);
+
+        mainLayout=v.findViewById(R.id.mainlayout);
+
+
 
         crossbtn=v.findViewById(R.id.crossbtn);
 
@@ -263,8 +273,10 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                     tenantphone2.setError("Enter Valid Phone no");
                     tenantphone2.requestFocus();
                 } else {
-                    if(editpincode.length()==6)
-                    updateprofile(editphone, editcity, editstatus, editaddress,editpincode);
+                    if(editpincode.length()==6) {
+                        updateprofile(editphone, editcity, editstatus, editaddress, editpincode);
+                       hidekeyboard();
+                    }
                     else {
                         tenantpincode2.setError("Enter Valid pincode");
                         tenantpincode2.requestFocus();
@@ -346,6 +358,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                     }
                 }else {
                     updatepassword();
+                    hidekeyboard();
                 }
             }
         }

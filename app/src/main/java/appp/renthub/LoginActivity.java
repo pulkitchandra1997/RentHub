@@ -21,8 +21,10 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -52,11 +54,20 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     String emailid,pwd;
     ProgressBar login_progress;
     ScrollView login_form;
+    LinearLayout mainLayout;
 
+    public void hidekeyboard()
+    {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mainLayout.getWindowToken(), 0);
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        mainLayout=findViewById(R.id.mainlayout);
         password=findViewById(R.id.password);
         email=findViewById(R.id.email);
         usericon=findViewById(R.id.usericon);
@@ -140,6 +151,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                     email.requestFocus();
                 }
                 else{
+                    hidekeyboard();
                     toserver();
                 }
             }

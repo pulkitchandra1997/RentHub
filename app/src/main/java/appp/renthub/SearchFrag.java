@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -63,6 +64,9 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
     Button searchproperty;
     LinearLayout searchcard;
     RelativeLayout searchcontent;
+    Fragment fragment;
+    String address;
+    FragmentTransaction ft;
 
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -140,6 +144,12 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getActivity(),String.valueOf(position) , Toast.LENGTH_SHORT).show();
+                address=searchresults.get(position).getAddress();
+                fragment=new PlaceDetailsFrag();
+                ft = getActivity().getFragmentManager().beginTransaction();
+                ft.replace(R.id.content, fragment);
+                ft.commit();
+
             }
         });
         login_progress=v.findViewById(R.id.login_progress);

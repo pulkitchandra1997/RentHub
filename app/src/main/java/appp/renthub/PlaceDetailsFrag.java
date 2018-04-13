@@ -2,6 +2,7 @@ package appp.renthub;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.app.Fragment;
 import android.content.Intent;
@@ -53,7 +54,19 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
     ProgressBar progressBar;
     TableLayout viewprof;
 
-    String address = "D1/43 Priyadarshini";
+    String address;
+
+    @SuppressLint("ValidFragment")
+    public PlaceDetailsFrag(String address)
+    {
+        this.address=address;
+    }
+    public PlaceDetailsFrag()
+    {
+
+    }
+
+
 
     @Nullable
     @Override
@@ -151,12 +164,12 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
 
 
     private void fromserver() {
-        showProgress(true);
+  //      showProgress(true);
         StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_VIEW_ADDRESS, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response) {
-                showProgress(false);
+ //               showProgress(false);
                 if (response.equalsIgnoreCase("error")){
                     AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
                     builder.setIcon(R.mipmap.ic_launcher_round);
@@ -241,9 +254,6 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
                             ac.setVisibility(View.GONE);
                         }
 
-
-
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -275,14 +285,14 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
     }
 
 
-    private void showProgress(final boolean show) {
+    /*private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
 
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+   //         progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
             progressBar.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
                 @Override
@@ -295,7 +305,7 @@ public class PlaceDetailsFrag extends Fragment implements View.OnClickListener {
             // and hide the relevant UI components.
             progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
         }
-    }
+    }*/
 
 
     @Override

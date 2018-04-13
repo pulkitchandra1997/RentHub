@@ -248,7 +248,8 @@ android:id="@+id/outer">
             android:padding="20dp"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            android:layout_marginBottom="60dp">
 
 
 
