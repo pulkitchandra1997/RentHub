@@ -382,7 +382,8 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         jsonObject= new JSONObject();
         try {
             jsonObject.put("email", profile.getEmail());
-            jsonObject.put("password", newpwd);
+            jsonObject.put("newpassword", newpwd);
+            jsonObject.put("oldpassword",oldpwd);
 
         } catch (Exception e) {
             Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
@@ -402,11 +403,18 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
                     builder.show();
 
                 }
+                if(response.equalsIgnoreCase("wrong")){
+                    AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                    builder.setIcon(R.mipmap.ic_launcher_round);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    builder.setMessage("Incorrect Password. Enter correct password and try again.");
+                    builder.show();
+                }
                 if(response.equalsIgnoreCase("error")){
                     AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
                     builder.setIcon(R.mipmap.ic_launcher_round);
                     builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
-                    builder.setMessage("Error in connection");
+                    builder.setMessage("Error in Connection! Please Retry.");
                     builder.show();
                 }
             }
