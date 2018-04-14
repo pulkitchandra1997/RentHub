@@ -6,9 +6,7 @@
     android:layout_height="match_parent"
     tools:context="appp.renthub.PlaceDetails"
     android:orientation="vertical"
-    android:id="@+id/outer"
-    android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen"
-    android:background="@mipmap/welcomeback">
+    android:id="@+id/outer">
     <ProgressBar
         android:foregroundGravity="center"
         android:id="@+id/login_progress"
@@ -76,7 +74,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="15dp"
-                            android:text="&#xf015;"
+                            android:text="&#xf015; "
                             android:textColor="@color/colorPrimary"
                             android:textSize="17dp"
                             android:textStyle="bold"
@@ -89,7 +87,7 @@
                             android:layout_marginRight="5dp">
 
                             <TextView
-                                android:id="@+id/homeadd"
+                                android:id="@+id/homeaddress"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text=""

@@ -38,7 +38,7 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
     android.app.Fragment fragment = null;
     android.app.FragmentTransaction ft;
 
-    TextView homeicon, homeadd, moneyicon, rent, permonth, facilities, acicon, wifiicon, bedicon, sofaicon, fridgeicon, powericon, parkingicon, messicon, tvicon, houseowner, ownname;
+    TextView homeicon, homeaddress, moneyicon, rent, permonth, facilities, acicon, wifiicon, bedicon, sofaicon, fridgeicon, powericon, parkingicon, messicon, tvicon, houseowner, ownname;
     TextView homecity, homepin, statusicon, housetype, statusvalue,rentvalue;
     ImageView homeimg, ownerpic;
     LinearLayout ac, bed, wifi, sofa, fridge, power, tv, parking, mess,outer;
@@ -59,7 +59,7 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
         homeicon =findViewById(R.id.homeicon);
         homeimg =findViewById(R.id.homeimg);
         ownerpic =findViewById(R.id.ownerpic);
-        homeadd =findViewById(R.id.homeadd);
+        homeaddress =findViewById(R.id.homeaddress);
         homecity=findViewById(R.id.homecity);
         homepin=findViewById(R.id.homepin);
         housetype=findViewById(R.id.housetype);
@@ -75,6 +75,8 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
         alreadybooked=findViewById(R.id.alreadybooked);
         viewprof=findViewById(R.id.viewprof);
         rentvalue=findViewById(R.id.rentvalue);
+
+
 
         acicon =findViewById(R.id.acicon);
         wifiicon =findViewById(R.id.wifiicon);
@@ -122,7 +124,7 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
         bedicon.setTypeface(f1);
         wifiicon.setTypeface(f1);
 
-        homeadd.setTypeface(f4);
+        homeaddress.setTypeface(f4);
         homecity.setTypeface(f4);
         homepin.setTypeface(f4);
         rent.setTypeface(f4);
@@ -153,7 +155,64 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
                 }
             }
         });
+
+
+        homecity.setText(searchresult.getCity());
+        homeaddress.setText(searchresult.getAddress());
+        homepin.setText(searchresult.getPincode());
+        houseowner.setText(searchresult.getOwnername());
+        housetype.setText(searchresult.getStatus());
+        rentvalue.setText(searchresult.getAmount());
+
+        if (searchresult.getAcid().equals("0"))
+        {
+            ac.setVisibility(View.GONE);
+        }
+        if (searchresult.getWifiid().equals("0"))
+        {
+            wifi.setVisibility(View.GONE);
+        }
+        if (searchresult.getMessid().equals("0"))
+        {
+            mess.setVisibility(View.GONE);
+        }
+        if (searchresult.getParkingid().equals("0"))
+        {
+            parking.setVisibility(View.GONE);
+        }
+        if (searchresult.getBedid().equals("0"))
+        {
+            bed.setVisibility(View.GONE);
+        }
+        if (searchresult.getSofaid().equals("0"))
+        {
+            sofa.setVisibility(View.GONE);
+        }
+        if (searchresult.getRefrigeratorid().equals("0"))
+        {
+           fridge.setVisibility(View.GONE);
+        }
+        if (searchresult.getInvertorid().equals("0"))
+        {
+            power.setVisibility(View.GONE);
+        }
+        if (searchresult.getTvid().equals("0"))
+        {
+            tv.setVisibility(View.GONE);
+        }
+        if (searchresult.getRented().equals("1"))
+        {
+            booknow.setVisibility(View.GONE);
+        }
+        else
+        {
+            alreadybooked.setVisibility(View.GONE);
+
+        }
+
     }
+
+
 
     @Override
     public void onClick(View v) {
