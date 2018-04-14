@@ -142,11 +142,11 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
         viewprof.setOnClickListener(this);
 
         userprofile= findViewById(R.id.userprofile);
-        /*userprofile.setOnClickListener(new View.OnClickListener() {
+        userprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PlaceDetails.this, OthersProfile.class);
-                intent.putExtra("owneraddress",address);
+                intent.putExtra("owneremail",owneremail);
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
                     ActivityOptions options = ActivityOptions.makeCustomAnimation(PlaceDetails.this, R.anim.fade_in, R.anim.fade_out);
                     startActivity(intent, options.toBundle());
@@ -154,7 +154,7 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
                     startActivity(intent);
                 }
             }
-        });*/
+        });
 
 
         homecity.setText(searchresult.getCity());
