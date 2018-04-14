@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -52,7 +53,7 @@ public class ViewProfileOthersFrag extends Fragment implements View.OnClickListe
     LinearLayout layoutoptional;
     Button callicon, msgicon, mailicon;
     TableLayout showrented;
-    String email="aayusheedaksh@gmail.com",phone;
+    String email,phone;
 
 
     @SuppressLint("ValidFragment")
@@ -148,15 +149,30 @@ public class ViewProfileOthersFrag extends Fragment implements View.OnClickListe
             @Override
             public void onResponse(String response) {
                 showProgress(false);
-                if (response.equalsIgnoreCase("error")){
-                    AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
-                    builder.setIcon(R.mipmap.ic_launcher_round);
-                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
-                    builder.setMessage("Error in connection");
-                    builder.show();
+                if (response.toLowerCase().contains("profileerror")) {
+                    if(response.toLowerCase().contains("profileerror0")){
+                        AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                        builder.setIcon(R.mipmap.ic_launcher_round);
+                        builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                        builder.setMessage("No such Profile found");
+                        builder.show();
+                    }
+                    if(response.toLowerCase().contains("profileerror1")){
+                        AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                        builder.setIcon(R.mipmap.ic_launcher_round);
+                        builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                        builder.setMessage("Server Error!");
+                        builder.show();
+                    }
+                    if(response.toLowerCase().contains("profileerror2")){
+                        AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                        builder.setIcon(R.mipmap.ic_launcher_round);
+                        builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                        builder.setMessage("Internet Error.Check Connection!");
+                        builder.show();
+                    }
                 }
                 else {
-
                     try {
                         JSONObject jsonObject=new JSONObject(response);
                         String name=jsonObject.get("name").toString();
@@ -199,6 +215,7 @@ public class ViewProfileOthersFrag extends Fragment implements View.OnClickListe
             @Override
             public void onErrorResponse(VolleyError error)
             {
+                showProgress(false);
                 AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
                 builder.setIcon(R.mipmap.ic_launcher_round);
                 builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));

@@ -157,8 +157,7 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
         login_progress=v.findViewById(R.id.login_progress);
         return v;
     }
-    @Override
-    public boolean onQueryTextSubmit(String query) {
+    @Override    public boolean onQueryTextSubmit(String query) {
         list.setVisibility(View.INVISIBLE);
         searchcity(query);
         return false;
