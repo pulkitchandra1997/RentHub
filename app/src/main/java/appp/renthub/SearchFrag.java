@@ -143,9 +143,8 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
         searchlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                address=searchresults.get(position).getAddress();
                 Intent intent = new Intent(getActivity(), PlaceDetails.class);
-                intent.putExtra("owneraddress",address);
+                intent.putExtra("searchresult",searchresults.get(position));
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
                     ActivityOptions options = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.fade_in, R.anim.fade_out);
                     startActivity(intent, options.toBundle());
@@ -185,7 +184,7 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
                             while (count>0){
                                 count--;
                                 String data[]=jsonObject.get(String.valueOf(count)).toString().split("--%--");
-                                searchresults.add(new SEARCHRESULT(data[0],data[1],data[2],data[3]));
+                                searchresults.add(new SEARCHRESULT(data[0],data[1],data[2],data[3],data[4],data[5],data[6],data[7],data[8],data[9],data[10],data[11],data[12],data[13],data[14],data[15],data[16],data[17],data[18]));
                             }
                             resultadapter=new RESULTADAPTER(getActivity(),searchresults);
                             searchlist.setAdapter(resultadapter);
