@@ -160,7 +160,7 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
         homecity.setText(searchresult.getCity());
         homeaddress.setText(searchresult.getAddress());
         homepin.setText(searchresult.getPincode());
-        houseowner.setText(searchresult.getOwnername());
+        ownname.setText(searchresult.getOwnername());
         housetype.setText(searchresult.getStatus());
         rentvalue.setText(searchresult.getAmount());
 
