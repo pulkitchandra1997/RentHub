@@ -9,6 +9,13 @@ import java.io.Serializable;
 public class SEARCHRESULT implements Serializable {
     String address,amount,picname,tvid,wifiid,messid,refrigeratorid,invertorid,sofaid,bedid,parkingid,acid,rented,owneremail,city,pincode,status,ownername,ownerpic;
 
+    public SEARCHRESULT(String address, String amount, String picname, String status) {
+        this.address = address;
+        this.amount = amount;
+        this.picname = picname;
+        this.status = status;
+    }
+
     public SEARCHRESULT(String address, String amount, String picname, String tvid, String wifiid, String messid, String refrigeratorid, String invertorid, String sofaid, String bedid, String parkingid, String acid, String rented, String owneremail, String city, String pincode, String status, String ownername, String ownerpic) {
         this.address = address;
         this.amount = amount;
