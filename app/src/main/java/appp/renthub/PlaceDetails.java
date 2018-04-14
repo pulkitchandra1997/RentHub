@@ -142,7 +142,7 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
         viewprof.setOnClickListener(this);
 
         userprofile= findViewById(R.id.userprofile);
-        userprofile.setOnClickListener(new View.OnClickListener() {
+        /*userprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PlaceDetails.this, OthersProfile.class);
@@ -154,7 +154,7 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
                     startActivity(intent);
                 }
             }
-        });
+        });*/
 
 
         homecity.setText(searchresult.getCity());
@@ -163,7 +163,7 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
         ownname.setText(searchresult.getOwnername());
         housetype.setText(searchresult.getStatus());
         rentvalue.setText(searchresult.getAmount());
-
+        Picasso.with(this).load(searchresult.getPicname()).fit().centerCrop().into(homeimg);
         if (searchresult.getAcid().equals("0"))
         {
             ac.setVisibility(View.GONE);
