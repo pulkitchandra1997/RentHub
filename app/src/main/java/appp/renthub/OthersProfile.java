@@ -3,6 +3,7 @@ package appp.renthub;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
@@ -21,12 +22,14 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.beardedhen.androidbootstrap.AwesomeTextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,22 +37,28 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OthersProfile extends AppCompatActivity implements View.OnClickListener{
+public class OthersProfile extends Activity implements View.OnClickListener{
 
-    ProgressBar progressBar;
-
-    TextView username, otherdetails, dobicon, dob, userdob, cityicon, city, usercity, gendericon, gender, usergender, marryicon, marry, usermarry, addicon, add, useradd, placecount, rentedplaces;
+    TextView  otherdetails, dobicon, dob, userdob, cityicon, city, usercity, gendericon, gender, usergender, marryicon, marry, usermarry, addicon, add, useradd, placecount, rentedplaces;
     ImageView userpic;
     LinearLayout layoutoptional;
     Button callicon, msgicon, mailicon;
     TableLayout showrented;
-    String email = "aayusheedaksh@gmail.com", phone;
+    String email , phone;
+    ProgressBar login_progress;
+    AwesomeTextView username;
+    JSONObject jsonObject;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_others_profile);
 
+        Intent intent=getIntent();
+        email=getIntent().getStringExtra("owneremail");
+
+        login_progress=findViewById(R.id.login_progress);
 
         username = findViewById(R.id.username);
         userpic = findViewById(R.id.userpic);
@@ -78,10 +87,10 @@ public class OthersProfile extends AppCompatActivity implements View.OnClickList
         useradd = findViewById(R.id.useradd);
 
         layoutoptional = findViewById(R.id.layoutoptional);
-        callicon = findViewById(R.id.callicon);
-        msgicon = findViewById(R.id.msgicon);
         mailicon = findViewById(R.id.mailicon);
         placecount = findViewById(R.id.placecount);
+        callicon = findViewById(R.id.callicon);
+        msgicon = findViewById(R.id.msgicon);
 
 
         Typeface f1 = Typeface.createFromAsset(getAssets(), "Font Awesome 5 Free-Solid-900.otf");
@@ -138,7 +147,8 @@ public class OthersProfile extends AppCompatActivity implements View.OnClickList
                 } else {
 
                     try {
-                        JSONObject jsonObject = new JSONObject(response);
+                        jsonObject = new JSONObject(response);
+                        Toast.makeText(OthersProfile.this, ""+jsonObject.toString(), Toast.LENGTH_SHORT).show();
                         String name = jsonObject.get("name").toString();
                         String type = jsonObject.get("type").toString();
                         String dob = jsonObject.get("dob").toString();
@@ -147,11 +157,12 @@ public class OthersProfile extends AppCompatActivity implements View.OnClickList
                         String address = jsonObject.get("permanentaddress").toString();
                         String gender = jsonObject.get("gender").toString();
                         String pin = jsonObject.get("pincode").toString();
-                        String count = jsonObject.get("noofplaces").toString();
-
+                        /*String count = jsonObject.get("noofplaces").toString();*/
                         /*email=jsonObject.get("email").toString();*/
-                        phone = jsonObject.get("phone").toString().trim();
 
+                        String verified = jsonObject.get("verified").toString();
+
+                        phone = jsonObject.get("phone").toString().trim();
 
                         username.setText(name);
                         userdob.setText(dob);
@@ -164,7 +175,7 @@ public class OthersProfile extends AppCompatActivity implements View.OnClickList
                             showrented.setVisibility(View.GONE);
                         }
 
-                        placecount.setText(count);
+                        /*placecount.setText(count);*/
 
 
                     } catch (JSONException e) {
@@ -202,18 +213,18 @@ public class OthersProfile extends AppCompatActivity implements View.OnClickList
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
 
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-            progressBar.animate().setDuration(shortAnimTime).alpha(
+            login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
+            login_progress.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+                    login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
                 }
             });
         } else {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
-            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+            login_progress.setVisibility(show ? View.VISIBLE : View.GONE);
         }
     }
 

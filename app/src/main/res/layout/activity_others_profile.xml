@@ -4,7 +4,18 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:id="@+id/outer">
+    android:id="@+id/outer"
+    android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen">
+    <ProgressBar
+        android:foregroundGravity="center"
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        android:layout_marginLeft="150dp"
+        android:indeterminateTint="@color/colorPrimary"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -52,10 +63,11 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="Ayushi Daksh"
+                            android:text=""
+                            android:textColor="@color/bootstrap_edittext_disabled"
                             android:id="@+id/username"
                             android:textSize="30dp"
-                            app:bootstrapBrand="secondary"/>
+                            android:fontFamily="sans-serif-smallcaps" />
 
 
                     </LinearLayout>
@@ -84,7 +96,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@color/colorPrimary"
-                                android:text="&#xf3cd;"
+                                android:text="&#xf199;"
                                 android:textColor="#fff"
                                 android:layout_marginRight="8dp"
                                 android:layout_marginLeft="8dp"
