@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -35,6 +36,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -49,7 +51,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class AccountFrag extends Fragment implements View.OnClickListener {
     TextView editprofileicon, viewprofileicon, viewprofile, editprofile, name, email, bday, address, mobile, gender, city, marrystatus, emailicon, phoneicon, bdayicon, statusicon, cityicon, gendericon, addressicon, tenantemail, tenantphone, tenantdob, tenantaddress, tenantgender, tenantcity, tenantstatus;
-    TextView pincode2,email2, bday2, address2, mobile2, gender2, city2, marrystatus2, emailicon2, phoneicon2, bdayicon2, statusicon2, cityicon2, gendericon2, addressicon2, logout, changepassword,pincodeicon2,pwdicon,pwdicon1,pwdicon2,crossbtn;
+    TextView pincode2,email2, bday2, address2, mobile2, gender2, city2, marrystatus2, emailicon2, phoneicon2, bdayicon2, statusicon2, cityicon2, gendericon2, addressicon2, logout, changepassword,pincodeicon2,pwdicon,pwdicon1,pwdicon2,crossbtn,profilepic;
     EditText tenantemail2, tenantphone2, tenantdob2, tenantaddress2, tenantgender2,tenantpincode2,oldpassword,newpassword,confirmnewpwd;
     CardView viewcard, editcard,passwordcard;
     Spinner tenantcity2, tenantstatus2;
@@ -62,6 +64,10 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     JSONObject jsonObject;
     ProgressBar progressBar;
     LinearLayout mainLayout;
+    com.beardedhen.androidbootstrap.BootstrapCircleThumbnail profilepicture;
+
+
+
     @SuppressLint("ValidFragment")
     public AccountFrag(PROFILE profile) {
         this.profile = profile;
@@ -84,7 +90,9 @@ public void hidekeyboard()
 
         mainLayout=v.findViewById(R.id.mainlayout);
 
+        profilepic=v.findViewById(R.id.profilepic);
 
+        profilepicture=v.findViewById(R.id.profilepicture);
 
         crossbtn=v.findViewById(R.id.crossbtn);
 
@@ -219,12 +227,16 @@ public void hidekeyboard()
         change.setOnClickListener(this);
         crossbtn.setOnClickListener(this);
         webviewbtn.setOnClickListener(this);
+        profilepic.setOnClickListener(this);
 
         sp = getActivity().getSharedPreferences("RentHub_data", MODE_PRIVATE);
         se = sp.edit();
         fill();
+        Picasso.with(getActivity()).load(sp.getString("picname",profile.getPicname())).fit().into(profilepicture);
+
         return v;
     }
+
 
     private void fill() {
         tenantemail.setText(profile.getEmail());
@@ -308,6 +320,19 @@ public void hidekeyboard()
             passwordcard.setVisibility(View.GONE);
             pwdlayout.setVisibility(View.VISIBLE);
         }
+
+        if (v.getId()==R.id.profilepic)
+        {
+            Intent intent = new Intent(getActivity(), ProfilePicUpload.class);
+            intent.putExtra("email",profile.getEmail());
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                ActivityOptions options = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.fade_in, R.anim.fade_out);
+                startActivity(intent, options.toBundle());
+            } else {
+                startActivity(intent);
+            }
+        }
+
         /*Change Password*/
         if(v.getId() == R.id.change) {
             oldpwd = oldpassword.getText().toString().trim();
@@ -386,6 +411,7 @@ public void hidekeyboard()
                         se.remove("pincode");
                         se.remove("gender");
                         se.remove("verified");
+                        se.remove("picname");
                         se.commit();
                         Intent intent = new Intent(getActivity(), LoginActivity.class);
                         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {

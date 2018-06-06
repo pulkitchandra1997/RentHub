@@ -146,7 +146,7 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PlaceDetails.this, OthersProfile.class);
-                intent.putExtra("owneremail",owneremail);
+                intent.putExtra("owneremail",searchresult.getOwneremail());
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
                     ActivityOptions options = ActivityOptions.makeCustomAnimation(PlaceDetails.this, R.anim.fade_in, R.anim.fade_out);
                     startActivity(intent, options.toBundle());

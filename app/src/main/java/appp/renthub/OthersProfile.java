@@ -47,7 +47,7 @@ public class OthersProfile extends Activity implements View.OnClickListener{
     String email , phone;
     ProgressBar login_progress;
     AwesomeTextView username;
-    JSONObject jsonObject;
+
 
 
     @Override
@@ -56,7 +56,7 @@ public class OthersProfile extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_others_profile);
 
         Intent intent=getIntent();
-        email=getIntent().getStringExtra("owneremail");
+        email=intent.getStringExtra("owneremail");
 
         login_progress=findViewById(R.id.login_progress);
 
@@ -134,11 +134,12 @@ public class OthersProfile extends Activity implements View.OnClickListener{
 
     private void fromserver() {
         showProgress(true);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url.URL_VIEW_OTHERS_PROFILE, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Url.URL_VIEW_OTHERS_PROFILE, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+
                 showProgress(false);
-                if (response.equalsIgnoreCase("error")) {
+                if (response.equalsIgnoreCase("error0")) {
                     AlertDialog builder = new AlertDialog.Builder(OthersProfile.this).create();
                     builder.setIcon(R.mipmap.ic_launcher_round);
                     builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
@@ -147,8 +148,12 @@ public class OthersProfile extends Activity implements View.OnClickListener{
                 } else {
 
                     try {
-                        jsonObject = new JSONObject(response);
+                        Toast.makeText(OthersProfile.this,"xnkdjfbn", Toast.LENGTH_SHORT).show();
+
+                        JSONObject jsonObject = new JSONObject(response);
+
                         Toast.makeText(OthersProfile.this, ""+jsonObject.toString(), Toast.LENGTH_SHORT).show();
+
                         String name = jsonObject.get("name").toString();
                         String type = jsonObject.get("type").toString();
                         String dob = jsonObject.get("dob").toString();
