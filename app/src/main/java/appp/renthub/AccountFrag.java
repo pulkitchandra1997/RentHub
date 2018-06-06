@@ -44,6 +44,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
+import static java.sql.Types.NULL;
 
 /**
  * Created by pranj on 01-04-2018.
@@ -61,7 +62,7 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     SharedPreferences.Editor se;
     PROFILE profile;
     String editaddress, editstatus, editcity, editphone,editpincode,oldpwd,newpwd,confirmpwd;
-    JSONObject jsonObject;
+    JSONObject jsonObject,jsonObject2;
     ProgressBar progressBar;
     LinearLayout mainLayout;
     com.beardedhen.androidbootstrap.BootstrapCircleThumbnail profilepicture;
@@ -85,6 +86,7 @@ public void hidekeyboard()
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.accountfrag, container, false);
+
 
         pwdlayout=v.findViewById(R.id.pwdlayout);
 
@@ -229,10 +231,11 @@ public void hidekeyboard()
         webviewbtn.setOnClickListener(this);
         profilepic.setOnClickListener(this);
 
+        viewprofilepic();
+
         sp = getActivity().getSharedPreferences("RentHub_data", MODE_PRIVATE);
         se = sp.edit();
         fill();
-        Picasso.with(getActivity()).load(sp.getString("picname",profile.getPicname())).fit().into(profilepicture);
 
         return v;
     }
@@ -441,13 +444,9 @@ public void hidekeyboard()
                     startActivity(intent);
                 }
 
-
             }
 
-
         }
-
-
 
     private void updatepassword() {
         showProgress(true);
@@ -504,6 +503,59 @@ public void hidekeyboard()
         };
         MySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
+
+    private void viewprofilepic() {
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_VIEW_PROFILE_PIC, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+                if(response.equalsIgnoreCase("error0")){
+
+                }
+                else {
+                    try {
+                        jsonObject2=new JSONObject(response);
+                        profile.setPicname(jsonObject2.getString("picname"));
+                        se.putString("picname",jsonObject2.getString("picname"));
+
+                        if (jsonObject2.getString("picname").equals("null"))
+                        {
+                            profilepicture.setImageResource(R.drawable.defaultpic);
+                        }
+                        else {
+                            Picasso.with(getActivity()).load(jsonObject2.getString("picname")).fit().into(profilepicture);
+                        }
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                builder.setIcon(R.mipmap.ic_launcher_round);
+                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                builder.setMessage("Connection error! Retry");
+                builder.show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put("email",profile.getEmail());
+                return params;
+            }
+        };
+        MySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
+
 
     private void updateprofile(final String editphone, final String editcity, final String editstatus, final String editaddress,final String editpincode) {
         showProgress(true);

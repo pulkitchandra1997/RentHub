@@ -179,7 +179,7 @@ public class ProfilePicUpload extends Activity {
 
                         finish();
                     }
-                }, 4000);
+                }, 3000);
 
 
             }

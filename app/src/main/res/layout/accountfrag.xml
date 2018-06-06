@@ -47,6 +47,7 @@ android:orientation="vertical">
         android:layout_gravity="center"
         android:layout_margin="20dp"
         android:id="@+id/profilepicture"
+        android:src="@drawable/defaultpic"
         />
     <com.beardedhen.androidbootstrap.AwesomeTextView
         android:layout_width="wrap_content"
