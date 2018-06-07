@@ -39,13 +39,11 @@ public class ProfilePicUpload extends Activity {
 
     Bitmap bitmap;
 
-    boolean check = true;
+    boolean chk = true;
 
     Button SelectImageGallery, UploadImageServer;
 
     ImageView imageView;
-
-    EditText imageName;
 
     ProgressDialog progressDialog ;
 
@@ -278,9 +276,9 @@ public class ProfilePicUpload extends Activity {
 
             for (Map.Entry<String, String> KEY : HashMapParams.entrySet()) {
 
-                if (check)
+                if (chk==true)
 
-                    check = false;
+                    chk = false;
                 else
                     stringBuilderObject.append("&");
 
