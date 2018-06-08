@@ -5,15 +5,21 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -21,6 +27,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,6 +37,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -46,12 +54,26 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import appp.renthub.dbutil.RenthubConstant;
 import appp.renthub.dbutil.RenthubManager;
 
+import static android.app.Activity.RESULT_OK;
 import static android.widget.Toast.LENGTH_SHORT;
 
 /**
@@ -62,8 +84,8 @@ public class PostFrag extends Fragment implements View.OnClickListener{
     TextView addressicon,pincodeicon,cityicon,roomsicon,facilitesicon,amounticon,postcaption;
     EditText inputaddress,inputpincode,inputamount;
     Spinner roomstatus,inputcity;
-    Button inputsubmit,inputnext,inputprevious;
-    LinearLayout pageone,pagetwo;
+    Button inputsubmit,inputnext,inputprevious,inputnext2,uploadsubmit;
+    LinearLayout pageone,pagetwo,pagethree;
     CheckBox sofa,bed,refrigerator,ac,wifi,invertor,parking,tv,mess;
     String sofaid,bedid,refigratorid,acid,wifiid,invertorid,parkingid,tvid,messid;
 
@@ -76,6 +98,29 @@ public class PostFrag extends Fragment implements View.OnClickListener{
     PROFILE profile;
     CardView card1,card2;
     Button listproperty;
+
+    //image upload declaration
+    Bitmap bitmap;
+
+    boolean check = true;
+
+    Button SelectImageGallery,UploadImageServer;
+
+    ImageView imageView;
+
+    ProgressDialog progressDialog ;
+
+
+    String ImagePath = "image_path" ;
+
+
+    SharedPreferences sp;
+    SharedPreferences.Editor se;
+
+    String ServerUploadPath ="https://rentzhub.co.in/formpicupload.php" ;
+
+
+
     @SuppressLint("ValidFragment")
     public PostFrag(PROFILE profile) {
         this.profile = profile;
@@ -88,6 +133,24 @@ public class PostFrag extends Fragment implements View.OnClickListener{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.postfrag, container, false);
 
+        imageView = view.findViewById(R.id.imageView);
+
+        SelectImageGallery = view.findViewById(R.id.buttonSelect);
+
+        SelectImageGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent();
+
+                intent.setType("image/*");
+
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+
+                startActivityForResult(Intent.createChooser(intent, "Select Image From Gallery"), 1);
+
+            }
+        });
 
 
         card1=view.findViewById(R.id.card1);
@@ -110,8 +173,24 @@ public class PostFrag extends Fragment implements View.OnClickListener{
         roomstatus = view.findViewById(R.id.roomstatus);
         inputcity = view.findViewById(R.id.inputcity);
         inputnext = view.findViewById(R.id.inputnext);
+        inputnext2 = view.findViewById(R.id.inputnext2);
+        UploadImageServer = view.findViewById(R.id.buttonUpload);
+
+        UploadImageServer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ImageUploadToServerFunction();
+
+            }
+        });
+
+
         pagetwo = view.findViewById(R.id.pagetwo);
+        pagethree=view.findViewById(R.id.pagethree);
         pageone = view.findViewById(R.id.pageone);
+
+
         sofa = view.findViewById(R.id.sofa);
         bed = view.findViewById(R.id.bed);
         refrigerator = view.findViewById(R.id.refrigerator);
@@ -121,8 +200,12 @@ public class PostFrag extends Fragment implements View.OnClickListener{
         wifi = view.findViewById(R.id.wifi);
         mess = view.findViewById(R.id.mess);
         parking = view.findViewById(R.id.parking);
+
+
         inputprevious = view.findViewById(R.id.inputprevious);
         inputsubmit = view.findViewById(R.id.inputsubmit);
+
+
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Font Awesome 5 Free-Solid-900.otf");
         pincodeicon.setTypeface(font);
         addressicon.setTypeface(font);
@@ -132,17 +215,207 @@ public class PostFrag extends Fragment implements View.OnClickListener{
         amounticon.setTypeface(font);
         inputprevious.setTypeface(font);
         inputnext.setTypeface(font);
+        inputnext2.setTypeface(font);
         inputsubmit.setTypeface(font);
         listproperty.setTypeface(font);
 
 
         inputnext.setOnClickListener(this);
+        inputnext2.setOnClickListener(this);
         inputprevious.setOnClickListener(this);
         inputsubmit.setOnClickListener(this);
         listproperty.setOnClickListener(this);
 
         return view;
     }
+
+    //image upload code
+
+    @Override
+    public void onActivityResult(int RC, int RQC, Intent I) {
+
+        super.onActivityResult(RC, RQC, I);
+
+        if (RC == 1 && RQC == RESULT_OK && I != null && I.getData() != null) {
+
+            Uri uri = I.getData();
+
+            try {
+
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
+
+                imageView.setImageBitmap(bitmap);
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void ImageUploadToServerFunction(){
+
+        ByteArrayOutputStream byteArrayOutputStreamObject ;
+
+        byteArrayOutputStreamObject = new ByteArrayOutputStream();
+
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStreamObject);
+
+        byte[] byteArrayVar = byteArrayOutputStreamObject.toByteArray();
+
+        final String ConvertImage = Base64.encodeToString(byteArrayVar, Base64.DEFAULT);
+
+        class AsyncTaskUploadClass extends AsyncTask<Void,Void,String> {
+
+            @Override
+            protected void onPreExecute() {
+
+                super.onPreExecute();
+
+                progressDialog = ProgressDialog.show(getActivity(),"Image is Uploading","Please Wait",false,false);
+            }
+
+            @Override
+            protected void onPostExecute(String string1) {
+
+                super.onPostExecute(string1);
+
+                // Dismiss the progress dialog after done uploading.
+                progressDialog.dismiss();
+
+                // Printing uploading success message coming from server on android app.
+
+
+
+                AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                builder.setIcon(R.mipmap.ic_launcher_round);
+                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                builder.setMessage(string1);
+                builder.show();
+
+
+                // Setting image as transparent after done uploading.
+
+
+            }
+
+            @Override
+            protected String doInBackground(Void... params) {
+
+                PostFrag.ImageProcessClass imageProcessClass = new PostFrag.ImageProcessClass();
+
+                HashMap<String,String> HashMapParams = new HashMap<String,String>();
+
+                HashMapParams.put("address", address);
+
+                HashMapParams.put(ImagePath, ConvertImage);
+
+                String FinalData = imageProcessClass.ImageHttpRequest(ServerUploadPath, HashMapParams);
+
+                return FinalData;
+            }
+        }
+        AsyncTaskUploadClass AsyncTaskUploadClassOBJ = new AsyncTaskUploadClass();
+
+        AsyncTaskUploadClassOBJ.execute();
+    }
+
+    public class ImageProcessClass{
+
+        public String ImageHttpRequest(String requestURL,HashMap<String, String> PData) {
+
+            StringBuilder stringBuilder = new StringBuilder();
+
+            try {
+
+                URL url;
+                HttpURLConnection httpURLConnectionObject ;
+                OutputStream OutPutStream;
+                BufferedWriter bufferedWriterObject ;
+                BufferedReader bufferedReaderObject ;
+                int RC ;
+
+                url = new URL(requestURL);
+
+                httpURLConnectionObject = (HttpURLConnection) url.openConnection();
+
+                httpURLConnectionObject.setReadTimeout(19000);
+
+                httpURLConnectionObject.setConnectTimeout(19000);
+
+                httpURLConnectionObject.setRequestMethod("POST");
+
+                httpURLConnectionObject.setDoInput(true);
+
+                httpURLConnectionObject.setDoOutput(true);
+
+                OutPutStream = httpURLConnectionObject.getOutputStream();
+
+                bufferedWriterObject = new BufferedWriter(
+
+                        new OutputStreamWriter(OutPutStream, "UTF-8"));
+
+                bufferedWriterObject.write(bufferedWriterDataFN(PData));
+
+                bufferedWriterObject.flush();
+
+                bufferedWriterObject.close();
+
+                OutPutStream.close();
+
+                RC = httpURLConnectionObject.getResponseCode();
+
+                if (RC == HttpsURLConnection.HTTP_OK) {
+
+                    bufferedReaderObject = new BufferedReader(new InputStreamReader(httpURLConnectionObject.getInputStream()));
+
+                    stringBuilder = new StringBuilder();
+
+                    String RC2;
+
+                    while ((RC2 = bufferedReaderObject.readLine()) != null){
+
+                        stringBuilder.append(RC2);
+                    }
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return stringBuilder.toString();
+        }
+
+        private String bufferedWriterDataFN(HashMap<String, String> HashMapParams) throws UnsupportedEncodingException {
+
+            StringBuilder stringBuilderObject;
+
+            stringBuilderObject = new StringBuilder();
+
+            for (Map.Entry<String, String> KEY : HashMapParams.entrySet()) {
+
+                if (check)
+
+                    check = false;
+                else
+                    stringBuilderObject.append("&");
+
+                stringBuilderObject.append(URLEncoder.encode(KEY.getKey(), "UTF-8"));
+
+                stringBuilderObject.append("=");
+
+                stringBuilderObject.append(URLEncoder.encode(KEY.getValue(), "UTF-8"));
+            }
+
+            return stringBuilderObject.toString();
+        }
+
+    }
+
+
+
+
+    // image upload code ends
+
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
@@ -214,10 +487,23 @@ public class PostFrag extends Fragment implements View.OnClickListener{
                      pageone.setVisibility(View.GONE);
                  }
             }
+
+            if (v.getId()== R.id.inputnext2)
+            {
+                pagethree.setVisibility(View.VISIBLE);
+                pagetwo.setVisibility(View.GONE);
+                pageone.setVisibility(View.GONE);
+            }
+
             if (v.getId() == R.id.inputprevious) {
                 pageone.setVisibility(View.VISIBLE);
                 pagetwo.setVisibility(View.GONE);
+                pagethree.setVisibility(View.GONE);
             }
+
+
+
+
             if (v.getId() == R.id.inputsubmit)
             {
             if (sofa.isChecked() || bed.isChecked() || ac.isChecked() || tv.isChecked() || parking.isChecked() || invertor.isChecked() || refrigerator.isChecked() || mess.isChecked() || wifi.isChecked()) {
@@ -308,6 +594,7 @@ public class PostFrag extends Fragment implements View.OnClickListener{
                     builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
                     builder.setMessage("Place added successfully!");
                     builder.show();
+                    inputnext2.setVisibility(View.VISIBLE);
                 }
                 else{
                     if(response.toLowerCase().contains("formerror0")){

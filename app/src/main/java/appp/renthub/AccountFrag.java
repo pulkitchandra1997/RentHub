@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -35,6 +36,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -42,6 +44,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
+import static java.sql.Types.NULL;
 
 /**
  * Created by pranj on 01-04-2018.
@@ -49,7 +52,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class AccountFrag extends Fragment implements View.OnClickListener {
     TextView editprofileicon, viewprofileicon, viewprofile, editprofile, name, email, bday, address, mobile, gender, city, marrystatus, emailicon, phoneicon, bdayicon, statusicon, cityicon, gendericon, addressicon, tenantemail, tenantphone, tenantdob, tenantaddress, tenantgender, tenantcity, tenantstatus;
-    TextView pincode2,email2, bday2, address2, mobile2, gender2, city2, marrystatus2, emailicon2, phoneicon2, bdayicon2, statusicon2, cityicon2, gendericon2, addressicon2, logout, changepassword,pincodeicon2,pwdicon,pwdicon1,pwdicon2,crossbtn;
+    TextView pincode2,email2, bday2, address2, mobile2, gender2, city2, marrystatus2, emailicon2, phoneicon2, bdayicon2, statusicon2, cityicon2, gendericon2, addressicon2, logout, changepassword,pincodeicon2,pwdicon,pwdicon1,pwdicon2,crossbtn,profilepic;
     EditText tenantemail2, tenantphone2, tenantdob2, tenantaddress2, tenantgender2,tenantpincode2,oldpassword,newpassword,confirmnewpwd;
     CardView viewcard, editcard,passwordcard;
     Spinner tenantcity2, tenantstatus2;
@@ -59,9 +62,13 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
     SharedPreferences.Editor se;
     PROFILE profile;
     String editaddress, editstatus, editcity, editphone,editpincode,oldpwd,newpwd,confirmpwd;
-    JSONObject jsonObject;
+    JSONObject jsonObject,jsonObject2;
     ProgressBar progressBar;
     LinearLayout mainLayout;
+    com.beardedhen.androidbootstrap.BootstrapCircleThumbnail profilepicture;
+
+
+
     @SuppressLint("ValidFragment")
     public AccountFrag(PROFILE profile) {
         this.profile = profile;
@@ -80,11 +87,14 @@ public void hidekeyboard()
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.accountfrag, container, false);
 
+
         pwdlayout=v.findViewById(R.id.pwdlayout);
 
         mainLayout=v.findViewById(R.id.mainlayout);
 
+        profilepic=v.findViewById(R.id.profilepic);
 
+        profilepicture=v.findViewById(R.id.profilepicture);
 
         crossbtn=v.findViewById(R.id.crossbtn);
 
@@ -219,12 +229,17 @@ public void hidekeyboard()
         change.setOnClickListener(this);
         crossbtn.setOnClickListener(this);
         webviewbtn.setOnClickListener(this);
+        profilepic.setOnClickListener(this);
+
+        viewprofilepic();
 
         sp = getActivity().getSharedPreferences("RentHub_data", MODE_PRIVATE);
         se = sp.edit();
         fill();
+
         return v;
     }
+
 
     private void fill() {
         tenantemail.setText(profile.getEmail());
@@ -308,6 +323,20 @@ public void hidekeyboard()
             passwordcard.setVisibility(View.GONE);
             pwdlayout.setVisibility(View.VISIBLE);
         }
+
+        if (v.getId()==R.id.profilepic)
+        {
+            Intent intent = new Intent(getActivity(), ProfilePicUpload.class);
+            intent.putExtra("email",profile.getEmail());
+            intent.putExtra("type",profile.getType());
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                ActivityOptions options = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.fade_in, R.anim.fade_out);
+                startActivity(intent, options.toBundle());
+            } else {
+                startActivity(intent);
+            }
+        }
+
         /*Change Password*/
         if(v.getId() == R.id.change) {
             oldpwd = oldpassword.getText().toString().trim();
@@ -386,6 +415,7 @@ public void hidekeyboard()
                         se.remove("pincode");
                         se.remove("gender");
                         se.remove("verified");
+                        se.remove("picname");
                         se.commit();
                         Intent intent = new Intent(getActivity(), LoginActivity.class);
                         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
@@ -415,13 +445,9 @@ public void hidekeyboard()
                     startActivity(intent);
                 }
 
-
             }
 
-
         }
-
-
 
     private void updatepassword() {
         showProgress(true);
@@ -478,6 +504,59 @@ public void hidekeyboard()
         };
         MySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
+
+    private void viewprofilepic() {
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_VIEW_PROFILE_PIC, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+                if(response.equalsIgnoreCase("error0")){
+
+                }
+                else {
+                    try {
+                        jsonObject2=new JSONObject(response);
+                        profile.setPicname(jsonObject2.getString("picname"));
+                        se.putString("picname",jsonObject2.getString("picname"));
+
+                        if (jsonObject2.getString("picname").equals("null"))
+                        {
+                            profilepicture.setImageResource(R.drawable.defaultpic);
+                        }
+                        else {
+                            Picasso.with(getActivity()).load(jsonObject2.getString("picname")).fit().into(profilepicture);
+                        }
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                builder.setIcon(R.mipmap.ic_launcher_round);
+                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                builder.setMessage("Connection error! Retry");
+                builder.show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put("email",profile.getEmail());
+                return params;
+            }
+        };
+        MySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
+
 
     private void updateprofile(final String editphone, final String editcity, final String editstatus, final String editaddress,final String editpincode) {
         showProgress(true);

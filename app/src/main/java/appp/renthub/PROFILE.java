@@ -8,7 +8,8 @@ import java.io.Serializable;
 
 public class PROFILE implements Serializable {
     String type;
-    String name; //hello
+    String name;
+    String picname;//hello
 
     public PROFILE() {
     }
@@ -47,6 +48,29 @@ public class PROFILE implements Serializable {
         this.gender = gender;
         this.password = password;
         this.verified = verified;
+    }
+    public PROFILE(String email, String name, String phone, String dob, String marriagestatus, String city, String permanentaddress, String pincode, String gender, String password, String verified,String type,String picname) {
+        this.name = name;
+        this.email=email;
+        this.type=type;
+        this.phone = phone;
+        this.dob = dob;
+        this.marriagestatus = marriagestatus;
+        this.city = city;
+        this.permanentaddress = permanentaddress;
+        this.pincode = pincode;
+        this.gender = gender;
+        this.password = password;
+        this.verified = verified;
+        this.picname=picname;
+    }
+
+    public String getPicname() {
+        return picname;
+    }
+
+    public void setPicname(String picname) {
+        this.picname = picname;
     }
 
     public String getName() {

@@ -213,7 +213,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                         JSONObject jsonObject=new JSONObject(response);
                         tosharedpreference(jsonObject);
                         Intent intent;
-                            PROFILE profile=new PROFILE(jsonObject.getString("email"),jsonObject.getString("name"),jsonObject.getString("phone"),jsonObject.getString("dob"),jsonObject.getString("marriagestatus"),jsonObject.getString("city"),jsonObject.getString("permanentaddress"),jsonObject.getString("pincode"),jsonObject.getString("gender"),jsonObject.getString("password"),jsonObject.getString("verified"),jsonObject.getString("type"));
+                            PROFILE profile=new PROFILE(jsonObject.getString("email"),jsonObject.getString("name"),jsonObject.getString("phone"),jsonObject.getString("dob"),jsonObject.getString("marriagestatus"),jsonObject.getString("city"),jsonObject.getString("permanentaddress"),jsonObject.getString("pincode"),jsonObject.getString("gender"),jsonObject.getString("password"),jsonObject.getString("verified"),jsonObject.getString("type"),jsonObject.getString("picname"));
                             if(jsonObject.getString("type").equalsIgnoreCase("owner"))
                             intent = new Intent(LoginActivity.this, OwnerProfile.class);
                             else
@@ -291,6 +291,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             se.putString("gender", jsonObject.getString("gender"));
             se.putString("password", jsonObject.getString("password"));
             se.putString("verified",jsonObject.getString("verified"));
+            se.putString("picname",jsonObject.getString("picname"));
             se.commit();
         } catch (JSONException e) {
             e.printStackTrace();

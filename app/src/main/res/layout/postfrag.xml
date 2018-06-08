@@ -40,6 +40,7 @@
                 app:cardElevation="8dp"
                 app:cardUseCompatPadding="true"
                 android:id="@+id/card1"
+                android:visibility="visible"
                 android:layout_marginBottom="20dp">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -145,7 +146,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:id="@+id/pageone">
+                android:id="@+id/pageone"
+                android:visibility="visible">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -279,8 +281,8 @@
         android:id="@+id/inputnext"
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
         android:background="@color/bootstrap_brand_primary"
         android:text="NEXT  &#xf061;"
         android:textColor="#fff"
@@ -312,7 +314,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="5dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:text="Facilities"
                     />
             </LinearLayout>
@@ -394,32 +396,83 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Parking"
-                                android:layout_span="2"
-                                android:layout_marginLeft="50dp"
-                                android:padding="10dp"/>
+                                android:layout_span="2"                                android:padding="10dp"/>
                         </TableRow>
                     </TableLayout>
                     <Button
                         android:id="@+id/inputprevious"
                         style="?android:textAppearanceSmall"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="20dp"
                         android:background="@color/bootstrap_brand_primary"
                         android:text="&#xf060;  PREVIOUS"
                         android:textColor="#fff"
                         android:textStyle="bold" />
-                <Button
-                    android:id="@+id/inputsubmit"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/bootstrap_brand_primary"
-                    android:text="&#xf2f6;  SUBMIT"
-                    android:textColor="#fff"
-                    android:textStyle="bold" />
+                    <Button
+                        android:id="@+id/inputsubmit"
+                        style="?android:textAppearanceSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/bootstrap_brand_primary"
+                        android:text="&#xf2f6; SUBMIT FORM"
+                        android:textColor="#fff"
+                        android:textStyle="bold" />
+                    <Button
+                        android:id="@+id/inputnext2"
+                        style="?android:textAppearanceSmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/bootstrap_brand_primary"
+                        android:text="POST PHOTO  &#xf061;"
+                        android:textColor="#fff"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        />
+
             </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/pagethree"
+            android:visibility="gone">
+
+
+            <Button
+                android:layout_width="match_parent"
+                style="?android:textAppearanceSmall"
+                android:layout_height="40dp"
+                android:text="SELECT IMAGE FROM GALLERY"
+                android:id="@+id/buttonSelect"
+                android:layout_marginTop="10dp"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:background="@color/bootstrap_brand_primary"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/imageView"
+                android:layout_margin="10dp"
+                android:src="@drawable/house"
+                />
+            <Button
+                android:id="@+id/buttonUpload"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/bootstrap_brand_primary"
+                android:text=" UPLOAD PHOTO"
+                android:textColor="#fff"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
         </LinearLayout>
