@@ -63,7 +63,6 @@
         <activity android:name=".OthersProfile" />
         <activity android:name=".PlaceDetails" />
         <activity android:name=".AboutUs" />
-        <activity android:name=".ProfilePicUpload"></activity>
     </application>
 
 </manifest>

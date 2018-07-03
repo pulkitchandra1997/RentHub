@@ -57,7 +57,7 @@ public class SignUpForm extends Activity implements View.OnClickListener {
     SharedPreferences sp;
     SharedPreferences.Editor se;
     JSONObject jsonObject;
-    ProgressBar login_progress;
+        ProgressBar login_progress;
     ScrollView login_form;
 
 
