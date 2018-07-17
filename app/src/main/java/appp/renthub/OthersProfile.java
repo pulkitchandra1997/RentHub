@@ -3,10 +3,13 @@ package appp.renthub;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
@@ -30,12 +33,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.beardedhen.androidbootstrap.AwesomeTextView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static java.sql.Types.NULL;
 
 public class OthersProfile extends Activity implements View.OnClickListener{
 
@@ -44,19 +50,25 @@ public class OthersProfile extends Activity implements View.OnClickListener{
     LinearLayout layoutoptional;
     Button callicon, msgicon, mailicon;
     TableLayout showrented;
-    String email , phone;
+    String useremail, email , phone;
     ProgressBar login_progress;
     AwesomeTextView username;
+    JSONObject jsonObject;
 
-
+    SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_others_profile);
 
+        sp=getSharedPreferences("RentHub_data",MODE_PRIVATE);
+        useremail=sp.getString("email","email");
+
+
         Intent intent=getIntent();
         email=intent.getStringExtra("owneremail");
+
 
         login_progress=findViewById(R.id.login_progress);
 
@@ -129,12 +141,14 @@ public class OthersProfile extends Activity implements View.OnClickListener{
         callicon.setOnClickListener(this);
         msgicon.setOnClickListener(this);
         mailicon.setOnClickListener(this);
+
         fromserver();
     }
 
     private void fromserver() {
         showProgress(true);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Url.URL_VIEW_OTHERS_PROFILE, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url.URL_VIEW_OTHERS_PROFILE, new Response.Listener<String>() {
+            @SuppressLint("ResourceType")
             @Override
             public void onResponse(String response) {
 
@@ -148,11 +162,9 @@ public class OthersProfile extends Activity implements View.OnClickListener{
                 } else {
 
                     try {
-                        Toast.makeText(OthersProfile.this,"xnkdjfbn", Toast.LENGTH_SHORT).show();
 
-                        JSONObject jsonObject = new JSONObject(response);
+                        jsonObject = new JSONObject(response);
 
-                        Toast.makeText(OthersProfile.this, ""+jsonObject.toString(), Toast.LENGTH_SHORT).show();
 
                         String name = jsonObject.get("name").toString();
                         String type = jsonObject.get("type").toString();
@@ -162,10 +174,20 @@ public class OthersProfile extends Activity implements View.OnClickListener{
                         String address = jsonObject.get("permanentaddress").toString();
                         String gender = jsonObject.get("gender").toString();
                         String pin = jsonObject.get("pincode").toString();
-                        /*String count = jsonObject.get("noofplaces").toString();*/
+                        String count = jsonObject.get("noofplaces").toString();
                         /*email=jsonObject.get("email").toString();*/
+                        phone=jsonObject.getString("phone").toString();
+                        String picname=jsonObject.getString("picname").toString();
 
                         String verified = jsonObject.get("verified").toString();
+
+                        if (picname.equals("http://rentzhub.co.in/images/users/")){
+                            userpic.setImageResource(R.drawable.defaultpic);
+                        }else
+                        {
+                            Picasso.with(OthersProfile.this).load(picname).fit().centerCrop().into(userpic);
+                        }
+
 
                         phone = jsonObject.get("phone").toString().trim();
 
@@ -180,7 +202,7 @@ public class OthersProfile extends Activity implements View.OnClickListener{
                             showrented.setVisibility(View.GONE);
                         }
 
-                        /*placecount.setText(count);*/
+                        placecount.setText(count);
 
 
                     } catch (JSONException e) {
@@ -239,13 +261,16 @@ public class OthersProfile extends Activity implements View.OnClickListener{
 
         if (v.getId() == R.id.msgicon) //disabled
         {
-            Intent i=new Intent(this,OthersProfile.class);
-            startActivity(i);
+            Intent intent=new Intent(this,ComposeMessage.class);
+            intent.putExtra("receivermail",email);
+            startActivity(intent);
+
         }
 
         if (v.getId() == R.id.mailicon) {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.putExtra(Intent.EXTRA_EMAIL, email);
+            intent.putExtra(Intent.ACTION_SENDTO,useremail);
         /*intent.putExtra(Intent.EXTRA_SUBJECT,"Subject text here...");
         intent.putExtra(Intent.EXTRA_TEXT,"Body of the content here...");
         intent.putExtra(Intent.EXTRA_CC,"mailcc@gmail.com");*/
@@ -254,10 +279,10 @@ public class OthersProfile extends Activity implements View.OnClickListener{
             startActivity(Intent.createChooser(intent, "Send mail"));
         }
 
-        if (v.getId() == R.id.phoneicon) {
+        if (v.getId() == R.id.callicon) {
             if (!(TextUtils.isEmpty(phone))) {
                 Intent i = new Intent(Intent.ACTION_CALL);
-                Uri u = Uri.parse("tel:" + phone);
+                Uri u = Uri.parse("tel:"+phone);
                 i.setData(u);
                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling
