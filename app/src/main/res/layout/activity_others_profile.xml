@@ -49,12 +49,11 @@
                         android:orientation="horizontal">
 
 
-                        <com.beardedhen.androidbootstrap.BootstrapThumbnail
+                        <ImageView
                             android:layout_width="120dp"
                             android:layout_height="120dp"
                             android:layout_gravity="center"
                             android:layout_margin="15dp"
-                            app:roundedCorners="true"
                             android:src="@drawable/defaultpic"
                             android:id="@+id/userpic"/>
 
@@ -96,7 +95,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@color/colorPrimary"
-                                android:text="&#xf199;"
+                                android:text="&#xf0e0;"
                                 android:textColor="#fff"
                                 android:layout_marginRight="8dp"
                                 android:layout_marginLeft="8dp"
@@ -108,7 +107,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@color/colorPrimary"
-                                android:text="&#xf0e0;"
+                                android:text="&#xf199;"
                                 android:textColor="#fff"
                                 android:layout_marginLeft="8dp"
                                 android:textSize="20dp"
@@ -333,10 +332,11 @@
                                 android:layout_gravity="left"
                                 />
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="13dp"
                                 android:id="@+id/useradd"
+                                android:fitsSystemWindows="true"
                                 android:text="Aliganj,Lucknow"
                                 android:layout_gravity="right"/>
                         </TableRow>

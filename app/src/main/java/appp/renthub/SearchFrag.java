@@ -64,9 +64,11 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
     Button searchproperty;
     LinearLayout searchcard;
     RelativeLayout searchcontent;
-    Fragment fragment;
     String address;
     FragmentTransaction ft;
+
+
+
 
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -108,11 +110,13 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
         searchcard=v.findViewById(R.id.searchcard);
         searchcontent=v.findViewById(R.id.searchcontent);
 
+
         searchproperty.setOnClickListener(this);
 
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Font Awesome 5 Free-Solid-900.otf");
 
         searchproperty.setTypeface(font);
+
 
 
         cityNameList = new String[]{"Lucknow", "Kanpur",
@@ -154,6 +158,8 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
             }
         });
         login_progress=v.findViewById(R.id.login_progress);
+
+
         return v;
     }
     @Override    public boolean onQueryTextSubmit(String query) {
@@ -191,7 +197,7 @@ public class SearchFrag extends Fragment implements AdapterView.OnItemClickListe
                             resultadapter=new RESULTADAPTER(getActivity(),searchresults);
                             searchlist.setAdapter(resultadapter);
                             searchlist.setVisibility(View.VISIBLE);
-                        }
+                            }
                         else{
                             AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
                             builder.setIcon(R.mipmap.ic_launcher_round);

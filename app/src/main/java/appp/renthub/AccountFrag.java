@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,10 +41,12 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.facebook.FacebookSdk.getApplicationContext;
 import static java.sql.Types.NULL;
 
 /**
@@ -76,11 +79,15 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
 
     public AccountFrag() {
     }
-public void hidekeyboard()
-{
+
+
+    public void hidekeyboard()
+
+    {
     InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
     imm.hideSoftInputFromWindow(mainLayout.getWindowToken(), 0);
-}
+
+    }
 
     @Nullable
     @Override
@@ -231,12 +238,19 @@ public void hidekeyboard()
         webviewbtn.setOnClickListener(this);
         profilepic.setOnClickListener(this);
 
-        viewprofilepic();
 
         sp = getActivity().getSharedPreferences("RentHub_data", MODE_PRIVATE);
         se = sp.edit();
         fill();
 
+        if(sp.getString("pic",null)!=null) {
+            ContextWrapper cw = new ContextWrapper(getActivity());
+            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+            File myImageFile = new File(directory, "profilepic.jpeg");
+            Picasso.with(getActivity()).load(myImageFile).into(profilepicture);
+        }
+        else
+            profilepicture.setImageResource(R.drawable.defaultpic);
         return v;
     }
 
@@ -416,6 +430,7 @@ public void hidekeyboard()
                         se.remove("gender");
                         se.remove("verified");
                         se.remove("picname");
+                        se.remove("pic");
                         se.commit();
                         Intent intent = new Intent(getActivity(), LoginActivity.class);
                         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
@@ -505,57 +520,7 @@ public void hidekeyboard()
         MySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
 
-    private void viewprofilepic() {
 
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.URL_VIEW_PROFILE_PIC, new Response.Listener<String>()
-        {
-            @Override
-            public void onResponse(String response)
-            {
-                if(response.equalsIgnoreCase("error0")){
-
-                }
-                else {
-                    try {
-                        jsonObject2=new JSONObject(response);
-                        profile.setPicname(jsonObject2.getString("picname"));
-                        se.putString("picname",jsonObject2.getString("picname"));
-
-                        if (jsonObject2.getString("picname").equals("null"))
-                        {
-                            profilepicture.setImageResource(R.drawable.defaultpic);
-                        }
-                        else {
-                            Picasso.with(getActivity()).load(jsonObject2.getString("picname")).fit().into(profilepicture);
-                        }
-
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error)
-            {
-                AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
-                builder.setIcon(R.mipmap.ic_launcher_round);
-                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
-                builder.setMessage("Connection error! Retry");
-                builder.show();
-            }
-        })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError
-            {
-                Map<String, String> params = new HashMap<>();
-                params.put("email",profile.getEmail());
-                return params;
-            }
-        };
-        MySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
-    }
 
 
     private void updateprofile(final String editphone, final String editcity, final String editstatus, final String editaddress,final String editpincode) {

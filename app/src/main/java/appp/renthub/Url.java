@@ -16,5 +16,9 @@ public class Url {
     public static final String URL_VIEW_OTHERS_PROFILE=URL+"viewothersprofile.php";
     public static final String URL_PLACE_OWNED=URL+"placeowned.php";
     public static final String URL_VIEW_PROFILE_PIC=URL+"viewprofilepic.php";
+    public static final String URL_INBOXMESSAGES=URL+"inbox.php";
+    public static final String URL_SENTMESSAGES=URL+"sentitems.php";
+    public static final String URL_POST_MSG=URL+"postmessages.php";
+
 
 }

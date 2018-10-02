@@ -580,6 +580,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="10dp"
+                                app:bootstrapBrand="secondary"
                                 android:src="@drawable/defaultpic"
                                 android:id="@+id/ownerpic"
                                 />

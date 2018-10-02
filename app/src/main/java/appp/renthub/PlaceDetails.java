@@ -34,19 +34,22 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.sql.Types.NULL;
+
 public class PlaceDetails extends Activity implements View.OnClickListener{
     android.app.Fragment fragment = null;
     android.app.FragmentTransaction ft;
 
     TextView homeicon, homeaddress, moneyicon, rent, permonth, facilities, acicon, wifiicon, bedicon, sofaicon, fridgeicon, powericon, parkingicon, messicon, tvicon, houseowner, ownname;
     TextView homecity, homepin, statusicon, housetype, statusvalue,rentvalue;
-    ImageView homeimg, ownerpic;
+    ImageView homeimg;
+    com.beardedhen.androidbootstrap.BootstrapCircleThumbnail ownerpic;
     LinearLayout ac, bed, wifi, sofa, fridge, power, tv, parking, mess,outer;
     Button booknow, alreadybooked;
     ProgressBar login_progress;
     TableLayout viewprof;
     TableRow userprofile;
-    String address,owneremail;
+    String address;
     SEARCHRESULT searchresult;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,8 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
 
         Intent intent=getIntent();
         searchresult=(SEARCHRESULT)intent.getSerializableExtra("searchresult");
+
+
 
         homeicon =findViewById(R.id.homeicon);
         homeimg =findViewById(R.id.homeimg);
@@ -147,6 +152,7 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
             public void onClick(View v) {
                 Intent intent = new Intent(PlaceDetails.this, OthersProfile.class);
                 intent.putExtra("owneremail",searchresult.getOwneremail());
+
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
                     ActivityOptions options = ActivityOptions.makeCustomAnimation(PlaceDetails.this, R.anim.fade_in, R.anim.fade_out);
                     startActivity(intent, options.toBundle());
@@ -164,6 +170,19 @@ public class PlaceDetails extends Activity implements View.OnClickListener{
         housetype.setText(searchresult.getStatus());
         rentvalue.setText(searchresult.getAmount());
         Picasso.with(this).load(searchresult.getPicname()).fit().centerCrop().into(homeimg);
+
+        String ownerpicname=searchresult.getOwnerpic();
+
+
+        if (ownerpicname.equalsIgnoreCase("http://rentzhub.co.in/images/users/"))
+        {
+           ownerpic.setImageResource(R.drawable.defaultpic);
+        }
+        else
+        {
+            Picasso.with(PlaceDetails.this).load(ownerpicname).fit().centerCrop().into(ownerpic);
+        }
+
         if (searchresult.getAcid().equals("0"))
         {
             ac.setVisibility(View.GONE);

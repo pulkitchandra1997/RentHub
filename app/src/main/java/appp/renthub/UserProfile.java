@@ -44,7 +44,7 @@ public class UserProfile extends Activity {
                     switchFragment();
                     return true;
                 case R.id.navigation_messages:
-                    fragment=new MessageFrag();
+                    fragment=new MessageFrag(profile);
                     flag=1;
                     switchFragment();
                     return true;

@@ -145,7 +145,7 @@ public class PostFrag extends Fragment implements View.OnClickListener{
 
                 intent.setType("image/*");
 
-                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.setAction(Intent.ACTION_PICK);
 
                 startActivityForResult(Intent.createChooser(intent, "Select Image From Gallery"), 1);
 
@@ -230,7 +230,6 @@ public class PostFrag extends Fragment implements View.OnClickListener{
     }
 
     //image upload code
-
     @Override
     public void onActivityResult(int RC, int RQC, Intent I) {
 
@@ -243,7 +242,6 @@ public class PostFrag extends Fragment implements View.OnClickListener{
             try {
 
                 bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
-
                 imageView.setImageBitmap(bitmap);
 
             } catch (IOException e) {
@@ -254,72 +252,91 @@ public class PostFrag extends Fragment implements View.OnClickListener{
     }
 
     public void ImageUploadToServerFunction(){
+        if (bitmap != null) {
+            ByteArrayOutputStream byteArrayOutputStreamObject ;
 
-        ByteArrayOutputStream byteArrayOutputStreamObject ;
+            byteArrayOutputStreamObject = new ByteArrayOutputStream();
 
-        byteArrayOutputStreamObject = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStreamObject);
 
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStreamObject);
+            byte[] byteArrayVar = byteArrayOutputStreamObject.toByteArray();
 
-        byte[] byteArrayVar = byteArrayOutputStreamObject.toByteArray();
+            final String ConvertImage = Base64.encodeToString(byteArrayVar, Base64.DEFAULT);
 
-        final String ConvertImage = Base64.encodeToString(byteArrayVar, Base64.DEFAULT);
+            class AsyncTaskUploadClass extends AsyncTask<Void,Void,String> {
 
-        class AsyncTaskUploadClass extends AsyncTask<Void,Void,String> {
+                @Override
+                protected void onPreExecute() {
 
-            @Override
-            protected void onPreExecute() {
+                    super.onPreExecute();
 
-                super.onPreExecute();
+                    progressDialog = ProgressDialog.show(getActivity(),"Image is Uploading","Please Wait",false,false);
+                }
+                @Override
+                protected void onPostExecute(String string1) {
 
-                progressDialog = ProgressDialog.show(getActivity(),"Image is Uploading","Please Wait",false,false);
+                    super.onPostExecute(string1);
+
+                    // Dismiss the progress dialog after done uploading.
+                    progressDialog.dismiss();
+
+                    profile.setPicname(ConvertImage);
+
+                    if(string1.equalsIgnoreCase("success")){
+                        AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                        builder.setIcon(R.mipmap.ic_launcher_round);
+                        builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                        builder.setMessage("Image Uploaded Successfully.");
+                        builder.show();
+                    }
+                    else {
+                        if(string1.contains("error1")){
+                            AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                            builder.setIcon(R.mipmap.ic_launcher_round);
+                            builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                            builder.setMessage("Error in updating profile pic. Retry with small Image size.");
+                            builder.show();
+                        }
+                        if(string1.contains("error2")){
+                            AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                            builder.setIcon(R.mipmap.ic_launcher_round);
+                            builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                            builder.setMessage("Error in connection.");
+                            builder.show();
+                        }
+                    }
+                }
+
+
+                @Override
+                protected String doInBackground(Void... params) {
+
+                    ImageProcessClass imageProcessClass = new ImageProcessClass();
+
+                    HashMap<String, String> HashMapParams = new HashMap<String, String>();
+
+                    HashMapParams.put("address", address);
+
+                    HashMapParams.put(ImagePath, ConvertImage);
+
+                    String FinalData = imageProcessClass.ImageHttpRequest(ServerUploadPath, HashMapParams);
+
+                    return FinalData;
+                }
             }
+            AsyncTaskUploadClass AsyncTaskUploadClassOBJ = new AsyncTaskUploadClass();
 
-            @Override
-            protected void onPostExecute(String string1) {
-
-                super.onPostExecute(string1);
-
-                // Dismiss the progress dialog after done uploading.
-                progressDialog.dismiss();
-
-                // Printing uploading success message coming from server on android app.
-
-
-
-                AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
-                builder.setIcon(R.mipmap.ic_launcher_round);
-                builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
-                builder.setMessage(string1);
-                builder.show();
-
-
-                // Setting image as transparent after done uploading.
-
-
-            }
-
-            @Override
-            protected String doInBackground(Void... params) {
-
-                PostFrag.ImageProcessClass imageProcessClass = new PostFrag.ImageProcessClass();
-
-                HashMap<String,String> HashMapParams = new HashMap<String,String>();
-
-                HashMapParams.put("address", address);
-
-                HashMapParams.put(ImagePath, ConvertImage);
-
-                String FinalData = imageProcessClass.ImageHttpRequest(ServerUploadPath, HashMapParams);
-
-                return FinalData;
-            }
+            AsyncTaskUploadClassOBJ.execute();
         }
-        AsyncTaskUploadClass AsyncTaskUploadClassOBJ = new AsyncTaskUploadClass();
-
-        AsyncTaskUploadClassOBJ.execute();
+        else
+        {
+            AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+            builder.setIcon(R.mipmap.ic_launcher_round);
+            builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+            builder.setMessage("Select an Image");
+            builder.show();
+        }
     }
-
     public class ImageProcessClass{
 
         public String ImageHttpRequest(String requestURL,HashMap<String, String> PData) {
@@ -373,8 +390,8 @@ public class PostFrag extends Fragment implements View.OnClickListener{
 
                     String RC2;
 
-                    while ((RC2 = bufferedReaderObject.readLine()) != null){
-
+                    while ((RC2 = bufferedReaderObject.readLine()) != null)
+                    {
                         stringBuilder.append(RC2);
                     }
                 }
@@ -393,7 +410,7 @@ public class PostFrag extends Fragment implements View.OnClickListener{
 
             for (Map.Entry<String, String> KEY : HashMapParams.entrySet()) {
 
-                if (check)
+                if (check==true)
 
                     check = false;
                 else
@@ -408,7 +425,6 @@ public class PostFrag extends Fragment implements View.OnClickListener{
 
             return stringBuilderObject.toString();
         }
-
     }
 
 
