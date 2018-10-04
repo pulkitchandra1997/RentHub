@@ -2,6 +2,8 @@ package appp.renthub;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.io.InputStreamReader;
@@ -34,6 +38,10 @@ import java.io.UnsupportedEncodingException;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+
+import com.squareup.picasso.Picasso;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class ProfilePicUpload extends Activity {
 
@@ -76,7 +84,14 @@ public class ProfilePicUpload extends Activity {
         useremail=i.getStringExtra("email");
 
         imageView = (ImageView)findViewById(R.id.imageView);
-
+        if(sp.getString("pic",null)!=null) {
+            ContextWrapper cw = new ContextWrapper(this);
+            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+            File myImageFile = new File(directory, "profilepic.jpeg");
+            Picasso.with(this).load(myImageFile).into(imageView);
+        }
+        else
+            imageView.setImageResource(R.drawable.defaultpic);
 
         SelectImageGallery = (Button)findViewById(R.id.buttonSelect);
 
@@ -101,9 +116,15 @@ public class ProfilePicUpload extends Activity {
         UploadImageServer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(bitmap!=null)
                 ImageUploadToServerFunction();
-
+                else{
+                    AlertDialog builder = new AlertDialog.Builder(ProfilePicUpload.this).create();
+                    builder.setIcon(R.mipmap.ic_launcher_round);
+                    builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
+                    builder.setMessage("First Select Image");
+                    builder.show();
+                }
             }
         });
     }
@@ -136,7 +157,7 @@ public class ProfilePicUpload extends Activity {
 
         byteArrayOutputStreamObject = new ByteArrayOutputStream();
 
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 300, byteArrayOutputStreamObject);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStreamObject);
 
         byte[] byteArrayVar = byteArrayOutputStreamObject.toByteArray();
 
@@ -161,14 +182,16 @@ public class ProfilePicUpload extends Activity {
                 progressDialog.dismiss();
 
                 // Printing uploading success message coming from server on android app.
-
-                se.putString("picname",ConvertImage);
-                profile.setPicname(ConvertImage);
-
+                if(string1.equalsIgnoreCase("success")) {
+                    se.putString("pic", ConvertImage);
+                    se.commit();
+                    saveToInternalStorage(bitmap);
+                    profile.setPicname("profilepic");
+                }
                 AlertDialog builder = new AlertDialog.Builder(ProfilePicUpload.this).create();
                 builder.setIcon(R.mipmap.ic_launcher_round);
                 builder.setTitle(Html.fromHtml("<font color='#FF0000'>RentZHub</font>"));
-                builder.setMessage(string1);
+                builder.setMessage(string1+"(Redirecting to previous Page");
                 builder.show();
                 // Setting image as transparent after done uploading.
                 new Handler().postDelayed(new Runnable() {
@@ -179,6 +202,30 @@ public class ProfilePicUpload extends Activity {
                     }
                 }, 3000);
 
+
+            }
+
+            private String saveToInternalStorage(Bitmap bitmapImage){
+                ContextWrapper cw = new ContextWrapper(getApplicationContext());
+                // path to /data/data/yourapp/app_data/imageDir
+                File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+                // Create imageDir
+                File mypath=new File(directory,"profilepic.jpeg");
+                FileOutputStream fos = null;
+                try {
+                    fos = new FileOutputStream(mypath);
+                    // Use the compress method on the BitMap object to write image to the OutputStream
+                    bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        fos.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return directory.getAbsolutePath();
 
             }
 

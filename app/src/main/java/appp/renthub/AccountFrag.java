@@ -9,6 +9,7 @@ import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -42,6 +43,8 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -242,18 +245,9 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         sp = getActivity().getSharedPreferences("RentHub_data", MODE_PRIVATE);
         se = sp.edit();
         fill();
-
-        if(sp.getString("pic",null)!=null) {
-            ContextWrapper cw = new ContextWrapper(getActivity());
-            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-            File myImageFile = new File(directory, "profilepic.jpeg");
-            Picasso.with(getActivity()).load(myImageFile).into(profilepicture);
-        }
-        else
-            profilepicture.setImageResource(R.drawable.defaultpic);
+        checkImage();
         return v;
     }
-
 
     private void fill() {
         tenantemail.setText(profile.getEmail());
@@ -271,6 +265,20 @@ public class AccountFrag extends Fragment implements View.OnClickListener {
         tenantgender2.setText(profile.getGender());
         tenantaddress2.setText(profile.getPermanentaddress());
         tenantpincode2.setText(profile.getPincode());
+    }
+
+
+
+    private void checkImage() {
+
+        if(sp.getString("pic",null)!=null) {
+            ContextWrapper cw = new ContextWrapper(getActivity());
+            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+            File myImageFile = new File(directory, "profilepic.jpeg");
+            Picasso.with(getActivity()).load(myImageFile).into(profilepicture);
+        }
+        else
+            profilepicture.setImageResource(R.drawable.defaultpic);
     }
 
     @Override

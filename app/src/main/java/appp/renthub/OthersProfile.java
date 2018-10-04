@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -270,9 +271,11 @@ public class OthersProfile extends Activity implements View.OnClickListener{
         if (v.getId() == R.id.mailicon) {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.putExtra(Intent.EXTRA_EMAIL, email);
-            intent.putExtra(Intent.ACTION_SENDTO,useremail);
-        /*intent.putExtra(Intent.EXTRA_SUBJECT,"Subject text here...");
-        intent.putExtra(Intent.EXTRA_TEXT,"Body of the content here...");
+            Log.d("useremail",useremail);
+            intent.setData(Uri.parse(useremail));
+            //intent.putExtra(Intent.Action_Send,useremail);
+        intent.putExtra(Intent.EXTRA_SUBJECT,"Reg. RentzHub-mailer");
+        /*intent.putExtra(Intent.EXTRA_TEXT,"Body of the content here...");
         intent.putExtra(Intent.EXTRA_CC,"mailcc@gmail.com");*/
             intent.setType("text/html");
             intent.setPackage("com.google.android.gm");

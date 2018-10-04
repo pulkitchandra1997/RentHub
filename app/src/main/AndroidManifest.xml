@@ -61,6 +61,9 @@
             android:label="@string/title_activity_image_upload"
             android:theme="@style/FullscreenTheme" />
         <activity android:name=".OthersProfile" />
+        <activity android:name=".ComposeMessage" />
+        <activity android:name=".ViewSentMessage" />
+        <activity android:name=".ViewInboxMessage" />
         <activity android:name=".PlaceDetails" />
         <activity android:name=".AboutUs" />
         <activity android:name=".ProfilePicUpload"></activity>
